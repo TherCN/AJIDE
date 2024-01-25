@@ -1,0 +1,7 @@
+/app/build
+/.gradle
+/local.properties
+/push.sh
+/app/src/main/obj
+/app/src/main/jniLibs
+/app/src/main/libs

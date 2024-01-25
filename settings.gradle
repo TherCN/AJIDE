@@ -1,0 +1,10 @@
+pluginManagement {
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+rootProject.name = "Android-Java-IDE"
+
+include(":app")

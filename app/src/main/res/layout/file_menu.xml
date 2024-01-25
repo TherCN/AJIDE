@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="horizontal"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+
+	<RelativeLayout
+		android:layout_width="130dp"
+		android:layout_height="wrap_content">
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="复制&gt;"
+			android:id="@+id/filemenuButton1"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="删除"
+			android:layout_below="@id/filemenuButton1"
+			android:id="@+id/filemenuButton2"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="解压"
+			android:layout_below="@id/filemenuButton2"
+			android:id="@+id/filemenuButton3"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="属性"
+			android:layout_below="@id/filemenuButton3"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="130dp"
+		android:layout_height="wrap_content">
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="移动&gt;"
+			android:id="@+id/filemenuButton4"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="压缩"
+			android:layout_below="@id/filemenuButton4"
+			android:id="@+id/filemenuButton5"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="重命名"
+			android:layout_below="@id/filemenuButton5"
+			android:id="@+id/filemenuButton6"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="链接&gt;"
+			android:layout_below="@id/filemenuButton6"/>
+
+	</RelativeLayout>
+
+</LinearLayout>
+

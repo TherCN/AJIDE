@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/closeCurrent"
+		android:title="关闭当前文件"/>
+
+	<item
+		android:id="@+id/closeOther"
+		android:title="关闭其他文件"/>
+
+	<item
+		android:id="@+id/closeAll"
+		android:title="关闭所有文件"/>
+
+    <item
+        android:id="@+id/format"
+        android:title="格式化代码"/>
+
+</menu>
