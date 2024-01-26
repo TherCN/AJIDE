@@ -17,6 +17,7 @@ import thercn.ajide.utils.TLog;
 import thercn.ajide.utils.APPUtils;
 
 public class IDEActivity extends AppCompatActivity {
+
 	Layout mainLayout;
 	Menu actionBarMenu;
 	boolean menuInited;
@@ -68,29 +69,29 @@ public class IDEActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override
-	protected boolean onPrepareOptionsPanel(View view, Menu menu) {
-		return super.onPrepareOptionsPanel(view, menu);
-	}
-
-
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.redo:
-				mainLayout.getCodeEditor().redo();
-				break;
-			case R.id.build:
+		if (mainLayout.getCodeEditor().getCurrentFile() != null) {
+			switch (item.getItemId()) {
+				case R.id.redo:
+					if (mainLayout.getCodeEditor().canRedo()) {
+						mainLayout.getCodeEditor().redo();
+					}
+					break;
+				case R.id.build:
 
-				break;
-			case R.id.undo:
-				mainLayout.getCodeEditor().undo();
-				break;
-			case R.id.save:
-				try {
-					mainLayout.getCodeEditor().saveFile();
-				} catch (IOException e) {}
+					break;
+				case R.id.undo:
+					if (mainLayout.getCodeEditor().canUndo()) {
+						mainLayout.getCodeEditor().undo();
+					}
+					break;
+				case R.id.save:
+					try {
+						mainLayout.getCodeEditor().saveFile();
+					} catch (IOException e) {}
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}

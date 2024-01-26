@@ -6,6 +6,7 @@ import io.github.rosemoe.sora.widget.CodeEditor;
 import java.util.ArrayList;
 import java.util.List;
 import thercn.ajide.views.IDECodeEditor;
+import thercn.ajide.utils.APPUtils;
 
 public class FileEditAdapter extends PagerAdapter {
 
@@ -14,13 +15,13 @@ public class FileEditAdapter extends PagerAdapter {
     public int getCount() {
         return this.openedFiles.size();
     }
-	
+
 	@Override
     public Object instantiateItem(ViewGroup viewGroup, int i) {
         viewGroup.addView(this.openedFiles.get(i));
         return this.openedFiles.get(i);
     }
-	
+
 	@Override
     public boolean isViewFromObject(View view, Object obj) {
         return view == obj;
@@ -44,7 +45,7 @@ public class FileEditAdapter extends PagerAdapter {
 	public int getItemPosition(Object object) {
 		return POSITION_NONE;
 	}
-	
+
 	public void removeView(int index) {
 		try {
 			this.openedFiles.remove(index);
@@ -54,20 +55,24 @@ public class FileEditAdapter extends PagerAdapter {
 			} else if (index <= 0) {
 				this.openedFiles.remove(0);
 			}
-			
+
 		}
 		notifyDataSetChanged();
 	}
-	
+
 	public void removeAllView() {
 		this.openedFiles.clear();
 		notifyDataSetChanged();
 	}
-	
+
 	public IDECodeEditor getCurrentEditor(int index) {
 		return openedFiles.get(index);
 	}
-	
-	
+
+	@Override         
+	public CharSequence getPageTitle(int position) {
+		return APPUtils.getFileName(getCurrentEditor(position).getCurrentFile());
+	}
+
 
 }

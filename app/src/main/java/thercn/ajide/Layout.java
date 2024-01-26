@@ -46,6 +46,7 @@ public class Layout {
 	SharedPreferences sharedPreferences;
 	ActionBar abar;
 	List<View> widgets;
+	boolean isInitDone;
 
     public Layout(IDEActivity activity) {
 		this.activity = activity;
@@ -77,7 +78,7 @@ public class Layout {
 
 		adapter = new FileEditAdapter();
 		viewPager.setAdapter(adapter);
-		
+
 		fileNotOpened = activity.findViewById(R.id.noOpenFile);
 		fab = activity.findViewById(R.id.errors);
 		fab.setVisibility(View.GONE);
@@ -88,33 +89,34 @@ public class Layout {
 				addFileTab(files.split(";")[i]);
 				Log.e("添加", files.split(";")[i]);
 			}
-			fileTabs.invalidate();
+			isInitDone = true;
 		}
+
 		fileTabs.setupWithViewPager(viewPager);
 		fileTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 				@Override
 				public void onTabSelected(TabLayout.Tab t) {
-					
+
 				}
-				
+
 				@Override
 				public void onTabUnselected(TabLayout.Tab t) {
 
 				}
-				
+
 				@Override
 				public void onTabReselected(TabLayout.Tab t) {
 					selectTab(t);
 				}
 			});
 
-		
+
 
 		new Handler(Looper.getMainLooper()).postDelayed(new Runnable(){
 
 				@Override
 				public void run() {
-					if (openedFiles.size() == 0) {
+					if (openedFiles.size() > 0) {
 						activity.enableMenu();
 					}
 				}
@@ -165,6 +167,10 @@ public class Layout {
 			speditor.putString("files", file + ";" + sharedPreferences.getString("files", ""));
 			speditor.commit();
 			speditor.apply();
+		} else {
+			if (isInitDone) {
+				return;
+			}
 		}
 		if (fileNotOpened.getVisibility() == View.VISIBLE) {
 			fileNotOpened.setVisibility(View.GONE);
@@ -178,17 +184,17 @@ public class Layout {
 		IDECodeEditor editor = new IDECodeEditor(activity);
 		editor.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		try {
-			editor.setText(APPUtils.readFile(file));
+			editor.setFile(file);
 		} catch (IOException e) {}
 		adapter.addView(editor);
-		for (int i = 0; i < fileTabs.getTabCount(); i++) {
-			fileTabs.getTabAt(i).setText(APPUtils.getFileName(openedFiles.get(i)));
-		}
+
 	}
 
 	public void removeFileTab(String file) {
-		/*
+
 		SharedPreferences.Editor speditor = sharedPreferences.edit();
+		//Log.e("关闭", file);
+		//Log.e("当前", getCodeEditor().getCurrentFile());
 		if (getCodeEditor().getCurrentFile().equals(file)) {
 			Log.e("", "关闭" + file);
 			if (sharedPreferences.getString("files", "").contains(file)) {
@@ -196,39 +202,38 @@ public class Layout {
 				speditor.commit();
 				speditor.apply();
 			}
-			adapter.destroyItem(viewPager,viewPager.getCurrentItem(),adapter.getCurrentEditor(viewPager.getCurrentItem()));
+			adapter.destroyItem(viewPager, viewPager.getCurrentItem(), adapter.getCurrentEditor(viewPager.getCurrentItem()));
 			adapter.removeView(viewPager.getCurrentItem());
-			fileTabs.removeTabAt(viewPager.getCurrentItem());
 			checkTabs();
-			return;
 		}
-		for (int i = 0; i < adapter.getAllFileEditor().size(); i++) {
-			Log.e("",String.valueOf(i));
-			if (i -1 < 0) {
-				return;
+		
+	}
+
+	public void removeFileTab(int index) {
+
+		SharedPreferences.Editor speditor = sharedPreferences.edit();
+		String file = openedFiles.get(index);
+		Log.e("关闭", file);
+		if (adapter.getCurrentEditor(index).getCurrentFile().equals(file)) {
+			Log.e("", "关闭" + file);
+			if (sharedPreferences.getString("files", "").contains(file)) {
+				speditor.putString("files", sharedPreferences.getString("files", "").replace(file + ";", ""));
+				speditor.commit();
+				speditor.apply();
 			}
-			
-			if (adapter.getCurrentEditor(i).getCurrentFile().equals(file)) {
-				if (sharedPreferences.getString("files", "").contains(file)) {
-					Log.e("", "关闭" + file);
-					speditor.putString("files", sharedPreferences.getString("files", "").replace(file + ";", ""));
-					speditor.commit();
-					speditor.apply();
-				}
-				adapter.removeView(i);
-				return;
-			}
+			adapter.destroyItem(viewPager, index, adapter.getCurrentEditor(index));
+			adapter.removeView(index);
 		}
-		*/
-		checkTabs();
+	
 	}
 	
 	public void checkTabs() {
 		if (fileTabs.getTabCount() == 0) {
 			fileTabs.setVisibility(View.GONE);
+			fileNotOpened.setVisibility(View.VISIBLE);
 		}
 	}
-	
+
 	public void selectTab(TabLayout.Tab t) {
 		Log.e("", "onTabSelected");
 
@@ -240,23 +245,23 @@ public class Layout {
 				public boolean onMenuItemClick(MenuItem item) {
 					switch (item.getItemId()) {
 						case R.id.closeCurrent:
-							//removeFileTab(getCodeEditor().getCurrentFile());
+							removeFileTab(getCodeEditor().getCurrentFile());
 							break;
 						case R.id.closeAll:
 							for (int i = 0; i < openedFiles.size(); i++) {
-								removeFileTab(openedFiles.get(i));
+								removeFileTab(i);
 							}
 							fileTabs.removeAllTabs();
-							fileTabs.setVisibility(View.GONE);
+							checkTabs();
 							viewPager.removeAllViews();
-							//adapter.removeAllView();
-							fileNotOpened.setVisibility(View.VISIBLE);
+							openedFiles.clear();
 							break;
 						case R.id.closeOther:
-							
 							for (int i = 0; i < openedFiles.size(); i++) {
 								if (!openedFiles.get(i).equals(getCodeEditor().getCurrentFile())) {
-									removeFileTab(openedFiles.get(i));
+									removeFileTab(i);
+									openedFiles.remove(i);
+									i--;
 								}
 							}
 					}
@@ -265,7 +270,7 @@ public class Layout {
 				}
 
 			});
-		//popupMenu.show();
+		popupMenu.show();
 	}
 
 }

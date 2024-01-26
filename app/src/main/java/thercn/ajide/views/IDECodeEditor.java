@@ -5,6 +5,7 @@ import thercn.ajide.utils.APPUtils;
 import java.io.IOException;
 
 public class IDECodeEditor extends CodeEditor {
+	
 	IDEActivity activity;
 	String currentFile;
 	
