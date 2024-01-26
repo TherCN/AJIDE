@@ -22,8 +22,8 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     
     lintOptions {
@@ -41,9 +41,9 @@ repositories {
 dependencies {
 	implementation 'androidx.appcompat:appcompat:1.0.0'
 	implementation 'com.google.android.material:material:1.0.0'
-	implementation platform("io.github.Rosemoe.sora-editor:bom:0.22.2")
+	//implementation platform("io.github.Rosemoe.sora-editor:bom:0.22.2")
 	
-        implementation "io.github.Rosemoe.sora-editor:editor"
+    implementation "io.github.Rosemoe.sora-editor:editor"
 	implementation "io.github.Rosemoe.sora-editor:editor-lsp"
 	implementation "io.github.Rosemoe.sora-editor:language-java"
 	implementation "io.github.Rosemoe.sora-editor:language-treesitter"

@@ -28,6 +28,7 @@ import thercn.ajide.adapter.FileAdapter;
 import thercn.ajide.adapter.FileEditAdapter;
 import thercn.ajide.utils.APPUtils;
 import thercn.ajide.views.IDECodeEditor;
+import java.util.Random;
 
 
 public class Layout {

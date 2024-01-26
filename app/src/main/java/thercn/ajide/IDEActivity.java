@@ -73,21 +73,25 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mainLayout.getCodeEditor().getCurrentFile() != null) {
+			final int redo = R.id.redo;
+			final int build = R.id.build;
+			final int undo = R.id.undo;
+			final int save = R.id.save;
 			switch (item.getItemId()) {
-				case R.id.redo:
+				case redo:
 					if (mainLayout.getCodeEditor().canRedo()) {
 						mainLayout.getCodeEditor().redo();
 					}
 					break;
-				case R.id.build:
+				case build:
 
 					break;
-				case R.id.undo:
+				case undo:
 					if (mainLayout.getCodeEditor().canUndo()) {
 						mainLayout.getCodeEditor().undo();
 					}
 					break;
-				case R.id.save:
+				case save:
 					try {
 						mainLayout.getCodeEditor().saveFile();
 					} catch (IOException e) {}
