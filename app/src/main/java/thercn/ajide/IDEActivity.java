@@ -50,7 +50,7 @@ public class IDEActivity extends AppCompatActivity {
 		try {
 			Runtime.getRuntime().exec("logcat >" + SDCARD + "/AJIDE/IDE.log");
 		} catch (IOException e) {
-			Log.e("AJIDE", e.getMessage());
+			TLog.e( e);
 		}
 	}
 
@@ -99,6 +99,18 @@ public class IDEActivity extends AppCompatActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	protected void onPause() {
+		if (mainLayout.getCodeEditor() != null) {
+			try {
+				mainLayout.getCodeEditor().saveFile();
+			} catch (IOException e) {}
+		}
+		super.onPause();
+	}
+	
+	
 
 	@Override
 	protected void onResume() {

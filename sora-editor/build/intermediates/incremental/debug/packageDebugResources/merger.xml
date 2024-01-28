@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res"><file name="anim_diagnostic_tooltip_window_enter" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/anim/anim_diagnostic_tooltip_window_enter.xml" qualifiers="" type="anim"/><file name="anim_diagnostic_tooltip_window_exit" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/anim/anim_diagnostic_tooltip_window_exit.xml" qualifiers="" type="anim"/><file name="anim_text_action_popup_enter" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/anim/anim_text_action_popup_enter.xml" qualifiers="" type="anim"/><file name="anim_text_action_popup_exit" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/anim/anim_text_action_popup_exit.xml" qualifiers="" type="anim"/><file name="editor_text_select_start" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/editor_text_select_start.xml" qualifiers="" type="drawable"/><file name="ic_more_vert_black_20dp" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/ic_more_vert_black_20dp.xml" qualifiers="" type="drawable"/><file name="ic_sora_handle_drop" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/ic_sora_handle_drop.xml" qualifiers="" type="drawable"/><file name="magnifier_background" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/magnifier_background.xml" qualifiers="" type="drawable"/><file name="round_content_copy_20" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/round_content_copy_20.xml" qualifiers="" type="drawable"/><file name="round_content_cut_20" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/round_content_cut_20.xml" qualifiers="" type="drawable"/><file name="round_content_paste_20" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/round_content_paste_20.xml" qualifiers="" type="drawable"/><file name="round_select_all_20" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/round_select_all_20.xml" qualifiers="" type="drawable"/><file name="round_save_20" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/drawable/round_save_20.xml" qualifiers="" type="drawable"/><file name="default_completion_result_item" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/layout/default_completion_result_item.xml" qualifiers="" type="layout"/><file name="diagnostic_tooltip_window" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/layout/diagnostic_tooltip_window.xml" qualifiers="" type="layout"/><file name="magnifier_popup" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/layout/magnifier_popup.xml" qualifiers="" type="layout"/><file name="signature_help_tooltip_window" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/layout/signature_help_tooltip_window.xml" qualifiers="" type="layout"/><file name="text_compose_panel" path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/layout/text_compose_panel.xml" qualifiers="" type="layout"/><file path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/values/values.xml" qualifiers=""><attr format="reference" name="codeEditorStyle"/><color name="defaultSymbolInputBackgroundColor">@android:color/background_light</color><color name="defaultSymbolInputTextColor">@android:color/black</color><color name="textActionNameColor">@android:color/tertiary_text_light</color><string name="sora_editor_clip_text_length_too_large">Text is too large to copy</string><string name="sora_editor_diagnostics_more_actions">More Actions...</string><string name="sora_editor_editor_formatting">Formatting your code…</string><string name="sora_editor_editor_search_busy">Editor is still preparing…</string><string name="sora_editor_editor_search_replacing">Replacing texts…</string><string name="sora_editor_last">Last</string><string name="sora_editor_more">More</string><string name="sora_editor_next">Next</string><string name="sora_editor_replace">Replace</string><string name="sora_editor_replaceAll">Replace All</string><string name="sora_editor_replacement">Replacement</string><string name="sora_editor_text_to_search">Text to search</string><style name="diagnostic_popup_animation">
+        <item name="android:windowEnterAnimation">@anim/anim_diagnostic_tooltip_window_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_diagnostic_tooltip_window_exit</item>
+    </style><style name="text_action_popup_animation">
+        <item name="android:windowEnterAnimation">@anim/anim_text_action_popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_text_action_popup_exit</item>
+    </style><declare-styleable name="CodeEditor">
+        <attr name="android:scrollbarTrackHorizontal"/>
+        <attr name="android:scrollbarThumbHorizontal"/>
+        <attr name="android:scrollbarTrackVertical"/>
+        <attr name="android:scrollbarThumbVertical"/>
+
+        <attr name="lnPanelPositionMode">
+            <enum name="fixed" value="0"/>
+            <enum name="follow" value="1"/>
+        </attr>
+        <attr name="lnPanelPosition">
+            <flag name="left" value="1"/>
+            <flag name="top" value="2"/>
+            <flag name="right" value="4"/>
+            <flag name="bottom" value="8"/>
+            <flag name="center" value="15"/>
+        </attr>
+
+        <attr format="string" name="text"/>
+        <attr format="dimension" name="textSize"/>
+        <attr format="dimension" name="dividerWidth"/>
+        <attr format="boolean" name="lineNumberVisible"/>
+        <attr format="boolean" name="autoCompleteEnabled"/>
+        <attr format="boolean" name="symbolCompletionEnabled"/>
+        <attr format="integer" name="cursorBlinkPeriod"/>
+        <attr format="boolean" name="scrollbarsEnabled"/>
+        <attr format="boolean" name="verticalScrollbarEnabled"/>
+        <attr format="boolean" name="horizontalScrollbarEnabled"/>
+    </declare-styleable></file><file path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/values-night-v8/values-night-v8.xml" qualifiers="night-v8"><color name="defaultSymbolInputBackgroundColor">@android:color/background_dark</color><color name="defaultSymbolInputTextColor">@android:color/white</color></file><file path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/main/res/values-zh/values-zh.xml" qualifiers="zh"><string name="sora_editor_clip_text_length_too_large">文本过大，无法复制</string><string name="sora_editor_diagnostics_more_actions">更多操作…</string><string name="sora_editor_editor_formatting">正在格式化…</string><string name="sora_editor_editor_search_busy">编辑器正在准备…</string><string name="sora_editor_editor_search_replacing">正在替换…</string><string name="sora_editor_last">上个</string><string name="sora_editor_more">更多</string><string name="sora_editor_next">下个</string><string name="sora_editor_replace">替换</string><string name="sora_editor_replaceAll">替换全部</string><string name="sora_editor_replacement">替换文本</string><string name="sora_editor_text_to_search">欲搜索文本</string></file></source></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/storage/emulated/0/AppProjects/A-J-IDE/sora-editor/build/generated/res/resValues/debug"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="CodeEditor">
+        <attr name="android:scrollbarTrackHorizontal"/>
+        <attr name="android:scrollbarThumbHorizontal"/>
+        <attr name="android:scrollbarTrackVertical"/>
+        <attr name="android:scrollbarThumbVertical"/>
+
+        <attr name="lnPanelPositionMode">
+            <enum name="fixed" value="0"/>
+            <enum name="follow" value="1"/>
+        </attr>
+        <attr name="lnPanelPosition">
+            <flag name="left" value="1"/>
+            <flag name="top" value="2"/>
+            <flag name="right" value="4"/>
+            <flag name="bottom" value="8"/>
+            <flag name="center" value="15"/>
+        </attr>
+
+        <attr format="string" name="text"/>
+        <attr format="dimension" name="textSize"/>
+        <attr format="dimension" name="dividerWidth"/>
+        <attr format="boolean" name="lineNumberVisible"/>
+        <attr format="boolean" name="autoCompleteEnabled"/>
+        <attr format="boolean" name="symbolCompletionEnabled"/>
+        <attr format="integer" name="cursorBlinkPeriod"/>
+        <attr format="boolean" name="scrollbarsEnabled"/>
+        <attr format="boolean" name="verticalScrollbarEnabled"/>
+        <attr format="boolean" name="horizontalScrollbarEnabled"/>
+    </declare-styleable></configuration></mergedItems></merger>

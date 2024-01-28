@@ -42,12 +42,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class IDEApplication extends Application {
 
     private static Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
-
+	public static Application context;
     @Override
     public void onCreate() {
         super.onCreate();
         CrashHandler.getInstance().registerGlobal(this);
         CrashHandler.getInstance().registerPart(this);
+		context = this;
     }
 
     public static void write(InputStream input, OutputStream output) throws IOException {

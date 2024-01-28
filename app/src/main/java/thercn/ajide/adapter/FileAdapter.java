@@ -26,10 +26,12 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 	List<File> files;
 	IDEActivity context;
 	RecyclerView view;
+	File currnetDir;
 	
 	public FileAdapter(IDEActivity context, List<File> files, RecyclerView view) {
 		this.context = context;
 		this.files = files;
+		this.currnetDir = files.get(0);
 		this.view = view;
 	}
 
@@ -48,13 +50,14 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
     public void onBindViewHolder(FileAdapter.ViewHolder holder, int position) {
 
         final File selectedFile = files.get(position);
+		
 		if (position == 0) {
 			holder.fileName.setText("..");
 		} else {
 			holder.fileName.setText(selectedFile.getName());
 		}
 
-
+		
         if (selectedFile.isDirectory()) {
 			Bitmap fileImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_folder);
 			holder.fileIcon.setImageBitmap(fileImage);
@@ -130,6 +133,10 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 		context.getLayout().addFileTab(file.getAbsolutePath());
 	}
 
+	public File getCurrentDir() {
+		return currnetDir;
+	}
+	
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView fileName;

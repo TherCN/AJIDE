@@ -1,24 +1,19 @@
 package thercn.ajide;
 
-public class AndroidProject implements Project {
-
+public class AndroidProject extends Project {
+	String androidProjectDir;
 	public AndroidProject(String projectDir) {
-		
+		androidProjectDir = projectDir;
 	}
 	
 	@Override
 	public boolean build() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public String getProjectInfo() {
 		return null;
-	}
-
-	@Override
-	public boolean isProject() {
-		return false;
 	}
 
 	@Override

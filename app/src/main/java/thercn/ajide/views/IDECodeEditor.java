@@ -19,6 +19,10 @@ public class IDECodeEditor extends CodeEditor {
 		currentFile = filePath;
 	}
 	
+	public interface OnSetTextListener {
+		void onSetText(String text);
+	}
+	
     public String getCurrentFile() {
 		return currentFile;
 	}
