@@ -17,9 +17,12 @@ import java.util.Date;
 import java.util.List;
 import thercn.ajide.R;
 import thercn.ajide.utils.APPUtils;
-import thercn.ajide.IDEActivity;
+import thercn.ajide.activities.IDEActivity;
 import java.io.IOException;
 import thercn.ajide.utils.TLog;
+import android.view.View.OnLongClickListener;
+import android.widget.Button;
+import thercn.ajide.file.FileOperation;
 
 public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
 
@@ -117,7 +120,14 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 						.setView(menu)
 						.create();
                     dialog.show();
+					Button delete = menu.findViewById(R.id.delete);
+					delete.setOnClickListener(new View.OnClickListener() {
 
+							@Override
+							public void onClick(View view) {
+								FileOperation.delete(selectedFile);
+							}
+                        });
 					return false;
 				}
 			});
@@ -150,5 +160,5 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 			fileTime = itemView.findViewById(R.id.file_list_time);
         }
     }
-
+	
 }

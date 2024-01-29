@@ -1,4 +1,4 @@
-package thercn.ajide;
+package thercn.ajide.project;
 
 public class JavaProject {
     

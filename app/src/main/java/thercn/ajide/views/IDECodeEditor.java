@@ -1,6 +1,6 @@
 package thercn.ajide.views;
 import io.github.rosemoe.sora.widget.CodeEditor;
-import thercn.ajide.IDEActivity;
+import thercn.ajide.activities.IDEActivity;
 import thercn.ajide.utils.APPUtils;
 import java.io.IOException;
 

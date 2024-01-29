@@ -1,25 +1,23 @@
-package thercn.ajide;
+package thercn.ajide.activities;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import java.io.File;
 import java.io.IOException;
+import thercn.ajide.Layout;
 import thercn.ajide.R;
+import thercn.ajide.utils.APPUtils;
 import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
-import thercn.ajide.utils.APPUtils;
 
 public class IDEActivity extends AppCompatActivity {
 
 	Layout mainLayout;
-	Menu actionBarMenu;
+	public Menu actionBarMenu;
 	boolean menuInited;
 
 	public static String SDCARD = Environment.getExternalStorageDirectory().toString();
@@ -65,7 +63,6 @@ public class IDEActivity extends AppCompatActivity {
         MenuItemCompat.setShowAsAction(menu.findItem(R.id.redo), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		MenuItemCompat.setShowAsAction(menu.findItem(R.id.save), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		actionBarMenu = menu;
-		//enableMenu();
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -73,33 +70,29 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mainLayout.getCodeEditor().getCurrentFile() != null) {
-			final int redo = R.id.redo;
-			final int build = R.id.build;
-			final int undo = R.id.undo;
-			final int save = R.id.save;
-			switch (item.getItemId()) {
-				case redo:
-					if (mainLayout.getCodeEditor().canRedo()) {
-						mainLayout.getCodeEditor().redo();
-					}
-					break;
-				case build:
-
-					break;
-				case undo:
-					if (mainLayout.getCodeEditor().canUndo()) {
-						mainLayout.getCodeEditor().undo();
-					}
-					break;
-				case save:
-					try {
-						mainLayout.getCodeEditor().saveFile();
-					} catch (IOException e) {}
+			
+			if (item.getItemId() == R.id.redo) {
+				if (mainLayout.getCodeEditor().canRedo()) {
+					mainLayout.getCodeEditor().redo();
+				}
+			} else if (item.getItemId() == R.id.build) {
+				// Add the code for the build action here.
+			} else if (item.getItemId() == R.id.undo) {
+				if (mainLayout.getCodeEditor().canUndo()) {
+					mainLayout.getCodeEditor().undo();
+				}
+			} else if (item.getItemId() == R.id.save) {
+				try {
+					mainLayout.getCodeEditor().saveFile();
+				} catch (IOException e) {}
 			}
+			
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	
 	@Override
 	protected void onPause() {
 		if (mainLayout.getCodeEditor() != null) {
@@ -110,8 +103,6 @@ public class IDEActivity extends AppCompatActivity {
 		super.onPause();
 	}
 	
-	
-
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -124,7 +115,6 @@ public class IDEActivity extends AppCompatActivity {
 		}
 	}
 
-
 	public Layout getLayout() {
 		return mainLayout;
 	}
@@ -133,7 +123,6 @@ public class IDEActivity extends AppCompatActivity {
 		if (mainLayout.getOpenedFiles().size() > 0) {
 			for (int i = 0; i < actionBarMenu.size(); i++) {
 				actionBarMenu.getItem(i).setEnabled(true);
-				actionBarMenu.getItem(i).setEnabled(true);
 			}
 		}
 	}
@@ -141,7 +130,6 @@ public class IDEActivity extends AppCompatActivity {
 	public void disableMenu() {
 
 		for (int i = 0; i < actionBarMenu.size(); i++) {
-			actionBarMenu.getItem(i).setEnabled(false);
 			actionBarMenu.getItem(i).setEnabled(false);
 		}
 

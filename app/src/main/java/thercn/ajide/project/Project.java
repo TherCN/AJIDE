@@ -1,7 +1,8 @@
-package thercn.ajide;
+package thercn.ajide.project;
 
 import android.widget.Toast;
 import java.io.File;
+import thercn.ajide.IDEApplication;
 
 public abstract class Project {
 

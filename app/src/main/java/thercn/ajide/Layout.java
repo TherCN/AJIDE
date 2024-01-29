@@ -35,8 +35,11 @@ import java.util.Locale;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import thercn.ajide.R;
+import thercn.ajide.activities.IDEActivity;
 import thercn.ajide.adapter.FileAdapter;
 import thercn.ajide.adapter.FileEditAdapter;
+import thercn.ajide.project.AndroidProject;
+import thercn.ajide.project.compiler.JCCompiler;
 import thercn.ajide.utils.APPUtils;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.IDECodeEditor;
@@ -243,7 +246,7 @@ public class Layout {
 
 	public void compile(DiagnosticsContainer con, List<String> args, IDECodeEditor editor) {
 		con.reset();
-		JavaCThread th = new JavaCThread(args)
+		JCCompiler th = new JCCompiler(args)
 			.addSource(APPUtils.getFileName(editor
 						   .getCurrentFile())
 					   .replace(".java", ""), editor
@@ -322,33 +325,30 @@ public class Layout {
 		popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
-					switch (item.getItemId()) {
-						case R.id.closeCurrent:
-							removeFileTab(getCodeEditor().getCurrentFile());
-							break;
-						case R.id.closeAll:
-							for (int i = 0; i < openedFiles.size(); i++) {
-								removeFileTab(i);
-								openedFiles.remove(i);
-								i--;
-							}
-							fileTabs.removeAllTabs();
-							checkTabs();
-							viewPager.removeAllViews();
-							break;
-						case R.id.closeOther:
-							for (int i = 0; i < openedFiles.size(); i++) {
-								String currentFile = getCodeEditor().getCurrentFile();
-								for (int j = 0; j < openedFiles.size(); j++) {
-									if (!openedFiles.get(j).equals(currentFile)) {
-										removeFileTab(j);
-										openedFiles.remove(j);
-										j--; // 调整j的值以反映从列表中删除的元素
-									}
+					if (item.getItemId() == R.id.closeCurrent) {
+						removeFileTab(getCodeEditor().getCurrentFile());
+					} else if (item.getItemId() == R.id.closeAll) {
+						for (int i = 0; i < openedFiles.size(); i++) {
+							removeFileTab(i);
+							openedFiles.remove(i);
+							i--;
+						}
+						fileTabs.removeAllTabs();
+						checkTabs();
+						viewPager.removeAllViews();
+					} else if (item.getItemId() == R.id.closeOther) {
+						String currentFile = getCodeEditor().getCurrentFile();
+						for (int i = 0; i < openedFiles.size(); i++) {
+							for (int j = 0; j < openedFiles.size(); j++) {
+								if (!openedFiles.get(j).equals(currentFile)) {
+									removeFileTab(j);
+									openedFiles.remove(j);
+									j--; // 调整j的值以反映从列表中删除的元素
 								}
 							}
-
+						}
 					}
+					
 
 					return true;
 				}

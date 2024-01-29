@@ -1,4 +1,4 @@
-package thercn.ajide;
+package thercn.ajide.project.compiler;
 import android.util.Log;
 import com.sun.tools.javac.api.JavacTool;
 import com.sun.tools.javac.util.Context;
@@ -19,27 +19,27 @@ import java.io.FileWriter;
 import java.io.StringWriter;
 
 
-public class JavaCThread extends Thread {
+public class JCCompiler extends Thread {
 
 	List<String> args;
 	Map<String,String> sourceList;
 	Context javacContext;
-	public JavaCThread(List<String> args) {
+	public JCCompiler(List<String> args) {
 		this.args = args;
 		this.sourceList = new HashMap<>();
 	}
 	
-	public JavaCThread addSource(String className, String str) {
+	public JCCompiler addSource(String className, String str) {
 		sourceList.put(className, str);
 		return this;
 	}
 
-	public JavaCThread addSources(Map<String,String> sources) {
+	public JCCompiler addSources(Map<String,String> sources) {
 		sourceList.putAll(sources);
 		return this;
 	}
 
-	public JavaCThread setJavaVersion(int version) {
+	public JCCompiler setJavaVersion(int version) {
 		args.add("-source");
 		args.add(String.valueOf(version));
 		args.add("-target");
