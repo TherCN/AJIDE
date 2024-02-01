@@ -21,6 +21,33 @@ public class AndroidProject extends Project {
 		return false;
 	}
 
+	public class CreateProject implements NewProject {
+		String projectDir;
+		public CreateProject(String projectDir) {
+			this.projectDir = projectDir;
+			setTemplate(ProjectTemplate.AndroidProjectTemplate.StandardAndroidProject);
+		}
+
+		@Override
+		public void create() {
+			
+		}
+
+		@Override
+		public void setTemplate(ProjectTemplate template) {
+			
+		}
+
+		@Override
+		public void setJDKVersion(int version) {
+		}
+
+
+
+		
+		
+		
+	}
 	
 
 

@@ -43,6 +43,11 @@ import thercn.ajide.project.compiler.JCCompiler;
 import thercn.ajide.utils.APPUtils;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.IDECodeEditor;
+import thercn.ajide.utils.Permission;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchUIUtil;
+import androidx.recyclerview.widget.ItemTouchUIUtilImpl;
+import thercn.ajide.activities.ProjectActivity;
 
 public class Layout {
 
@@ -61,6 +66,7 @@ public class Layout {
 	ActionBar abar;
 	List<View> widgets;
 	boolean isInitDone;
+	boolean fileManagerInited;
 
     public Layout(IDEActivity activity) {
 		this.activity = activity;
@@ -78,13 +84,16 @@ public class Layout {
 
 		widgets.add(viewPager);
 
+		fileList = activity.findViewById(R.id.filelist1);
 		drawerLayout = activity.findViewById(R.id.drawerlayout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar,															 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar,
+																 R.string.navigation_drawer_open, 
+																 R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+		inflateFileList(ProjectActivity.SDCARD);
 		fileTabs = activity.findViewById(R.id.tabs);
-		fileList = activity.findViewById(R.id.filelist1);
-		inflateFileList("/sdcard");
 		fileTabs.setVisibility(View.GONE);
 
 		widgets.add(drawerLayout);
@@ -94,8 +103,8 @@ public class Layout {
 		viewPager.setAdapter(adapter);
 
 		fileNotOpened = activity.findViewById(R.id.noOpenFile);
-		fab = activity.findViewById(R.id.errors);
-		fab.setVisibility(View.GONE);
+		
+		//fab.setImageResource(R.drawable.project_new);
 		sharedPreferences = activity.getSharedPreferences("openedFiles", Context.MODE_PRIVATE);
 		String files = sharedPreferences.getString("files", "");
 		if (!sharedPreferences.getString("files", "").isEmpty()) {
@@ -109,15 +118,9 @@ public class Layout {
 		fileTabs.setupWithViewPager(viewPager);
 		fileTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 				@Override
-				public void onTabSelected(TabLayout.Tab t) {
-
-				}
-
+				public void onTabSelected(TabLayout.Tab t) {};
 				@Override
-				public void onTabUnselected(TabLayout.Tab t) {
-
-				}
-
+				public void onTabUnselected(TabLayout.Tab t) {};
 				@Override
 				public void onTabReselected(TabLayout.Tab t) {
 					selectTab(t);
@@ -139,11 +142,16 @@ public class Layout {
 	}
 
 	public void inflateFileList(String path) {
+
 		List<File> newFiles = new ArrayList<File>();
-		newFiles.add(new File(path).getParentFile());
-		File[] files = APPUtils.getFiles(path);
-		for (int i = 0; i < files.length; i++) {
-			newFiles.add(files[i]);
+		if (Permission.isPermissionGranted(activity)) {
+			newFiles.add(new File(path).getParentFile());
+			File[] files = APPUtils.getFiles(path);
+			for (int i = 0; i < files.length; i++) {
+				newFiles.add(files[i]);
+			}
+		} else {
+			newFiles.add(new File("/"));
 		}
 		FileAdapter<File> adapter = new FileAdapter<File>(activity, newFiles, fileList);
 		fileList.setAdapter(adapter);
@@ -151,6 +159,10 @@ public class Layout {
 		if (adapter.getCurrentDir().isDirectory()) {
 			new AndroidProject(adapter.getCurrentDir().getAbsolutePath()).setupGradle(null);
 		}
+	}
+
+	public void onResume() {
+		
 	}
 
 	public IDECodeEditor getCodeEditor() {
@@ -201,17 +213,14 @@ public class Layout {
 			fileNotOpened.setVisibility(View.GONE);
 			fileTabs.setVisibility(View.VISIBLE);
 		}
-		if (activity.actionBarMenu != null) {
-			activity.enableMenu();
-		}
+		
+		activity.enableMenu();
+		
 		fileTabs.addTab(fileTabs.newTab());
 		openedFiles.add(file);
 		final IDECodeEditor editor = new IDECodeEditor(activity);
-
 		final DiagnosticsContainer con = new DiagnosticsContainer();
-
 		final ArrayList<String> list = new ArrayList<>();
-		
 		list.add("-bootclasspath");
 		list.add("/sdcard/AJIDE/ClassPath/android.jar:/sdcard/AJIDE/ClassPath/core-lambda-stubs.jar");
 		list.add("-Xlint:all");
@@ -223,15 +232,15 @@ public class Layout {
 			if (file.endsWith(".java")) {
 				editor.setEditorLanguage(new JavaLanguage());
 				editor.setDiagnostics(con);
-				compile(con,list,editor);
+				compile(con, list, editor);
 				editor.subscribeEvent(
 					ContentChangeEvent.class,
 					new EventReceiver<ContentChangeEvent>() {
 						long lastInvoke = System.currentTimeMillis();
 						public void onReceive(ContentChangeEvent event, Unsubscribe unsubscribe) {
 							long curInvoke = System.currentTimeMillis();
-							if (curInvoke - lastInvoke > 100) {
-								compile(con,list,editor);
+							if (curInvoke - lastInvoke > 500) {
+								compile(con, list, editor);
 							}
 							lastInvoke = System.currentTimeMillis();
 						}
@@ -248,7 +257,7 @@ public class Layout {
 		con.reset();
 		JCCompiler th = new JCCompiler(args)
 			.addSource(APPUtils.getFileName(editor
-						   .getCurrentFile())
+											.getCurrentFile())
 					   .replace(".java", ""), editor
 					   .getText()
 					   .toString());
@@ -348,7 +357,7 @@ public class Layout {
 							}
 						}
 					}
-					
+
 
 					return true;
 				}

@@ -1,12 +1,10 @@
 package thercn.ajide.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,13 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import thercn.ajide.R;
-import thercn.ajide.utils.APPUtils;
 import thercn.ajide.activities.IDEActivity;
-import java.io.IOException;
-import thercn.ajide.utils.TLog;
-import android.view.View.OnLongClickListener;
-import android.widget.Button;
 import thercn.ajide.file.FileOperation;
+import thercn.ajide.utils.APPUtils;
 
 public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
 
@@ -45,7 +39,7 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 	@Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.file_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.file_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -62,11 +56,12 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 
 		
         if (selectedFile.isDirectory()) {
-			Bitmap fileImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_folder);
-			holder.fileIcon.setImageBitmap(fileImage);
+			holder.fileIcon.setImageResource(R.drawable.folder);
+		} else if (selectedFile.getName().endsWith(".java")) {
+			holder.fileIcon.setImageResource(R.drawable.file_type_java);
 		} else {
-			Bitmap fileImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_file);
-			holder.fileIcon.setImageBitmap(fileImage);
+			holder.fileIcon.setImageResource(R.drawable.file_type_unknown);
+			
 		}
 
 		long lastModifiedTime = selectedFile.lastModified();
@@ -126,9 +121,10 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 							@Override
 							public void onClick(View view) {
 								FileOperation.delete(selectedFile);
+								return;
 							}
                         });
-					return false;
+					return true;
 				}
 			});
 

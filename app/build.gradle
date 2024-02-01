@@ -22,8 +22,8 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     
     lintOptions {
@@ -41,11 +41,7 @@ repositories {
 dependencies {
 	implementation 'androidx.appcompat:appcompat:1.0.0'
 	implementation 'com.google.android.material:material:1.0.0'
-//	implementation project(':sora-editor')
-	implementation "io.github.Rosemoe.sora-editor:editor:0.22.2"
-	implementation "io.github.Rosemoe.sora-editor:editor-lsp:0.22.2"
-	implementation "io.github.Rosemoe.sora-editor:language-java:0.22.2"
-	implementation "io.github.Rosemoe.sora-editor:language-treesitter:0.22.2"
+	implementation project(':sora-editor')
 	
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

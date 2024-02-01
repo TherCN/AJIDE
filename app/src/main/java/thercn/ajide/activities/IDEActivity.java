@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import java.io.File;
@@ -13,6 +14,9 @@ import thercn.ajide.R;
 import thercn.ajide.utils.APPUtils;
 import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
+import android.system.Os;
+import android.system.ErrnoException;
+import thercn.ajide.IDEApplication;
 
 public class IDEActivity extends AppCompatActivity {
 
@@ -20,38 +24,19 @@ public class IDEActivity extends AppCompatActivity {
 	public Menu actionBarMenu;
 	boolean menuInited;
 
-	public static String SDCARD = Environment.getExternalStorageDirectory().toString();
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Permission.checkPermission(this);
+		
 		setContentView(R.layout.activity_main);
-		initAppDir();
+		
 		mainLayout = new Layout(this);
 		mainLayout.init();
 	}
 
-	private void initAppDir() {
-		File appDir = new File(SDCARD + "/AJIDE");
-		final File classPath = new File(SDCARD + "/AJIDE/ClassPath");
-		if (!appDir.exists() || !classPath.exists()) {
-			appDir.mkdir();
-			classPath.mkdirs();
-		}
-		String[] files = new String[]{"android.jar","core-lambda-stubs.jar"};
-		for (String i : files) {
-			if (!new File(classPath.getAbsolutePath() + "/" + i).exists()) {
-				APPUtils.exportAssets(this, i, classPath.getAbsolutePath());
-			}
-		}
-		try {
-			Runtime.getRuntime().exec("logcat >" + SDCARD + "/AJIDE/IDE.log");
-		} catch (IOException e) {
-			TLog.e( e);
-		}
-	}
+	
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.ide_menu, menu);
@@ -69,7 +54,7 @@ public class IDEActivity extends AppCompatActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (mainLayout.getCodeEditor().getCurrentFile() != null) {
+		if (mainLayout.getCodeEditor() != null) {
 			
 			if (item.getItemId() == R.id.redo) {
 				if (mainLayout.getCodeEditor().canRedo()) {
@@ -107,6 +92,7 @@ public class IDEActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		try {
+			mainLayout.onResume();
 			if (mainLayout.getCodeEditor() != null) {
 				mainLayout.getCodeEditor().setFile(mainLayout.getCodeEditor().getCurrentFile());
 			}

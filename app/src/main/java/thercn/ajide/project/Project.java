@@ -37,7 +37,7 @@ public abstract class Project {
 
 	interface NewProject {
 
-		public void setTemplate(String template);
+		public void setTemplate(ProjectTemplate template);
 
 		public void setJDKVersion(int version);
 

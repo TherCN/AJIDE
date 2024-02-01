@@ -1,6 +1,8 @@
 package thercn.ajide.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.util.Log;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -8,16 +10,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-import java.io.FileReader;
 
 public class APPUtils {
     
@@ -74,6 +77,35 @@ public class APPUtils {
 	public static String readFile(String filePath) throws IOException {
 		return readerToString(new FileReader(new File(filePath)));
 	}
+	
+	public void unzipFromAssets(Context context, String zipFileName, String outputDir) throws IOException {
+		AssetManager assetManager = context.getAssets();
+		InputStream is = assetManager.open(zipFileName);
+		ZipInputStream zis = new ZipInputStream(is);
+		ZipEntry entry;
+		while ((entry = zis.getNextEntry()) != null) {
+			String fileName = entry.getName();
+			File newFile = new File(outputDir + File.separator + fileName);
+			if (entry.isDirectory()) {
+				newFile.mkdirs();
+			} else {
+				File parentFile = newFile.getParentFile();
+				if (!parentFile.exists()) {
+					parentFile.mkdirs();
+				}
+				OutputStream os = new FileOutputStream(newFile);
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = zis.read(buffer)) > 0) {
+					os.write(buffer, 0, len);
+				}
+				os.close();
+			}
+		}
+		zis.closeEntry();
+		zis.close();
+	}
+	
 	
 	public static String readerToString(Reader reader) {
 

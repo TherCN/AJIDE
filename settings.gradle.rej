@@ -1,0 +1,8 @@
+--- settings.gradle	2024-01-29 19:51:00.000000000 +0800
++++ a/settings.gradle	2024-01-29 20:24:52.070000000 +0800
+@@ -8,4 +8,4 @@
+ rootProject.name = "Android-Java-IDE"
+ 
+ include(":app")
+-//include(":sora-editor")
++include(":sora-editor")
