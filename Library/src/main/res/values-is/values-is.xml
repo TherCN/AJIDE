@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+
+    <string name="abc_action_bar_home_description" msgid="5976598919945601918">"Fara heim"</string>
+    <string name="abc_action_bar_up_description" msgid="8388173803310557296">"Fara upp"</string>
+    <string name="abc_action_menu_overflow_description" msgid="3937310113216875497">"Fleiri valkostir"</string>
+    <string name="abc_action_mode_done" msgid="4692188335987374352">"Lokið"</string>
+    <string name="abc_activity_chooser_view_see_all" msgid="1189761859438369441">"Sjá allt"</string>
+    <string name="abc_activitychooserview_choose_application" msgid="2165779757652331008">"Veldu forrit"</string>
+    <string name="abc_capital_off" msgid="4215997306490295099">"SLÖKKT"</string>
+    <string name="abc_capital_on" msgid="884982626291842264">"KVEIKT"</string>
+    <string name="abc_menu_alt_shortcut_label" msgid="8833365367933412986">"Alt+"</string>
+    <string name="abc_menu_ctrl_shortcut_label" msgid="2223301931652355242">"Ctrl+"</string>
+    <string name="abc_menu_delete_shortcut_label" msgid="838001238306846836">"eyða"</string>
+    <string name="abc_menu_enter_shortcut_label" msgid="7986526966204849475">"enter"</string>
+    <string name="abc_menu_function_shortcut_label" msgid="375214403600139847">"Aðgerðarlykill+"</string>
+    <string name="abc_menu_meta_shortcut_label" msgid="4192209724446364286">"Meta+"</string>
+    <string name="abc_menu_shift_shortcut_label" msgid="4741552369836443843">"Shift+"</string>
+    <string name="abc_menu_space_shortcut_label" msgid="5473865519181928982">"bilslá"</string>
+    <string name="abc_menu_sym_shortcut_label" msgid="6180552449598693998">"Sym+"</string>
+    <string name="abc_prepend_shortcut_label" msgid="5520303668377388990">"Valmynd+"</string>
+    <string name="abc_search_hint" msgid="7208076849092622260">"Leita…"</string>
+    <string name="abc_searchview_description_clear" msgid="3741173234950517107">"Hreinsa fyrirspurn"</string>
+    <string name="abc_searchview_description_query" msgid="693312494995508443">"Leitarfyrirspurn"</string>
+    <string name="abc_searchview_description_search" msgid="3417662926640357176">"Leit"</string>
+    <string name="abc_searchview_description_submit" msgid="1486535517437947103">"Senda fyrirspurn"</string>
+    <string name="abc_searchview_description_voice" msgid="2293578557972875415">"Raddleit"</string>
+    <string name="abc_shareactionprovider_share_with" msgid="8875138169939072951">"Deila með"</string>
+    <string name="abc_shareactionprovider_share_with_application" msgid="9055268688411532828">"Deila með <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string name="abc_toolbar_collapse_description" msgid="1656852541809559762">"Minnka"</string>
+    <string name="search_menu_title" msgid="6264217191555673260">"Leit"</string>
+    <string name="status_bar_notification_info_overflow" msgid="6277540029070332960">"999+"</string>
+
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d ný tilkynning</item>
+        <item quantity="other">%d nýjar tilkynningar</item>
+    </plurals>
+
+    <string name="bottomsheet_action_collapse">Minnka blað neðst</string>
+    <string name="bottomsheet_action_expand">Stækka blað neðst</string>
+    <string name="bottomsheet_action_expand_halfway">Stækka til hálfs</string>
+    <string name="bottomsheet_drag_handle_clicked">Ýtt tvisvar á dragkló</string>
+    <string name="bottomsheet_drag_handle_content_description">Dragkló</string>
+    <string name="character_counter_content_description">Innslegnir stafir %1$d af %2$d</string>
+    <string name="character_counter_overflowed_content_description">Yfir hámarksstafafjölda, %1$d af %2$d</string>
+    <string name="clear_text_end_icon_content_description">Hreinsa texta</string>
+    <string name="error_icon_content_description">Villa</string>
+    <string name="exposed_dropdown_menu_content_description">Sýna fellivalmynd</string>
+    <string name="icon_content_description">Gluggatákn</string>
+    <string name="item_view_role_description">Flipi</string>
+    <string name="material_clock_toggle_content_description">Velja f.h. eða e.h.</string>
+    <string name="material_hour_24h_suffix">%1$s klst.</string>
+    <string name="material_hour_selection">Velja tíma</string>
+    <string name="material_hour_suffix">klukkan %1$s</string>
+    <string name="material_minute_selection">Veldu mínútur</string>
+    <string name="material_minute_suffix">%1$s mínútur</string>
+    <string name="material_timepicker_am">f.h.</string>
+    <string name="material_timepicker_clock_mode_description">Skipta yfir í klukkustillingu til að færa inn tíma.</string>
+    <string name="material_timepicker_hour">Klukkustund</string>
+    <string name="material_timepicker_minute">Mínúta</string>
+    <string name="material_timepicker_pm">e.h.</string>
+    <string name="material_timepicker_select_time">Veldu tíma</string>
+    <string name="material_timepicker_text_input_mode_description">Skipta yfir í textastillingu til að færa inn tíma.</string>
+    <string name="mtrl_badge_numberless_content_description">Ný tilkynning</string>
+    <string name="mtrl_chip_close_icon_content_description">Fjarlægja %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns1:ignore="PluralsCandidate">Yfir %1$d nýjar tilkynningar</string>
+    <string name="mtrl_picker_a11y_next_month">Breyta í næsta mánuð</string>
+    <string name="mtrl_picker_a11y_prev_month">Breyta í fyrri mánuð</string>
+    <string name="mtrl_picker_announce_current_range_selection">Val upphafsdags: %1$s – Val lokadags: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Núverandi val: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">ekkert</string>
+    <string name="mtrl_picker_cancel">Hætta við</string>
+    <string name="mtrl_picker_confirm">Í lagi</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Veldu dagsetningu</string>
+    <string name="mtrl_picker_date_header_unselected">Valin dagsetning</string>
+    <string name="mtrl_picker_day_of_week_column_header">Dálkur með dögum: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Lokadagur %1$s</string>
+    <string name="mtrl_picker_invalid_format">Ógilt snið.</string>
+    <string name="mtrl_picker_invalid_format_example">Dæmi: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Nota: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Ógilt svið.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Fara á núverandi ár %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Fara í árið %1$d</string>
+    <string name="mtrl_picker_out_of_range">Utan sviðs: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Upphafsdagur – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – lokadagur</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Veldu tímabil</string>
+    <string name="mtrl_picker_range_header_unselected">Upphafsdagur – lokadagur</string>
+    <string name="mtrl_picker_save">Vista</string>
+    <string name="mtrl_picker_start_date_description">Upphafsdagur %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Dagsetning</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Lokadagur</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Upphafsdagur</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">á</string>
+    <string name="mtrl_picker_today_description">Í dag %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Skipta yfir í innfærsluaðferð fyrir dagatal</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Ýttu til að skipta yfir í dagatalsyfirlit</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Skipta yfir í innfærsluaðferð fyrir texta</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Ýttu til að skipta yfir í ársyfirlit</string>
+    <string name="mtrl_timepicker_cancel">Hætta við</string>
+    <string name="mtrl_timepicker_confirm">Í lagi</string>
+    <string name="password_toggle_content_description">Sýna aðgangsorð</string>
+
+</resources>

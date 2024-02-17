@@ -1,68 +1,70 @@
 package thercn.ajide.adapter;
-import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import java.util.ArrayList;
 import java.util.List;
-import thercn.ajide.R;
-import thercn.ajide.activities.IDEActivity;
-import thercn.ajide.activities.ProjectActivity;
-import androidx.cardview.widget.CardView;
+import thercn.ajide.utils.APPUtils;
+import thercn.ajide.views.IDECodeEditor;
 
-public class ProjectViewAdapter<T> extends RecyclerView.Adapter<ProjectViewAdapter.ViewHolder> {
+public class ProjectViewAdapter extends PagerAdapter{
+    List<View> views = new ArrayList<>();
 
-	ProjectActivity activity;
-	List<String> allProjectPaths;
+    public int getCount() {
+        return this.views.size();
+    }
 	
-	public ProjectViewAdapter(ProjectActivity activity,List<String> projectPaths) {
-		this.activity = activity;
-		allProjectPaths = projectPaths;
-	}
-	@Override
-	public void onBindViewHolder(ProjectViewAdapter.ViewHolder vH, int p) {
-		vH.layout.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					activity.startActivity(new Intent(activity,IDEActivity.class));
-				}
-			});
-		vH.projectIcon.setImageResource(R.drawable.ic_java);
-		vH.projectName.setText("测试");
-		vH.projectPath.setText(allProjectPaths.get(p));
-	}
+	public ProjectViewAdapter(){};
 
 	@Override
-	public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int p) {
-		View view = LayoutInflater.from(activity).inflate(R.layout.project_list_item, viewGroup, false);
-		return new ViewHolder(view);
-	}
+    public Object instantiateItem(ViewGroup viewGroup, int i) {
+        viewGroup.addView(this.views.get(i));
+        return this.views.get(i);
+    }
 
 	@Override
-	public int getItemCount() {
-		return allProjectPaths.size();
+    public boolean isViewFromObject(View view, Object obj) {
+        return view == obj;
+    }
+
+	@Override
+    public void destroyItem(ViewGroup viewGroup, int i, Object obj) {
+        viewGroup.removeView((View)obj);
+    }
+
+    public List<View> getAllView() {
+        return this.views;
+    }
+
+    public void addView(View textEditor) {
+        this.views.add(textEditor);
+        notifyDataSetChanged();
+    }
+
+	@Override
+	public int getItemPosition(Object object) {
+		return POSITION_NONE;
 	}
-    
-    public class ViewHolder extends RecyclerView.ViewHolder{
-		
-		CardView layout;
-		ImageView projectIcon;
-		TextView projectName;
-		TextView projectPath;
-		
-		
-		ViewHolder(View v) {
-			super(v);
-			layout = v.findViewById(R.id.projectLayout);
-			projectIcon = v.findViewById(R.id.project_icon);
-			projectName = v.findViewById(R.id.project_name);
-			projectPath = v.findViewById(R.id.project_path);
-			
+
+	public void removeView(int index) {
+		try {
+			this.views.remove(index);
+		} catch (IndexOutOfBoundsException e) {
+			if (index > 0) {
+				this.views.remove(index - 1);
+			} else if (index <= 0) {
+				this.views.remove(0);
+			}
+
 		}
+		notifyDataSetChanged();
 	}
+
+	public void removeAllView() {
+		this.views.clear();
+		notifyDataSetChanged();
+	}
+	
+    
     
 }

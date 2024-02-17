@@ -30,7 +30,7 @@ public abstract class Project {
 	public void setupGradle(String version) {
 		File gradleDir = new File(IDEApplication.context
 								  .getFilesDir()
-								  .getName() + "/.gradle");
+								  .getAbsolutePath() + "/.gradle");
 		gradleDir.mkdirs();
 		Toast.makeText(IDEApplication.context, gradleDir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
 	}

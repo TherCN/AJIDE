@@ -1,5 +1,7 @@
 package thercn.ajide.project;
 
+import thercn.ajide.project.template.AndroidProjectTemplate;
+
 public class AndroidProject extends Project {
 	String androidProjectDir;
 	public AndroidProject(String projectDir) {
@@ -25,9 +27,8 @@ public class AndroidProject extends Project {
 		String projectDir;
 		public CreateProject(String projectDir) {
 			this.projectDir = projectDir;
-			setTemplate(ProjectTemplate.AndroidProjectTemplate.StandardAndroidProject);
 		}
-
+		
 		@Override
 		public void create() {
 			
@@ -40,18 +41,8 @@ public class AndroidProject extends Project {
 
 		@Override
 		public void setJDKVersion(int version) {
+		
+			
 		}
-
-
-
-		
-		
-		
 	}
-	
-
-
-    
-    
-    
 }

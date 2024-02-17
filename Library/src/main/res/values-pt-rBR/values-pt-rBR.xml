@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+
+    <string name="abc_action_bar_home_description" msgid="5976598919945601918">"Navegar para a página inicial"</string>
+    <string name="abc_action_bar_up_description" msgid="8388173803310557296">"Navegar para cima"</string>
+    <string name="abc_action_menu_overflow_description" msgid="3937310113216875497">"Mais opções"</string>
+    <string name="abc_action_mode_done" msgid="4692188335987374352">"Concluído"</string>
+    <string name="abc_activity_chooser_view_see_all" msgid="1189761859438369441">"Ver tudo"</string>
+    <string name="abc_activitychooserview_choose_application" msgid="2165779757652331008">"Selecionar um app"</string>
+    <string name="abc_capital_off" msgid="4215997306490295099">"DESATIVADO"</string>
+    <string name="abc_capital_on" msgid="884982626291842264">"ATIVADO"</string>
+    <string name="abc_menu_alt_shortcut_label" msgid="8833365367933412986">"Alt+"</string>
+    <string name="abc_menu_ctrl_shortcut_label" msgid="2223301931652355242">"Ctrl+"</string>
+    <string name="abc_menu_delete_shortcut_label" msgid="838001238306846836">"delete"</string>
+    <string name="abc_menu_enter_shortcut_label" msgid="7986526966204849475">"enter"</string>
+    <string name="abc_menu_function_shortcut_label" msgid="375214403600139847">"Function+"</string>
+    <string name="abc_menu_meta_shortcut_label" msgid="4192209724446364286">"Meta+"</string>
+    <string name="abc_menu_shift_shortcut_label" msgid="4741552369836443843">"Shift+"</string>
+    <string name="abc_menu_space_shortcut_label" msgid="5473865519181928982">"espaço"</string>
+    <string name="abc_menu_sym_shortcut_label" msgid="6180552449598693998">"Sym+"</string>
+    <string name="abc_prepend_shortcut_label" msgid="5520303668377388990">"Menu+"</string>
+    <string name="abc_search_hint" msgid="7208076849092622260">"Pesquisar…"</string>
+    <string name="abc_searchview_description_clear" msgid="3741173234950517107">"Limpar consulta"</string>
+    <string name="abc_searchview_description_query" msgid="693312494995508443">"Consulta de pesquisa"</string>
+    <string name="abc_searchview_description_search" msgid="3417662926640357176">"Pesquisar"</string>
+    <string name="abc_searchview_description_submit" msgid="1486535517437947103">"Enviar consulta"</string>
+    <string name="abc_searchview_description_voice" msgid="2293578557972875415">"Pesquisa por voz"</string>
+    <string name="abc_shareactionprovider_share_with" msgid="8875138169939072951">"Compartilhar com"</string>
+    <string name="abc_shareactionprovider_share_with_application" msgid="9055268688411532828">"Compartilhar com <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string name="abc_toolbar_collapse_description" msgid="1656852541809559762">"Recolher"</string>
+    <string name="search_menu_title" msgid="6264217191555673260">"Pesquisar"</string>
+    <string name="status_bar_notification_info_overflow" msgid="6277540029070332960">"999+"</string>
+
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d nova notificação</item>
+        <item quantity="other">%d novas notificações</item>
+    </plurals>
+
+    <string name="bottomsheet_action_collapse">Fechar a página inferior</string>
+    <string name="bottomsheet_action_expand">Abrir a página inferior</string>
+    <string name="bottomsheet_action_expand_halfway">Expandir até a metade</string>
+    <string name="bottomsheet_drag_handle_clicked">Alça de arrastar tocada duas vezes</string>
+    <string name="bottomsheet_drag_handle_content_description">Alça de arrastar</string>
+    <string name="character_counter_content_description">Caracteres inseridos: %1$d de %2$d</string>
+    <string name="character_counter_overflowed_content_description">Limite de %2$d caracteres excedido em %1$d</string>
+    <string name="clear_text_end_icon_content_description">Limpar texto</string>
+    <string name="error_icon_content_description">Erro</string>
+    <string name="exposed_dropdown_menu_content_description">Mostrar menu suspenso</string>
+    <string name="icon_content_description">Ícone de caixa de diálogo</string>
+    <string name="item_view_role_description">Guia</string>
+    <string name="material_clock_toggle_content_description">Selecionar AM ou PM</string>
+    <string name="material_hour_24h_suffix">%1$s horas</string>
+    <string name="material_hour_selection">Selecionar horário</string>
+    <string name="material_hour_suffix">%1$s em ponto</string>
+    <string name="material_minute_selection">Selecione os minutos</string>
+    <string name="material_minute_suffix">%1$s minutos</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Alterne para o modo de relógio para informar o horário.</string>
+    <string name="material_timepicker_hour">Hora</string>
+    <string name="material_timepicker_minute">Minuto</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Selecionar horário</string>
+    <string name="material_timepicker_text_input_mode_description">Alterne para o modo de entrada de texto para informar o horário.</string>
+    <string name="mtrl_badge_numberless_content_description">Nova notificação</string>
+    <string name="mtrl_chip_close_icon_content_description">Remover %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns1:ignore="PluralsCandidate">Mais de %1$d novas notificações</string>
+    <string name="mtrl_picker_a11y_next_month">Alterar para o próximo mês</string>
+    <string name="mtrl_picker_a11y_prev_month">Alterar para o mês anterior</string>
+    <string name="mtrl_picker_announce_current_range_selection">Seleção da data de início: %1$s. Seleção da data de término: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Seleção atual: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">nenhuma</string>
+    <string name="mtrl_picker_cancel">Cancelar</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Selecionar data</string>
+    <string name="mtrl_picker_date_header_unselected">Data selecionada</string>
+    <string name="mtrl_picker_day_of_week_column_header">Coluna de dias: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Data de término: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Formato inválido.</string>
+    <string name="mtrl_picker_invalid_format_example">Exemplo: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Usar %1$s</string>
+    <string name="mtrl_picker_invalid_range">Intervalo inválido.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Ir para o ano atual %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Ir para o ano %1$d</string>
+    <string name="mtrl_picker_out_of_range">Fora do intervalo: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Data de início – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Data de término</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Selecionar intervalo</string>
+    <string name="mtrl_picker_range_header_unselected">Data de início – Data de término</string>
+    <string name="mtrl_picker_save">Salvar</string>
+    <string name="mtrl_picker_start_date_description">Data de início: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Data</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Data de término</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Data de início</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">a</string>
+    <string name="mtrl_picker_today_description">Hoje %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Alternar para o modo de entrada da agenda</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Toque para mudar para a visualização de agenda</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Alternar para o modo de entrada de texto</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Toque para mudar para a visualização \"Ano\"</string>
+    <string name="mtrl_timepicker_cancel">Cancelar</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string name="password_toggle_content_description">Exibir senha</string>
+
+</resources>

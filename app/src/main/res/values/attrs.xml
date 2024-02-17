@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<attr name="ic_undo" format="reference"/>
+	<attr name="ic_run" format="reference"/>
+	<attr name="ic_redo" format="reference"/>
+	<attr name="ic_save" format="reference"/>
+</resources>

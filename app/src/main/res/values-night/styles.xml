@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="IDEMainTheme" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Customize your theme here. -->
+		<item name="ic_undo">@drawable/ic_undo-night</item>
+		<item name="ic_redo">@drawable/ic_redo-night</item>
+		<item name="ic_run">@drawable/ic_run-night</item>
+		<item name="ic_save">@drawable/ic_save-night</item>
+		
+	</style>
+
+</resources>

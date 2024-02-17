@@ -27,22 +27,19 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_main);
-		
+
 		mainLayout = new Layout(this);
 		mainLayout.init();
 	}
 
-	
 
-	
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.ide_menu, menu);
-		for (int i = 0; i < menu.size(); i++) {
-			menu.getItem(i).setEnabled(false);
-		}
 		MenuItemCompat.setShowAsAction(menu.findItem(R.id.undo), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 		MenuItemCompat.setShowAsAction(menu.findItem(R.id.build), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
         MenuItemCompat.setShowAsAction(menu.findItem(R.id.redo), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
@@ -51,11 +48,11 @@ public class IDEActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mainLayout.getCodeEditor() != null) {
-			
+
 			if (item.getItemId() == R.id.redo) {
 				if (mainLayout.getCodeEditor().canRedo()) {
 					mainLayout.getCodeEditor().redo();
@@ -71,13 +68,15 @@ public class IDEActivity extends AppCompatActivity {
 					mainLayout.getCodeEditor().saveFile();
 				} catch (IOException e) {}
 			}
-			
+
+		} else {
+			Toast.makeText(getApplication(), "请打开一个文件！", Toast.LENGTH_SHORT).show();
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-	
+
+
 	@Override
 	protected void onPause() {
 		if (mainLayout.getCodeEditor() != null) {
@@ -87,12 +86,12 @@ public class IDEActivity extends AppCompatActivity {
 		}
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		try {
-			mainLayout.onResume();
+			
 			if (mainLayout.getCodeEditor() != null) {
 				mainLayout.getCodeEditor().setFile(mainLayout.getCodeEditor().getCurrentFile());
 			}
@@ -105,21 +104,7 @@ public class IDEActivity extends AppCompatActivity {
 		return mainLayout;
 	}
 
-	public void enableMenu() {
-		if (mainLayout.getOpenedFiles().size() > 0) {
-			for (int i = 0; i < actionBarMenu.size(); i++) {
-				actionBarMenu.getItem(i).setEnabled(true);
-			}
-		}
-	}
-
-	public void disableMenu() {
-
-		for (int i = 0; i < actionBarMenu.size(); i++) {
-			actionBarMenu.getItem(i).setEnabled(false);
-		}
-
-	}
+	
 
 
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="10dp">
+
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:hint="请输入项目名称"
+		android:id="@+id/createProjectName"/>
+
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="请输入包名"
+		android:id="@+id/createProjectPackageName"/>
+
+	<CheckBox
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="混合(默认为安卓项目，语言使用Java，开启后可以多选)"
+		android:id="@+id/multiLanguage"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<RadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="安卓项目"
+			android:id="@+id/projectAndroid"/>
+
+		<RadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Java项目"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/projectJava"/>
+
+		<RadioButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Kotlin项目"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/projectKotlin"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Java版本:"
+			android:textSize="20sp"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/javaVersion"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="最小支持版本:"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/minSdkVersion"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="目标支持版本:"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/targetSdkVersion"/>
+
+	</LinearLayout>
+
+	<CheckBox
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="JNI"
+		android:id="@+id/jni"/>
+
+	<CheckBox
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="AndroidX"
+		android:id="@+id/androidX"/>
+
+</LinearLayout>
+

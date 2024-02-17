@@ -1,0 +1,108 @@
+plugins {
+    id 'com.android.library'
+}
+//模板，gradle也可依赖，主要适配于AIDE
+android {
+    compileSdk 33
+    buildToolsVersion "33.0.0"
+
+    defaultConfig {
+        applicationId "com.google.android.material"
+        minSdkVersion 26
+        targetSdkVersion 28
+        
+        namespace "com.google.android.material"
+        minSdk 26
+        targetSdk 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard.txt'), 'proguard-rules.pro'
+        }
+    }
+    
+    compileOptions {
+		sourceCompatibility JavaVersion.VERSION_11
+		targetCompatibility JavaVersion.VERSION_11
+	}
+	
+	buildFeatures {
+        viewBinding false
+    }
+}
+
+dependencies {
+	api fileTree(dir: 'libs', include: ['*.jar'])
+	// api 'androidx.activity:activity:aar:1.8.0'
+	// api 'androidx.annotation:annotation-experimental:aar:1.3.0'
+	// api 'androidx.annotation:annotation-jvm:jar:1.7.1'
+	// api 'androidx.annotation:annotation:jar:1.7.1'
+	// api 'androidx.appcompat:appcompat-resources:aar:1.6.1'
+	// api 'androidx.appcompat:appcompat:aar:1.6.1'
+	// api 'androidx.arch.core:core-common:jar:2.2.0'
+	// api 'androidx.arch.core:core-runtime:aar:2.2.0'
+	// api 'androidx.cardview:cardview:aar:1.0.0'
+	// api 'androidx.collection:collection-jvm:jar:1.4.0'
+	// api 'androidx.collection:collection:jar:1.4.0'
+	// api 'androidx.concurrent:concurrent-futures:jar:1.1.0'
+	// api 'androidx.constraintlayout:constraintlayout-solver:jar:2.0.1'
+	// api 'androidx.constraintlayout:constraintlayout:aar:2.0.1'
+	// api 'androidx.coordinatorlayout:coordinatorlayout:aar:1.1.0'
+	// api 'androidx.core:core-ktx:aar:1.8.0'
+	// api 'androidx.core:core:aar:1.9.0'
+	// api 'androidx.cursoradapter:cursoradapter:aar:1.0.0'
+	// api 'androidx.customview:customview:aar:1.1.0'
+	// api 'androidx.documentfile:documentfile:aar:1.0.0'
+	// api 'androidx.drawerlayout:drawerlayout:aar:1.1.1'
+	// api 'androidx.dynamicanimation:dynamicanimation:aar:1.0.0'
+	// api 'androidx.emoji2:emoji2-views-helper:aar:1.2.0'
+	// api 'androidx.emoji2:emoji2:aar:1.2.0'
+	// api 'androidx.fragment:fragment:aar:1.3.6'
+	// api 'androidx.interpolator:interpolator:aar:1.0.0'
+	// api 'androidx.legacy:legacy-support-core-utils:aar:1.0.0'
+	// api 'androidx.lifecycle:lifecycle-common:jar:2.6.1'
+	// api 'androidx.lifecycle:lifecycle-livedata-core:aar:2.6.1'
+	// api 'androidx.lifecycle:lifecycle-livedata:aar:2.0.0'
+	// api 'androidx.lifecycle:lifecycle-process:aar:2.4.1'
+	// api 'androidx.lifecycle:lifecycle-runtime:aar:2.6.1'
+	// api 'androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.6.1'
+	// api 'androidx.lifecycle:lifecycle-viewmodel:aar:2.6.1'
+	// api 'androidx.loader:loader:aar:1.0.0'
+	// api 'androidx.localbroadcastmanager:localbroadcastmanager:aar:1.0.0'
+	// api 'androidx.print:print:aar:1.0.0'
+	// api 'androidx.profileinstaller:profileinstaller:aar:1.3.0'
+	// api 'androidx.recyclerview:recyclerview:aar:1.1.0'
+	// api 'androidx.resourceinspection:resourceinspection-annotation:jar:1.0.1'
+	// api 'androidx.savedstate:savedstate:aar:1.2.1'
+	// api 'androidx.startup:startup-runtime:aar:1.1.1'
+	// api 'androidx.tracing:tracing:aar:1.0.0'
+	// api 'androidx.transition:transition:aar:1.2.0'
+	// api 'androidx.vectordrawable:vectordrawable-animated:aar:1.1.0'
+	// api 'androidx.vectordrawable:vectordrawable:aar:1.1.0'
+	// api 'androidx.versionedparcelable:versionedparcelable:aar:1.1.1'
+	// api 'androidx.viewpager2:viewpager2:aar:1.0.0'
+	// api 'androidx.viewpager:viewpager:aar:1.0.0'
+	// api 'com.google.android.material:material:aar:1.11.0'
+	// api 'com.google.code.gson:gson:jar:2.9.1'
+	// api 'com.google.errorprone:error_prone_annotations:jar:2.15.0'
+	// api 'com.google.guava:listenablefuture:jar:1.0'
+	// api 'com.itsaky.androidide.treesitter:android-tree-sitter:aar:4.0.1'
+	// api 'com.itsaky.androidide.treesitter:annotations:jar:4.0.1'
+	// api 'io.github.Rosemoe.sora-editor:editor-lsp:aar:0.23.2'
+	// api 'io.github.Rosemoe.sora-editor:editor:aar:0.23.2'
+	// api 'io.github.Rosemoe.sora-editor:language-java:aar:0.23.2'
+	// api 'io.github.Rosemoe.sora-editor:language-treesitter:aar:0.23.2'
+	// api 'org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc:jar:0.21.2'
+	// api 'org.eclipse.lsp4j:org.eclipse.lsp4j:jar:0.21.2'
+	// api 'org.jetbrains.kotlin:kotlin-stdlib-common:jar:1.8.20'
+	// api 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:jar:1.8.20'
+	// api 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:jar:1.8.20'
+	// api 'org.jetbrains.kotlin:kotlin-stdlib:jar:1.9.22'
+	// api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:jar:1.7.3'
+	// api 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:jar:1.7.3'
+	// api 'org.jetbrains:annotations:jar:23.0.0'
+}

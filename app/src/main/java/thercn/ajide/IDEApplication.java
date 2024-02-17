@@ -43,6 +43,7 @@ public class IDEApplication extends Application {
 
     private static Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
 	public static Application context;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -143,10 +144,16 @@ public class IDEApplication extends Application {
             @Override
             public void run() {
                 while (isRunning.get()) {
+					
                     try {
                         Looper.loop();
                     } catch (final Throwable e) {
-                        Log.e("AJIDE",Log.getStackTraceString(e));
+                        Log.e("APP", Log.getStackTraceString(e));
+						if (e.getCause() != null) {
+							for (StackTraceElement i : e.getCause().getStackTrace()) {
+								Log.e("APP1", i.toString());
+							}
+						}
                         if (isRunning.get()) {
                             MAIN_HANDLER.post(new Runnable(){
 

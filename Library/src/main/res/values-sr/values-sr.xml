@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+
+    <string name="abc_action_bar_home_description" msgid="5976598919945601918">"Идите на почетну"</string>
+    <string name="abc_action_bar_up_description" msgid="8388173803310557296">"Идите нагоре"</string>
+    <string name="abc_action_menu_overflow_description" msgid="3937310113216875497">"Још опција"</string>
+    <string name="abc_action_mode_done" msgid="4692188335987374352">"Готово"</string>
+    <string name="abc_activity_chooser_view_see_all" msgid="1189761859438369441">"Прикажи све"</string>
+    <string name="abc_activitychooserview_choose_application" msgid="2165779757652331008">"Изаберите апликацију"</string>
+    <string name="abc_capital_off" msgid="4215997306490295099">"ИСКЉУЧЕНО"</string>
+    <string name="abc_capital_on" msgid="884982626291842264">"УКЉУЧЕНО"</string>
+    <string name="abc_menu_alt_shortcut_label" msgid="8833365367933412986">"Alt+"</string>
+    <string name="abc_menu_ctrl_shortcut_label" msgid="2223301931652355242">"Ctrl+"</string>
+    <string name="abc_menu_delete_shortcut_label" msgid="838001238306846836">"delete"</string>
+    <string name="abc_menu_enter_shortcut_label" msgid="7986526966204849475">"enter"</string>
+    <string name="abc_menu_function_shortcut_label" msgid="375214403600139847">"Function+"</string>
+    <string name="abc_menu_meta_shortcut_label" msgid="4192209724446364286">"Meta+"</string>
+    <string name="abc_menu_shift_shortcut_label" msgid="4741552369836443843">"Shift+"</string>
+    <string name="abc_menu_space_shortcut_label" msgid="5473865519181928982">"тастер за размак"</string>
+    <string name="abc_menu_sym_shortcut_label" msgid="6180552449598693998">"Sym+"</string>
+    <string name="abc_prepend_shortcut_label" msgid="5520303668377388990">"Menu+"</string>
+    <string name="abc_search_hint" msgid="7208076849092622260">"Претражите…"</string>
+    <string name="abc_searchview_description_clear" msgid="3741173234950517107">"Обришите упит"</string>
+    <string name="abc_searchview_description_query" msgid="693312494995508443">"Претражите упит"</string>
+    <string name="abc_searchview_description_search" msgid="3417662926640357176">"Претражите"</string>
+    <string name="abc_searchview_description_submit" msgid="1486535517437947103">"Пошаљите упит"</string>
+    <string name="abc_searchview_description_voice" msgid="2293578557972875415">"Гласовна претрага"</string>
+    <string name="abc_shareactionprovider_share_with" msgid="8875138169939072951">"Делите помоћу"</string>
+    <string name="abc_shareactionprovider_share_with_application" msgid="9055268688411532828">"Делите помоћу апликације <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string name="abc_toolbar_collapse_description" msgid="1656852541809559762">"Скупи"</string>
+    <string name="search_menu_title" msgid="6264217191555673260">"Претражите"</string>
+    <string name="status_bar_notification_info_overflow" msgid="6277540029070332960">"999+"</string>
+
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d ново обавештење</item>
+        <item quantity="few">%d нова обавештења</item>
+        <item quantity="other">%d нових обавештења</item>
+    </plurals>
+
+    <string name="bottomsheet_action_collapse">Скупите доњу табелу</string>
+    <string name="bottomsheet_action_expand">Проширите доњу табелу</string>
+    <string name="bottomsheet_action_expand_halfway">Проширите до пола</string>
+    <string name="bottomsheet_drag_handle_clicked">Идентификатор за превлачење је двапут додирнут</string>
+    <string name="bottomsheet_drag_handle_content_description">Ручица за превлачење</string>
+    <string name="character_counter_content_description">Унети знакови: %1$d од %2$d</string>
+    <string name="character_counter_overflowed_content_description">Прекорачено је ограничење броја знакова: %1$d од %2$d</string>
+    <string name="clear_text_end_icon_content_description">Обриши текст</string>
+    <string name="error_icon_content_description">Грешка</string>
+    <string name="exposed_dropdown_menu_content_description">Прикажи падајући мени</string>
+    <string name="icon_content_description">Икона дијалога</string>
+    <string name="item_view_role_description">Картица</string>
+    <string name="material_clock_toggle_content_description">Изаберите пре подне или по подне</string>
+    <string name="material_hour_24h_suffix">%1$s с</string>
+    <string name="material_hour_selection">Изаберите сат</string>
+    <string name="material_hour_suffix">%1$s с</string>
+    <string name="material_minute_selection">Изаберите минуте</string>
+    <string name="material_minute_suffix">%1$s мин</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Пређите у режим сата ради уноса времена.</string>
+    <string name="material_timepicker_hour">Сат</string>
+    <string name="material_timepicker_minute">Минут</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Изаберите време</string>
+    <string name="material_timepicker_text_input_mode_description">Пређите у режим уноса текста ради уноса времена.</string>
+    <string name="mtrl_badge_numberless_content_description">Ново обавештење</string>
+    <string name="mtrl_chip_close_icon_content_description">Уклоните %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns1:ignore="PluralsCandidate">Нових обавештења: више од %1$d</string>
+    <string name="mtrl_picker_a11y_next_month">Пређите на следећи месец</string>
+    <string name="mtrl_picker_a11y_prev_month">Пређите на претходни месец</string>
+    <string name="mtrl_picker_announce_current_range_selection">Избор датума почетка: %1$s – Избор датума завршетка: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Актуелни избор: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">ништа</string>
+    <string name="mtrl_picker_cancel">Откажи</string>
+    <string name="mtrl_picker_confirm">Потврди</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Изаберите датум</string>
+    <string name="mtrl_picker_date_header_unselected">Изабрани датум</string>
+    <string name="mtrl_picker_day_of_week_column_header">Колона са данима: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Датум завршетка %1$s</string>
+    <string name="mtrl_picker_invalid_format">Формат је неважећи.</string>
+    <string name="mtrl_picker_invalid_format_example">Пример: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Користите: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Неважећи период.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Идите на актуелну годину %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Идите на годину %1$d</string>
+    <string name="mtrl_picker_out_of_range">Изван периода: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Датум почетка – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Датум завршетка</string>
+    <string name="mtrl_picker_range_header_selected">%1$s–%2$s</string>
+    <string name="mtrl_picker_range_header_title">Изаберите период</string>
+    <string name="mtrl_picker_range_header_unselected">Датум почетка – Датум завршетка</string>
+    <string name="mtrl_picker_save">Сачувај</string>
+    <string name="mtrl_picker_start_date_description">Датум почетка %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Датум</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Датум завршетка</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Датум почетка</string>
+    <string name="mtrl_picker_text_input_day_abbr">д</string>
+    <string name="mtrl_picker_text_input_month_abbr">м</string>
+    <string name="mtrl_picker_text_input_year_abbr">г</string>
+    <string name="mtrl_picker_today_description">Данас %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Пређите на режим уноса у Календару</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Додирните да бисте прешли на приказ календара</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Пређите на режим уноса текста</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Додирните да бисте прешли на приказ године</string>
+    <string name="mtrl_timepicker_cancel">Откажи</string>
+    <string name="mtrl_timepicker_confirm">Потврди</string>
+    <string name="password_toggle_content_description">Прикажи лозинку</string>
+
+</resources>

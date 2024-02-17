@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+
+    <string name="abc_action_bar_home_description" msgid="5976598919945601918">"Boshiga o‘tish"</string>
+    <string name="abc_action_bar_up_description" msgid="8388173803310557296">"Yopish"</string>
+    <string name="abc_action_menu_overflow_description" msgid="3937310113216875497">"Yana"</string>
+    <string name="abc_action_mode_done" msgid="4692188335987374352">"OK"</string>
+    <string name="abc_activity_chooser_view_see_all" msgid="1189761859438369441">"Hammasi"</string>
+    <string name="abc_activitychooserview_choose_application" msgid="2165779757652331008">"Ilovani tanlang"</string>
+    <string name="abc_capital_off" msgid="4215997306490295099">"YOQILMAGAN"</string>
+    <string name="abc_capital_on" msgid="884982626291842264">"YONIQ"</string>
+    <string name="abc_menu_alt_shortcut_label" msgid="8833365367933412986">"Alt+"</string>
+    <string name="abc_menu_ctrl_shortcut_label" msgid="2223301931652355242">"Ctrl+"</string>
+    <string name="abc_menu_delete_shortcut_label" msgid="838001238306846836">"Delete"</string>
+    <string name="abc_menu_enter_shortcut_label" msgid="7986526966204849475">"Enter"</string>
+    <string name="abc_menu_function_shortcut_label" msgid="375214403600139847">"Fn+"</string>
+    <string name="abc_menu_meta_shortcut_label" msgid="4192209724446364286">"Meta+"</string>
+    <string name="abc_menu_shift_shortcut_label" msgid="4741552369836443843">"Shift+"</string>
+    <string name="abc_menu_space_shortcut_label" msgid="5473865519181928982">"Probel"</string>
+    <string name="abc_menu_sym_shortcut_label" msgid="6180552449598693998">"Sym+"</string>
+    <string name="abc_prepend_shortcut_label" msgid="5520303668377388990">"Menyu+"</string>
+    <string name="abc_search_hint" msgid="7208076849092622260">"Qidirish…"</string>
+    <string name="abc_searchview_description_clear" msgid="3741173234950517107">"So‘rovni o‘chirish"</string>
+    <string name="abc_searchview_description_query" msgid="693312494995508443">"Qidiruv so‘rovi"</string>
+    <string name="abc_searchview_description_search" msgid="3417662926640357176">"Qidiruv"</string>
+    <string name="abc_searchview_description_submit" msgid="1486535517437947103">"So‘rov yaratish"</string>
+    <string name="abc_searchview_description_voice" msgid="2293578557972875415">"Ovozli qidiruv"</string>
+    <string name="abc_shareactionprovider_share_with" msgid="8875138169939072951">"Ulashish"</string>
+    <string name="abc_shareactionprovider_share_with_application" msgid="9055268688411532828">"<ns1:g id="APPLICATION_NAME">%s</ns1:g> orqali ulashish"</string>
+    <string name="abc_toolbar_collapse_description" msgid="1656852541809559762">"Yig‘ish"</string>
+    <string name="search_menu_title" msgid="6264217191555673260">"Qidiruv"</string>
+    <string name="status_bar_notification_info_overflow" msgid="6277540029070332960">"999+"</string>
+
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d ta yangi bildirishnoma</item>
+        <item quantity="other">%d ta yangi bildirishnoma</item>
+    </plurals>
+
+    <string name="bottomsheet_action_collapse">Quyi ekranni yigʻish</string>
+    <string name="bottomsheet_action_expand">Quyi ekranni kengaytirish</string>
+    <string name="bottomsheet_action_expand_halfway">Yarmiga kengaytirish</string>
+    <string name="bottomsheet_drag_handle_clicked">Surish dastagi ikki marta bosildi</string>
+    <string name="bottomsheet_drag_handle_content_description">Surish dastagi</string>
+    <string name="character_counter_content_description">%1$d/%2$d ta belgi kiritildi</string>
+    <string name="character_counter_overflowed_content_description">Harflar soni (%1$d) cheklovdan (%2$d) oshib ketdi</string>
+    <string name="clear_text_end_icon_content_description">Matnni tozalash</string>
+    <string name="error_icon_content_description">Xato</string>
+    <string name="exposed_dropdown_menu_content_description">Pastga ochiluvchi menyuni ochish</string>
+    <string name="icon_content_description">Muloqot ikonkasi</string>
+    <string name="item_view_role_description">Tab : Varaq</string>
+    <string name="material_clock_toggle_content_description">Tushdan oldin yoki keyinligini tanlang</string>
+    <string name="material_hour_24h_suffix">%1$s soat</string>
+    <string name="material_hour_selection">Soatni tanlang</string>
+    <string name="material_hour_suffix">%1$s soat</string>
+    <string name="material_minute_selection">Daqiqalarni tanlash</string>
+    <string name="material_minute_suffix">%1$s daqiqa</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Vaqtni kiritish uchun soat rejimiga o‘ting.</string>
+    <string name="material_timepicker_hour">Soat</string>
+    <string name="material_timepicker_minute">Daqiqa</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Vaqtni tanlang</string>
+    <string name="material_timepicker_text_input_mode_description">Vaqtni kiritish uchun matn kiritish rejimiga o‘ting.</string>
+    <string name="mtrl_badge_numberless_content_description">Yangi bildirishnoma</string>
+    <string name="mtrl_chip_close_icon_content_description">Olib tashlash: %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns1:ignore="PluralsCandidate">Yana %1$d dan ortiq bildirishnoma</string>
+    <string name="mtrl_picker_a11y_next_month">Keyingi oyga oʻzgartirish</string>
+    <string name="mtrl_picker_a11y_prev_month">Avvalgi oyga oʻzgartirish</string>
+    <string name="mtrl_picker_announce_current_range_selection">Boshlanish sanasini tanlash: %1$s – Tugash sanasini tanlash: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Joriy tanlov: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">hech qanday</string>
+    <string name="mtrl_picker_cancel">Bekor qilish</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Sanani tanlang</string>
+    <string name="mtrl_picker_date_header_unselected">Tanlangan sana</string>
+    <string name="mtrl_picker_day_of_week_column_header">Kunlar ustuni: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Tugash sanasi: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Yaroqsiz format.</string>
+    <string name="mtrl_picker_invalid_format_example">Masalan: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Ishlatish: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Yaroqsiz oraliq.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Joriy yilga oʻtish %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Yilga nazar solish: %1$d</string>
+    <string name="mtrl_picker_out_of_range">Chegaradan tashqari: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Boshlanish sanasi – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Tugash sanasi</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Oraliqni tanlang</string>
+    <string name="mtrl_picker_range_header_unselected">Boshlanishi – Tugashi</string>
+    <string name="mtrl_picker_save">Saqlash</string>
+    <string name="mtrl_picker_start_date_description">Boshlanish sanasi: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Sana</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Tugash sanasi</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Boshlanish sanasi</string>
+    <string name="mtrl_picker_text_input_day_abbr">k</string>
+    <string name="mtrl_picker_text_input_month_abbr">o</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_today_description">Bugun %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Taqvim kiritish rejimiga oʻtish</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Taqvim shaklida koʻrish uchun bosing</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Matn kiritish rejimiga oʻtish</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Yillik shaklda koʻrish uchun bosing</string>
+    <string name="mtrl_timepicker_cancel">Bekor qilish</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string name="password_toggle_content_description">Parol ochiq tursin</string>
+
+</resources>

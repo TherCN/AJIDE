@@ -2,17 +2,15 @@ package thercn.ajide;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RadioGroup.LayoutParams;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,18 +34,15 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import thercn.ajide.R;
 import thercn.ajide.activities.IDEActivity;
+import thercn.ajide.activities.ProjectActivity;
 import thercn.ajide.adapter.FileAdapter;
 import thercn.ajide.adapter.FileEditAdapter;
 import thercn.ajide.project.AndroidProject;
 import thercn.ajide.project.compiler.JCCompiler;
 import thercn.ajide.utils.APPUtils;
+import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.IDECodeEditor;
-import thercn.ajide.utils.Permission;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.ItemTouchUIUtil;
-import androidx.recyclerview.widget.ItemTouchUIUtilImpl;
-import thercn.ajide.activities.ProjectActivity;
 
 public class Layout {
 
@@ -64,25 +59,21 @@ public class Layout {
 	FloatingActionButton fab;
 	SharedPreferences sharedPreferences;
 	ActionBar abar;
-	List<View> widgets;
 	boolean isInitDone;
 	boolean fileManagerInited;
 
     public Layout(IDEActivity activity) {
 		this.activity = activity;
-		widgets = new ArrayList<>();
 	}
 
 	public void init() {
-
+		
 		toolbar = activity.findViewById(R.id.toolbar);
 		toolbar.setTitle(R.string.app_name);
-		widgets.add(toolbar);
+		
 		activity.setSupportActionBar(toolbar);
 		abar = activity.getSupportActionBar();
 		viewPager = activity.findViewById(R.id.view_pager);
-
-		widgets.add(viewPager);
 
 		fileList = activity.findViewById(R.id.filelist1);
 		drawerLayout = activity.findViewById(R.id.drawerlayout);
@@ -96,15 +87,10 @@ public class Layout {
 		fileTabs = activity.findViewById(R.id.tabs);
 		fileTabs.setVisibility(View.GONE);
 
-		widgets.add(drawerLayout);
-		widgets.add(fileList);
-
 		adapter = new FileEditAdapter();
 		viewPager.setAdapter(adapter);
 
 		fileNotOpened = activity.findViewById(R.id.noOpenFile);
-		
-		//fab.setImageResource(R.drawable.project_new);
 		sharedPreferences = activity.getSharedPreferences("openedFiles", Context.MODE_PRIVATE);
 		String files = sharedPreferences.getString("files", "");
 		if (!sharedPreferences.getString("files", "").isEmpty()) {
@@ -126,23 +112,9 @@ public class Layout {
 					selectTab(t);
 				}
 			});
-
-
-		//headerList = activity.findViewById(R.id.headerList);
-
-		new Handler(Looper.getMainLooper()).postDelayed(new Runnable(){
-
-				@Override
-				public void run() {
-					if (openedFiles.size() > 0) {
-						activity.enableMenu();
-					}
-				}
-			}, 1000);
 	}
 
 	public void inflateFileList(String path) {
-
 		List<File> newFiles = new ArrayList<File>();
 		if (Permission.isPermissionGranted(activity)) {
 			newFiles.add(new File(path).getParentFile());
@@ -161,10 +133,6 @@ public class Layout {
 		}
 	}
 
-	public void onResume() {
-		
-	}
-
 	public IDECodeEditor getCodeEditor() {
 		if (viewPager.getChildCount() > 0) {
 			return adapter.getCurrentEditor(viewPager.getCurrentItem());
@@ -178,10 +146,6 @@ public class Layout {
 
 	public List<String> getOpenedFiles() {
 		return openedFiles;
-	}
-
-	public List<View> getAllWidgets() {
-		return widgets;
 	}
 
 	public static IDEActivity getMainActivity() {
@@ -199,6 +163,7 @@ public class Layout {
 			}
 			return;
 		}
+		
 		SharedPreferences.Editor speditor = sharedPreferences.edit();
 		if (!sharedPreferences.getString("files", "").contains(file + ";")) {
 			speditor.putString("files", file + ";" + sharedPreferences.getString("files", ""));
@@ -213,9 +178,7 @@ public class Layout {
 			fileNotOpened.setVisibility(View.GONE);
 			fileTabs.setVisibility(View.VISIBLE);
 		}
-		
-		activity.enableMenu();
-		
+
 		fileTabs.addTab(fileTabs.newTab());
 		openedFiles.add(file);
 		final IDECodeEditor editor = new IDECodeEditor(activity);
@@ -249,8 +212,8 @@ public class Layout {
 		} catch (IOException e) {
 			TLog.e(e);
 		}
+		
 		adapter.addView(editor);
-
 	}
 
 	public void compile(DiagnosticsContainer con, List<String> args, IDECodeEditor editor) {
@@ -288,7 +251,6 @@ public class Layout {
 		Log.e("关闭", file);
 		//Log.e("当前", getCodeEditor().getCurrentFile());
 		if (getCodeEditor().getCurrentFile().equals(file)) {
-
 			if (sharedPreferences.getString("files", "").contains(file)) {
 				speditor.putString("files", sharedPreferences.getString("files", "").replace(file + ";", ""));
 				speditor.commit();

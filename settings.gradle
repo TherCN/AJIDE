@@ -8,4 +8,5 @@ pluginManagement {
 rootProject.name = "Android-Java-IDE"
 
 include(":app")
-//include(":sora-editor")
+include(":Library")
+

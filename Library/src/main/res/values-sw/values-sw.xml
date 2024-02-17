@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+
+    <string name="abc_action_bar_home_description" msgid="5976598919945601918">"Nenda mwanzo"</string>
+    <string name="abc_action_bar_up_description" msgid="8388173803310557296">"Sogeza juu"</string>
+    <string name="abc_action_menu_overflow_description" msgid="3937310113216875497">"Chaguo zaidi"</string>
+    <string name="abc_action_mode_done" msgid="4692188335987374352">"Nimemaliza"</string>
+    <string name="abc_activity_chooser_view_see_all" msgid="1189761859438369441">"Angalia zote"</string>
+    <string name="abc_activitychooserview_choose_application" msgid="2165779757652331008">"Chagua programu"</string>
+    <string name="abc_capital_off" msgid="4215997306490295099">"IMEZIMWA"</string>
+    <string name="abc_capital_on" msgid="884982626291842264">"IMEWASHWA"</string>
+    <string name="abc_menu_alt_shortcut_label" msgid="8833365367933412986">"Alt+"</string>
+    <string name="abc_menu_ctrl_shortcut_label" msgid="2223301931652355242">"Ctrl+"</string>
+    <string name="abc_menu_delete_shortcut_label" msgid="838001238306846836">"delete"</string>
+    <string name="abc_menu_enter_shortcut_label" msgid="7986526966204849475">"enter"</string>
+    <string name="abc_menu_function_shortcut_label" msgid="375214403600139847">"Function+"</string>
+    <string name="abc_menu_meta_shortcut_label" msgid="4192209724446364286">"Meta+"</string>
+    <string name="abc_menu_shift_shortcut_label" msgid="4741552369836443843">"Shift+"</string>
+    <string name="abc_menu_space_shortcut_label" msgid="5473865519181928982">"space"</string>
+    <string name="abc_menu_sym_shortcut_label" msgid="6180552449598693998">"Sym+"</string>
+    <string name="abc_prepend_shortcut_label" msgid="5520303668377388990">"Menu+"</string>
+    <string name="abc_search_hint" msgid="7208076849092622260">"Tafuta…"</string>
+    <string name="abc_searchview_description_clear" msgid="3741173234950517107">"Futa hoja"</string>
+    <string name="abc_searchview_description_query" msgid="693312494995508443">"Hoja ya utafutaji"</string>
+    <string name="abc_searchview_description_search" msgid="3417662926640357176">"Tafuta"</string>
+    <string name="abc_searchview_description_submit" msgid="1486535517437947103">"Wasilisha hoja"</string>
+    <string name="abc_searchview_description_voice" msgid="2293578557972875415">"Kutafuta kwa kutamka"</string>
+    <string name="abc_shareactionprovider_share_with" msgid="8875138169939072951">"Shiriki na"</string>
+    <string name="abc_shareactionprovider_share_with_application" msgid="9055268688411532828">"Shiriki ukitumia <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string name="abc_toolbar_collapse_description" msgid="1656852541809559762">"Kunja"</string>
+    <string name="search_menu_title" msgid="6264217191555673260">"Tafuta"</string>
+    <string name="status_bar_notification_info_overflow" msgid="6277540029070332960">"999+"</string>
+
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">Arifa %d mpya</item>
+        <item quantity="other">Arifa %d mpya</item>
+    </plurals>
+
+    <string name="bottomsheet_action_collapse">Kunja safu ya chini</string>
+    <string name="bottomsheet_action_expand">Panua safu ya chini</string>
+    <string name="bottomsheet_action_expand_halfway">Panua nusu</string>
+    <string name="bottomsheet_drag_handle_clicked">Aikoni ya buruta imeguswa mara mbili</string>
+    <string name="bottomsheet_drag_handle_content_description">Aikoni ya buruta</string>
+    <string name="character_counter_content_description">Umeweka herufi %1$d kati ya %2$d</string>
+    <string name="character_counter_overflowed_content_description">Umepitisha idadi ya juu ya herufi %1$d kati ya %2$d</string>
+    <string name="clear_text_end_icon_content_description">Futa maandishi</string>
+    <string name="error_icon_content_description">Hitilafu</string>
+    <string name="exposed_dropdown_menu_content_description">Onyesha menyu kunjuzi</string>
+    <string name="icon_content_description">Aikoni ya Kidirisha</string>
+    <string name="item_view_role_description">Kichupo</string>
+    <string name="material_clock_toggle_content_description">Chagua AM au PM</string>
+    <string name="material_hour_24h_suffix">Saa %1$s</string>
+    <string name="material_hour_selection">Chagua saa</string>
+    <string name="material_hour_suffix">Saa %1$s kamili</string>
+    <string name="material_minute_selection">Chagua dakika</string>
+    <string name="material_minute_suffix">Dakika %1$s</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Badilisha umbo liwe la saa ya mishale wakati wa kuweka muda.</string>
+    <string name="material_timepicker_hour">Saa</string>
+    <string name="material_timepicker_minute">Dakika</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Chagua wakati</string>
+    <string name="material_timepicker_text_input_mode_description">Badilisha iwe katika hali ya maandishi wakati wa kuweka muda.</string>
+    <string name="mtrl_badge_numberless_content_description">Arifa mpya</string>
+    <string name="mtrl_chip_close_icon_content_description">Ondoa %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns1:ignore="PluralsCandidate">Zaidi ya arifa %1$d mpya</string>
+    <string name="mtrl_picker_a11y_next_month">Nenda kwenye mwezi unaofuata</string>
+    <string name="mtrl_picker_a11y_prev_month">Rudi kwenye mwezi uliotangulia</string>
+    <string name="mtrl_picker_announce_current_range_selection">Uteuzi wa tarehe ya kuanza: %1$s - Uteuzi wa tarehe ya mwisho: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Uteuzi wa sasa: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">hakuna</string>
+    <string name="mtrl_picker_cancel">Ghairi</string>
+    <string name="mtrl_picker_confirm">Sawa</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Chagua Tarehe</string>
+    <string name="mtrl_picker_date_header_unselected">Tarehe uliyochagua</string>
+    <string name="mtrl_picker_day_of_week_column_header">Safu wima ya siku: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Tarehe ya kumaliza %1$s</string>
+    <string name="mtrl_picker_invalid_format">Muundo si sahihi</string>
+    <string name="mtrl_picker_invalid_format_example">Mfano: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Tumia: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Kipindi si sahihi.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Sogeza kwenye mwaka huu %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Sogeza kwenye mwaka wa %1$d</string>
+    <string name="mtrl_picker_out_of_range">Nje ya kipindi: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Tarehe ya kuanza – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Tarehe ya mwisho</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Chagua Kipindi cha Tarehe</string>
+    <string name="mtrl_picker_range_header_unselected">Tarehe ya kuanza – Tarehe ya mwisho</string>
+    <string name="mtrl_picker_save">Hifadhi</string>
+    <string name="mtrl_picker_start_date_description">Tarehe ya kuanza %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Tarehe</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Tarehe ya mwisho</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Tarehe ya kuanza</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_today_description">Leo %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Tumia programu ya kuingiza data kwenye kalenda</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Gusa ili ubadilishe kwenda mwonekano wa Kalenda</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Tumia programu ya kuingiza data ya maandishi</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Gusa ili ubadilishe kwenda mwonekano wa mwaka</string>
+    <string name="mtrl_timepicker_cancel">Ghairi</string>
+    <string name="mtrl_timepicker_confirm">Sawa</string>
+    <string name="password_toggle_content_description">Onyesha nenosiri</string>
+
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+
+    <string name="abc_action_bar_home_description" msgid="5976598919945601918">"Orientohu për në shtëpi"</string>
+    <string name="abc_action_bar_up_description" msgid="8388173803310557296">"Ngjitu lart"</string>
+    <string name="abc_action_menu_overflow_description" msgid="3937310113216875497">"Opsione të tjera"</string>
+    <string name="abc_action_mode_done" msgid="4692188335987374352">"U krye"</string>
+    <string name="abc_activity_chooser_view_see_all" msgid="1189761859438369441">"Shfaq çdo gjë"</string>
+    <string name="abc_activitychooserview_choose_application" msgid="2165779757652331008">"Zgjidh një aplikacion"</string>
+    <string name="abc_capital_off" msgid="4215997306490295099">"JOAKTIV"</string>
+    <string name="abc_capital_on" msgid="884982626291842264">"AKTIV"</string>
+    <string name="abc_menu_alt_shortcut_label" msgid="8833365367933412986">"Alt+"</string>
+    <string name="abc_menu_ctrl_shortcut_label" msgid="2223301931652355242">"Ctrl+"</string>
+    <string name="abc_menu_delete_shortcut_label" msgid="838001238306846836">"delete"</string>
+    <string name="abc_menu_enter_shortcut_label" msgid="7986526966204849475">"enter"</string>
+    <string name="abc_menu_function_shortcut_label" msgid="375214403600139847">"Funksioni+"</string>
+    <string name="abc_menu_meta_shortcut_label" msgid="4192209724446364286">"Meta+"</string>
+    <string name="abc_menu_shift_shortcut_label" msgid="4741552369836443843">"Shift+"</string>
+    <string name="abc_menu_space_shortcut_label" msgid="5473865519181928982">"hapësirë"</string>
+    <string name="abc_menu_sym_shortcut_label" msgid="6180552449598693998">"Sym+"</string>
+    <string name="abc_prepend_shortcut_label" msgid="5520303668377388990">"Menyja+"</string>
+    <string name="abc_search_hint" msgid="7208076849092622260">"Kërko…"</string>
+    <string name="abc_searchview_description_clear" msgid="3741173234950517107">"Pastro pyetjen"</string>
+    <string name="abc_searchview_description_query" msgid="693312494995508443">"Kërko pyetjen"</string>
+    <string name="abc_searchview_description_search" msgid="3417662926640357176">"Kërko"</string>
+    <string name="abc_searchview_description_submit" msgid="1486535517437947103">"Dërgo pyetjen"</string>
+    <string name="abc_searchview_description_voice" msgid="2293578557972875415">"Kërkim me zë"</string>
+    <string name="abc_shareactionprovider_share_with" msgid="8875138169939072951">"Ndaje me"</string>
+    <string name="abc_shareactionprovider_share_with_application" msgid="9055268688411532828">"Ndaje me <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string name="abc_toolbar_collapse_description" msgid="1656852541809559762">"Palos"</string>
+    <string name="search_menu_title" msgid="6264217191555673260">"Kërko"</string>
+    <string name="status_bar_notification_info_overflow" msgid="6277540029070332960">"999+"</string>
+
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d njoftim i ri</item>
+        <item quantity="other">%d njoftime të reja</item>
+    </plurals>
+
+    <string name="bottomsheet_action_collapse">Palos fletën e poshtme</string>
+    <string name="bottomsheet_action_expand">Zgjero fletën e poshtme</string>
+    <string name="bottomsheet_action_expand_halfway">Zgjeroje deri në gjysmë</string>
+    <string name="bottomsheet_drag_handle_clicked">Te doreza e zvarritjes u trokit dy herë</string>
+    <string name="bottomsheet_drag_handle_content_description">Doreza e zvarritjes</string>
+    <string name="character_counter_content_description">Karakteret e futura: %1$d nga %2$d</string>
+    <string name="character_counter_overflowed_content_description">Kufiri i karaktereve është kaluar: %1$d nga %2$d</string>
+    <string name="clear_text_end_icon_content_description">Pastro tekstin</string>
+    <string name="error_icon_content_description">Gabim</string>
+    <string name="exposed_dropdown_menu_content_description">Shfaq menynë me lëshim poshtë</string>
+    <string name="icon_content_description">Ikona e dialogut</string>
+    <string name="item_view_role_description">Tab</string>
+    <string name="material_clock_toggle_content_description">Zgjidh paradite ose pasdite</string>
+    <string name="material_hour_24h_suffix">%1$s orë</string>
+    <string name="material_hour_selection">Zgjidh orën</string>
+    <string name="material_hour_suffix">%1$s fiks</string>
+    <string name="material_minute_selection">Përzgjidh minutat</string>
+    <string name="material_minute_suffix">%1$s minuta</string>
+    <string name="material_timepicker_am">PD</string>
+    <string name="material_timepicker_clock_mode_description">Kalo te modaliteti i orës për hyrjen e kohës.</string>
+    <string name="material_timepicker_hour">Ora</string>
+    <string name="material_timepicker_minute">Minuta</string>
+    <string name="material_timepicker_pm">PD</string>
+    <string name="material_timepicker_select_time">Zgjidh orën</string>
+    <string name="material_timepicker_text_input_mode_description">Kalo te modaliteti i hyrjes së tekstit për hyrjen e kohës.</string>
+    <string name="mtrl_badge_numberless_content_description">Njoftim i ri</string>
+    <string name="mtrl_chip_close_icon_content_description">Hiq %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns1:ignore="PluralsCandidate">Më shumë se %1$d njoftime të reja</string>
+    <string name="mtrl_picker_a11y_next_month">Ndrysho te muaji i ardhshëm</string>
+    <string name="mtrl_picker_a11y_prev_month">Ndrysho te muaji i kaluar</string>
+    <string name="mtrl_picker_announce_current_range_selection">Zgjedhja e datës së fillimit: %1$s - Zgjedhja e datës së përfundimit: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Zgjedhja aktuale: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">asnjë</string>
+    <string name="mtrl_picker_cancel">Anulo</string>
+    <string name="mtrl_picker_confirm">Në rregull</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Zgjidh datën</string>
+    <string name="mtrl_picker_date_header_unselected">Data e zgjedhur</string>
+    <string name="mtrl_picker_day_of_week_column_header">Kolona e ditëve: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Data e mbarimit: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Format i pavlefshëm.</string>
+    <string name="mtrl_picker_invalid_format_example">Shembull: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Përdor: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Gamë e pavlefshme.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Navigo te viti aktual %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Navigo te viti %1$d</string>
+    <string name="mtrl_picker_out_of_range">Jashtë gamës: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Data e fillimit – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – data e përfundimit</string>
+    <string name="mtrl_picker_range_header_selected">%1$s - %2$s</string>
+    <string name="mtrl_picker_range_header_title">Zgjidh gamën</string>
+    <string name="mtrl_picker_range_header_unselected">Data e fillimit - data e përfundimit</string>
+    <string name="mtrl_picker_save">Ruaj</string>
+    <string name="mtrl_picker_start_date_description">Data e fillimit: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Data</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Data e përfundimit</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Data e fillimit</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">v</string>
+    <string name="mtrl_picker_today_description">Sot %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Kalo te modaliteti i \"Hyrjes së kalendarit\"</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Trokit për t\'u kthyer te pamja e \"Kalendarit\"</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Kalo te modaliteti i \"Hyrjes së tekstit\"</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Trokit për t\'u kthyer te pamja vjetore</string>
+    <string name="mtrl_timepicker_cancel">Anulo</string>
+    <string name="mtrl_timepicker_confirm">Në rregull</string>
+    <string name="password_toggle_content_description">Shfaq fjalëkalimin</string>
+
+</resources>
