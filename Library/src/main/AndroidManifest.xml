@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.material" >
+    package="thercn.ajide" >
 
     <uses-sdk android:minSdkVersion="26" />
 
     <permission
-        android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="thercn.ajide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="thercn.ajide.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application android:appComponentFactory="androidx.core.app.CoreComponentFactory" >
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
+            android:authorities="thercn.ajide.androidx-startup"
             android:exported="false"
             tools:node="merge" >
             <meta-data

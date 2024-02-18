@@ -7,3 +7,5 @@
 /app/src/main/libs
 /sora-editor/build
 /*.diff
+/manifest-merger-30.0.1.jar
+/build

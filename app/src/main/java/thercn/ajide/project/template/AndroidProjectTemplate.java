@@ -6,9 +6,8 @@ public enum AndroidProjectTemplate implements ProjectTemplate {
 	StandardAndroidProject(0),
 	StandardAndroidXProject(1);
 	public int templateIndex;
-	public AndroidProjectTemplate(int i) {
+	AndroidProjectTemplate(int i) {
 		templateIndex = i;
 	}
 }
 
-	

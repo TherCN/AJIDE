@@ -6,10 +6,8 @@ public enum JavaProjectTemplate implements ProjectTemplate {
 	JavaConsoleProject(0),
 	JavaGuiProject(1);
 	public int templateIndex;
-	public JavaProjectTemplate(int i) {
+	JavaProjectTemplate(int i) {
 		templateIndex = i;
 	}
 }
-    
-    
 
