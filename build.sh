@@ -1,7 +1,7 @@
 #rm -rf build
 sudo apt install wget p7zip unzip -y
 wget http://dl.google.com/android/repository/build-tools_r34-linux.zip
-wget https://github.com/distriqt/android-manifest-merger/releases/download/v30.0.1/manifest-merger-30.0.1.ja-r
+wget https://github.com/distriqt/android-manifest-merger/releases/download/v30.0.1/manifest-merger-30.0.1.jar
 unzip build-tools_r34-linux.zip
 export PATH=android-14:$PATH
 mkdir build
