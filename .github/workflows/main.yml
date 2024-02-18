@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build with Gradle
+      - name: Build with Script
         run: bash build.sh
 
       - name: Upload Debug apk
