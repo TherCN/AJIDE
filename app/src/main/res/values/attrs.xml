@@ -4,4 +4,5 @@
 	<attr name="ic_run" format="reference"/>
 	<attr name="ic_redo" format="reference"/>
 	<attr name="ic_save" format="reference"/>
+	<attr name="drawer_background_color" format="reference"/>
 </resources>

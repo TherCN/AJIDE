@@ -26,6 +26,13 @@ public class FileOperation {
 		file.delete();
 	}
 	
+	public static void rename(File source, File target) {
+		if (!target.exists()) {
+			target.mkdirs();
+		}
+		source.renameTo(target);
+	}
+	
 	public static void createFile(String filePath) throws IOException {
 		File file = new File(filePath);
 		if (!file.exists()) {

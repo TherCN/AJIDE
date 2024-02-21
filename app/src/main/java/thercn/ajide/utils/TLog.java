@@ -10,21 +10,24 @@ import java.util.Date;
 import java.util.Map;
 public class TLog {
 
-	public static File logFile = new File("/sdcard/AIDELog.txt");
-	public static File soutFile = new File("/sdcard/AIDEsout.txt");
-	public static void initLogFile() {
-		if (!logFile.exists() && !soutFile.exists()) {
+	public static File defaultFile = null;
+	public static void initLogFile(String logFilePath) {
+		if (defaultFile != null) {
+			return;
+		}
+		defaultFile = new File(logFilePath);
+		if (!defaultFile.exists() || !defaultFile.getParentFile().exists()) {
 			try {
-				logFile.createNewFile();
-				soutFile.createNewFile();
+				defaultFile.getParentFile().mkdir();
+				defaultFile.createNewFile();
 			} catch (IOException e) {
 				Log.e("AJIDE", getExceptionInfo(e));
 			}
 		}
+
 	}
 
 	public static String getStackTrace() {
-		//return sb.toString();
 		StringBuilder stackTrace = new StringBuilder();
 		Map<Thread, StackTraceElement[]> map = Thread.getAllStackTraces();
 		for (Thread s: map.keySet()) {
@@ -34,15 +37,15 @@ public class TLog {
 				sb.append(e + "\n");
 			}
 			stackTrace.append(sb.toString() + "\n");
-		}
+        }
 		return stackTrace.toString();
 	}
 
 	public static void printStackTrace() {
-		System.out.println(getStackTrace());
+		i("AJIDE",getStackTrace());
 	}
 
-	public static void d(String tag, Object... info) {
+    public static void d(String tag, Object... info) {
 		writeLog(tag, "DEBUG", info);
 	}
 
@@ -52,13 +55,6 @@ public class TLog {
 
 	public static void e(String tag, Object... info) {
 		writeLog(tag, "ERROR", info);
-	}
-
-	public static void e(String tag, Throwable exception, Object... info) {
-		StringBuilder exceptionInfo = new StringBuilder(info + "\n");
-		exceptionInfo.append(getExceptionInfo(exception));
-
-		writeLog(tag, "ERROR", exceptionInfo);
 	}
 
 	public static void fe(String tag, Object... info) {
@@ -74,7 +70,7 @@ public class TLog {
 	}
 
 	public static String getExceptionInfo(Throwable exception) {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(exception.getMessage() + "\n");
 		for (StackTraceElement e : exception.getStackTrace()) {
 			sb.append(e + "\n");
 		}
@@ -83,24 +79,20 @@ public class TLog {
 				sb.append(e + "\n");
 			}
 		}
-		if (exception.getSuppressed() != null) {
-			Throwable[] th = exception.getSuppressed();
-			for (int i = 0; i < th.length; i++) {
-				for (StackTraceElement e : th[i].getCause().getStackTrace()) {
-					sb.append(e + "\n");
-				}
-			}
-		}
 		return sb.toString();
 	}
 
+    public static void e(String tag, Throwable th) {
+		e("ERROR",getExceptionInfo(th));
+	}
+	
 	public static void e(Throwable th) {
 		e("ERROR", getExceptionInfo(th));
 	}
 
 	private static void writeLog(String tag, String level, Object... info) {
 		try {
-			FileWriter writeLogText = new FileWriter(logFile, true);
+			FileWriter writeLogText = new FileWriter(defaultFile, true);
 			SimpleDateFormat formatter =
 				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = new Date(System.currentTimeMillis());
@@ -114,9 +106,6 @@ public class TLog {
 			Log.e("AIDE X", getExceptionInfo(e));
 		}
 	}
-	
-
-
-
-
 }
+
+

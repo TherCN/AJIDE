@@ -3,6 +3,7 @@ package thercn.ajide.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -27,44 +28,46 @@ import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.CreateProjectView;
 import thercn.ajide.views.DisableScrollViewPager;
+import thercn.ajide.project.AndroidProject;
+import thercn.ajide.project.template.AndroidProjectTemplate;
+import javax.security.auth.PrivateCredentialPermission;
 
 public class ProjectActivity extends AppCompatActivity {
 
 	public static String SDCARD = Environment.getExternalStorageDirectory().toString();
 	public static File appDir = new File(SDCARD + "/AJIDE");
-	
+	RecyclerView projectView;
 	DisableScrollViewPager pager;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_project);
 		Permission.checkPermission(this);
-		if (!Permission.isPermissionGranted(this)) {
-			throw new IllegalAccessError("请同意权限申请！");
+		if (Permission.isPermissionGranted(this)) {
+			initAppDir();
+			TLog.initLogFile(appDir.getAbsolutePath() + "/AJIDE.log");
 		}
-		initAppDir();
-		
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle(R.string.app_name);
-		
-		View main = getLayoutInflater().inflate(R.layout.project_items,null);
-		RecyclerView projectView = main.findViewById(R.id.projectList);
-		projectView.setAdapter(new ProjectItemViewAdapter<String>(this,getProjects()));
-		projectView.setLayoutManager(new GridLayoutManager(this,2));
-		
-		View settings = getLayoutInflater().inflate(R.layout.project_setting,null);
+
+		View main = getLayoutInflater().inflate(R.layout.project_items, null);
+		projectView = main.findViewById(R.id.projectList);
+		projectView.setAdapter(new ProjectItemViewAdapter<String>(this, getProjects()));
+		projectView.setLayoutManager(new GridLayoutManager(this, 2));
+
+		View settings = getLayoutInflater().inflate(R.layout.project_setting, null);
 		pager = findViewById(R.id.project_viewpager);
-		
+
 		ProjectViewAdapter adapter = new ProjectViewAdapter();
 		pager.setAdapter(adapter);
 		adapter.addView(main);
 		adapter.addView(settings);
 		pager.setCurrentItem(0);
-		
 		initBottomView();
 	}
-    
+
+	
 	private void initAppDir() {
 		final File classPath = new File(SDCARD + "/AJIDE/ClassPath");
 		if (!appDir.exists() || !classPath.exists()) {
@@ -80,8 +83,20 @@ public class ProjectActivity extends AppCompatActivity {
 		try {
 			Runtime.getRuntime().exec("logcat >" + SDCARD + "/AJIDE/IDE.log");
 		} catch (IOException e) {
-			TLog.e( e);
+			TLog.e(e);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		refreshProjects();
+	}
+	
+	
+
+	private void refreshProjects() {
+		projectView.setAdapter(new ProjectItemViewAdapter<String>(this, getProjects()));
 	}
 	
 	private long firstBackTime;
@@ -95,7 +110,7 @@ public class ProjectActivity extends AppCompatActivity {
 
 		super.onBackPressed();
 	}
-	
+
 	private List<String> getProjects() {
 		File[] files = APPUtils.getFiles(appDir.getAbsolutePath());
 		List<String> projects = new ArrayList<>();
@@ -106,7 +121,7 @@ public class ProjectActivity extends AppCompatActivity {
 		}
 		return projects;
 	}
-    
+
 	private void initBottomView() {
 		BottomNavigationView bnv = findViewById(R.id.bnv);
 		bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -122,17 +137,17 @@ public class ProjectActivity extends AppCompatActivity {
 				}
 			});
 		bnv.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-			public void onNavigationItemReselected(MenuItem item) {
-				if (item.getItemId() == R.id.main) {
-					pager.setCurrentItem(0);
-				} else if (item.getItemId() == R.id.setting) {
-					pager.setCurrentItem(1);
-				} else {
-					return;
+				public void onNavigationItemReselected(MenuItem item) {
+					if (item.getItemId() == R.id.main) {
+						pager.setCurrentItem(0);
+					} else if (item.getItemId() == R.id.setting) {
+						pager.setCurrentItem(1);
+					} else {
+						return;
+					}
 				}
-			}
-		});
-		
+			});
+
 		FloatingActionButton createProject = findViewById(R.id.fab);
 		createProject.setOnClickListener(new View.OnClickListener() {
 
@@ -142,20 +157,49 @@ public class ProjectActivity extends AppCompatActivity {
 				}
 			});
 	}
-    
 	private void showCreateProjectDialog() {
-		final View createProjectView = new CreateProjectView(this).getView();
-		AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+		final CreateProjectView createProjectView = new CreateProjectView(this);
+		final AlertDialog dialog = new MaterialAlertDialogBuilder(this)
 			.setTitle("创建项目")
-			.setView(createProjectView)
+			.setView(createProjectView.getView())
 			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
 				@Override
-				public void onClick(DialogInterface dia, int which) {
-				}
+				public void onClick(DialogInterface dia, int which) {}
 			})
 			.setNegativeButton(android.R.string.cancel, null)
 			.create();
 		dialog.show();
+		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {  
+				@Override  
+				public void onClick(View v) {  
+					if (createProjectView.getProjectName().isEmpty() || createProjectView.getPackageName().isEmpty()) {
+						return;
+					}
+					if (createProjectView.getProjectType().equals(createProjectView.PROJECT_TYPE_ANDROID)) {
+						AndroidProject.CreateProject create = new AndroidProject.CreateProject(createProjectView.getProjectName()).
+						setTemplate(createProjectView.isEnabledAndroidX() ? 
+										   AndroidProjectTemplate.StandardAndroidXProject : 
+										   AndroidProjectTemplate.StandardAndroidProject)
+						.setPackageName(createProjectView.getPackageName())
+						.setJavaVersion(createProjectView.getJavaVersion())
+						.setMinSdkVersion(createProjectView.getMinSdkVersion())
+						.setTargetSdkVersion(createProjectView.getTargetSdkVersion());
+						try {
+							create.create();
+							refreshProjects();
+						} catch (IOException e) {
+							TLog.e(e);
+							Toast.makeText(getApplication(), "在创建项目" + createProjectView.getProjectName() + "时发生错误，请到" + TLog.defaultFile + "查看日志", Toast.LENGTH_SHORT).show();
+						}
+
+					}
+
+
+
+
+
+					dialog.dismiss();
+				}  
+			});
 	}
 }

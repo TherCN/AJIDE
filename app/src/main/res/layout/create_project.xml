@@ -6,50 +6,54 @@
 	android:layout_height="wrap_content"
 	android:padding="10dp">
 
-	<EditText
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:hint="请输入项目名称"
-		android:id="@+id/createProjectName"/>
-
-	<EditText
+	<com.google.android.material.textfield.TextInputLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:hint="请输入包名"
-		android:id="@+id/createProjectPackageName"/>
+		android:id="@+id/project_TIL1">
 
-	<CheckBox
-		android:layout_width="wrap_content"
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/createProjectName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="请输入项目名"/>
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="混合(默认为安卓项目，语言使用Java，开启后可以多选)"
-		android:id="@+id/multiLanguage"/>
+		android:id="@+id/project_TIL2">
 
-	<LinearLayout
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/createProjectPackageName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="请输入包名"/>
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<RadioGroup
 		android:orientation="horizontal"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:id="@+id/projectType_RG">
 
 		<RadioButton
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="安卓项目"
-			android:id="@+id/projectAndroid"/>
+			android:id="@+id/projectAndroid"
+			android:textSize="10sp"/>
 
 		<RadioButton
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Java项目"
-			android:layout_marginLeft="10dp"
-			android:id="@+id/projectJava"/>
+			android:text="Java/Kotlin命令行项目"
+			android:layout_marginLeft="4dp"
+			android:id="@+id/projectJava"
+			android:textSize="10sp"/>
 
-		<RadioButton
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Kotlin项目"
-			android:layout_marginLeft="10dp"
-			android:id="@+id/projectKotlin"/>
-
-	</LinearLayout>
+	</RadioGroup>
 
 	<LinearLayout
 		android:orientation="horizontal"

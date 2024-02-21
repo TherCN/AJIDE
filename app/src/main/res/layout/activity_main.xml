@@ -43,8 +43,8 @@
         <LinearLayout
              android:layout_height="match_parent"
              android:layout_width="match_parent"
-             android:background="?attr/colorPrimary"
              android:orientation="vertical"
+			 android:background="?attr/drawer_background_color"
              android:layout_gravity="left">
 
             <androidx.recyclerview.widget.RecyclerView

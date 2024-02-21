@@ -1,17 +1,19 @@
 package thercn.ajide.views;
+import android.content.Context;
 import io.github.rosemoe.sora.widget.CodeEditor;
+import java.io.IOException;
 import thercn.ajide.activities.IDEActivity;
 import thercn.ajide.utils.APPUtils;
-import java.io.IOException;
 
 public class IDECodeEditor extends CodeEditor {
 	
-	IDEActivity activity;
+	Context activity;
 	String currentFile;
 	
-    public IDECodeEditor(IDEActivity context) {
+    public IDECodeEditor(Context context) {
 		super(context);
 		activity = context;
+		
 	}
     
 	public void setFile(String filePath) throws IOException{

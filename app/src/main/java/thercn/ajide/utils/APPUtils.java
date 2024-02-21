@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+import androidx.appcompat.app.AlertDialog;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,11 +17,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+import android.content.DialogInterface;
 
 public class APPUtils {
     
@@ -48,7 +51,7 @@ public class APPUtils {
 		return files;
 	}
 
-	public static void exportAssets(Activity activity, String fileName,
+	public static void exportAssets(Context activity, String fileName,
 									String outPath) {
 		File outdir = new File(outPath);
 		if (!outdir.exists()) {
@@ -78,7 +81,8 @@ public class APPUtils {
 		return readerToString(new FileReader(new File(filePath)));
 	}
 	
-	public void unzipFromAssets(Context context, String zipFileName, String outputDir) throws IOException {
+	
+	public static void unzipFromAssets(Context context, String zipFileName, String outputDir) throws IOException {
 		AssetManager assetManager = context.getAssets();
 		InputStream is = assetManager.open(zipFileName);
 		ZipInputStream zis = new ZipInputStream(is);
@@ -180,4 +184,14 @@ public class APPUtils {
         return new File(filePath).getName();
     }
     
+	public static void setDialogCanClose(DialogInterface builder,boolean canClose) {
+		try 
+		{
+			Field field = builder.getClass().getSuperclass().getDeclaredField("mShowing");
+			field.setAccessible(true);
+			field.set(builder, canClose);
+		} catch (Exception e) {
+			TLog.e(e);
+		}
+	}
 }

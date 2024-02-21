@@ -3,6 +3,7 @@ package thercn.ajide.project;
 import android.widget.Toast;
 import java.io.File;
 import thercn.ajide.IDEApplication;
+import java.io.IOException;
 
 public abstract class Project {
 
@@ -37,10 +38,12 @@ public abstract class Project {
 
 	interface NewProject {
 
-		public void setTemplate(ProjectTemplate template);
+		NewProject setTemplate(ProjectTemplate template);
 
-		public void setJDKVersion(int version);
-
-		public void create();
+		NewProject setJavaVersion(int version);
+		
+		NewProject setPackageName(String packageName);
+		
+		void create() throws IOException;
 	}
 }

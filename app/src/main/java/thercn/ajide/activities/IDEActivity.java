@@ -1,26 +1,21 @@
 package thercn.ajide.activities;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
-import java.io.File;
 import java.io.IOException;
-import thercn.ajide.Layout;
+import java.util.List;
+import thercn.ajide.IDEActivityLayout;
 import thercn.ajide.R;
-import thercn.ajide.utils.APPUtils;
-import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
-import android.system.Os;
-import android.system.ErrnoException;
-import thercn.ajide.IDEApplication;
+import thercn.ajide.views.IDECodeEditor;
 
 public class IDEActivity extends AppCompatActivity {
 
-	Layout mainLayout;
+	IDEActivityLayout mainLayout;
 	public Menu actionBarMenu;
 	boolean menuInited;
 
@@ -30,12 +25,15 @@ public class IDEActivity extends AppCompatActivity {
 
 		setContentView(R.layout.activity_main);
 
-		mainLayout = new Layout(this);
-		mainLayout.init();
+		mainLayout = new IDEActivityLayout(this);
+		mainLayout.inflateFileList(getIntent().getStringExtra("path"));
 	}
 
-
-
+	@Override
+	public void onBackPressed() {
+		mainLayout.saveAllFiles();
+		super.onBackPressed();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +50,7 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mainLayout.getCodeEditor() != null) {
-
+			//因为Java语法被逼无奈使用if else
 			if (item.getItemId() == R.id.redo) {
 				if (mainLayout.getCodeEditor().canRedo()) {
 					mainLayout.getCodeEditor().redo();
@@ -64,9 +62,8 @@ public class IDEActivity extends AppCompatActivity {
 					mainLayout.getCodeEditor().undo();
 				}
 			} else if (item.getItemId() == R.id.save) {
-				try {
-					mainLayout.getCodeEditor().saveFile();
-				} catch (IOException e) {}
+				mainLayout.saveAllFiles();
+				Toast.makeText(getApplication(), "已保存所有文件", Toast.LENGTH_SHORT).show();
 			}
 
 		} else {
@@ -79,11 +76,7 @@ public class IDEActivity extends AppCompatActivity {
 
 	@Override
 	protected void onPause() {
-		if (mainLayout.getCodeEditor() != null) {
-			try {
-				mainLayout.getCodeEditor().saveFile();
-			} catch (IOException e) {}
-		}
+		mainLayout.saveAllFiles();
 		super.onPause();
 	}
 
@@ -91,7 +84,6 @@ public class IDEActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		try {
-			
 			if (mainLayout.getCodeEditor() != null) {
 				mainLayout.getCodeEditor().setFile(mainLayout.getCodeEditor().getCurrentFile());
 			}
@@ -100,11 +92,11 @@ public class IDEActivity extends AppCompatActivity {
 		}
 	}
 
-	public Layout getLayout() {
+	public IDEActivityLayout getLayout() {
 		return mainLayout;
 	}
 
-	
+
 
 
 }

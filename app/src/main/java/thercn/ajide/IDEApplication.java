@@ -38,20 +38,28 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import com.google.android.material.color.DynamicColors;
+import thercn.ajide.utils.Permission;
+import android.os.Environment;
 
 public class IDEApplication extends Application {
 
     private static Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
 	public static Application context;
+	public final static String APPDIR = Environment.getExternalStorageDirectory().toString() + "/AJIDE";
 
     @Override
     public void onCreate() {
         super.onCreate();
+		//DynamicColors.applyToActivitiesIfAvailable(this);
         CrashHandler.getInstance().registerGlobal(this);
         CrashHandler.getInstance().registerPart(this);
 		context = this;
     }
 
+	public static Context getContext() {
+		return context;
+	}
     public static void write(InputStream input, OutputStream output) throws IOException {
         byte[] buf = new byte[1024 * 8];
         int len;

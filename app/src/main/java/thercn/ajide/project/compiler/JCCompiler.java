@@ -28,7 +28,7 @@ public class JCCompiler extends Thread {
 		this.args = args;
 		this.sourceList = new HashMap<>();
 	}
-	
+
 	public JCCompiler addSource(String className, String str) {
 		sourceList.put(className, str);
 		return this;
@@ -62,7 +62,7 @@ public class JCCompiler extends Thread {
         // 编译 Java 源代码
         Boolean success = task.call();
 		Log.e("编译结果" , success.toString());
-		
+
         // 获取诊断信息
 		result = diagnostics.getDiagnostics();
         return diagnostics.getDiagnostics();
@@ -79,18 +79,17 @@ public class JCCompiler extends Thread {
 	public List<Diagnostic<? extends JavaFileObject>> getOutput() {
 		return result;
 	}
+	class InMemoryJavaFileObject extends SimpleJavaFileObject {
+		private String contents;
 
-}
-class InMemoryJavaFileObject extends SimpleJavaFileObject {
-    private String contents;
+		protected InMemoryJavaFileObject(String className, String contents) {
+			super(URI.create("string:///" + className.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
+			this.contents = contents;
+		}
 
-    protected InMemoryJavaFileObject(String className, String contents) {
-        super(URI.create("string:///" + className.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
-		this.contents = contents;
-    }
-
-    @Override
-    public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
-		return contents;
-    }
+		@Override
+		public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
+			return contents;
+		}
+	}
 }
