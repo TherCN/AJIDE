@@ -59,6 +59,7 @@ public class IDEActivityLayout {
 	FloatingActionButton fab;
 	SharedPreferences sharedPreferences;
 	ActionBar abar;
+	ActionBarDrawerToggle toggle;
 	boolean isInitDone;
 	boolean fileManagerInited;
 
@@ -68,19 +69,19 @@ public class IDEActivityLayout {
 	}
 
 	private void init() {
-		
+
 		toolbar = activity.findViewById(R.id.toolbar);
 		toolbar.setTitle(R.string.app_name);
-		
+
 		activity.setSupportActionBar(toolbar);
 		abar = activity.getSupportActionBar();
 		viewPager = activity.findViewById(R.id.view_pager);
 
 		fileList = activity.findViewById(R.id.filelist1);
 		drawerLayout = activity.findViewById(R.id.drawerlayout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar,
-																 R.string.navigation_drawer_open, 
-																 R.string.navigation_drawer_close);
+        toggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar,
+										   R.string.navigation_drawer_open, 
+										   R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -98,9 +99,10 @@ public class IDEActivityLayout {
 				addFileTab(files.split(";")[i]);
 				Log.e("添加", files.split(";")[i]);
 			}
-			isInitDone = true;
+			
+			
 		}
-
+		isInitDone = true;
 		fileTabs.setupWithViewPager(viewPager);
 		fileTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 				@Override
@@ -112,19 +114,26 @@ public class IDEActivityLayout {
 					selectTab(t);
 				}
 			});
-			
+
+	}
+
+	public DrawerLayout getDrawerLayout() {
+		return drawerLayout;
 	}
 
 	public List<IDECodeEditor> getAllCodeEditorView() {
 		return adapter.getAllFileEditor();
 	}
-	
+
 	public void saveAllFiles() {
 		List<IDECodeEditor> editors = getAllCodeEditorView();
 		for (IDECodeEditor i : editors) {
 			try {
 				i.saveFile();
 			} catch (IOException e) {}
+		}
+		if (!editors.isEmpty()) {
+			onSave();
 		}
 	}
 	public void inflateFileList(String path) {
@@ -176,7 +185,7 @@ public class IDEActivityLayout {
 			}
 			return;
 		}
-		
+
 		SharedPreferences.Editor speditor = sharedPreferences.edit();
 		if (!sharedPreferences.getString("files", "").contains(file + ";")) {
 			speditor.putString("files", file + ";" + sharedPreferences.getString("files", ""));
@@ -187,6 +196,7 @@ public class IDEActivityLayout {
 				return;
 			}
 		}
+		
 		if (fileNotOpened.getVisibility() == View.VISIBLE) {
 			fileNotOpened.setVisibility(View.GONE);
 			fileTabs.setVisibility(View.VISIBLE);
@@ -195,39 +205,57 @@ public class IDEActivityLayout {
 		fileTabs.addTab(fileTabs.newTab());
 		openedFiles.add(file);
 		final IDECodeEditor editor = new IDECodeEditor(activity);
-		final DiagnosticsContainer con = new DiagnosticsContainer();
-		final ArrayList<String> list = new ArrayList<>();
-		list.add("-bootclasspath");
-		list.add("/sdcard/AJIDE/ClassPath/android.jar:/sdcard/AJIDE/ClassPath/core-lambda-stubs.jar");
-		list.add("-Xlint:all");
-		list.add("-d");
-		list.add("/sdcard/AJIDE");
 		editor.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
 		try {
 			editor.setFile(file);
+			adapter.addView(editor);
+			drawerLayout.close();
+			final DiagnosticsContainer con = new DiagnosticsContainer();
+			final ArrayList<String> list = new ArrayList<>();
+			//list.add("-sourcepath");
+			//list.add("/sdcard/AJIDE/ClassPath/android.jar");
+			list.add("-bootclasspath");
+			list.add("/sdcard/AJIDE/ClassPath/android.jar:/sdcard/AJIDE/ClassPath/core-lambda-stubs.jar");
+			list.add("-Xlint:all");
+			list.add("-d");
+			list.add("/sdcard/AJIDE");
 			if (file.endsWith(".java")) {
 				editor.setEditorLanguage(new JavaLanguage());
 				editor.setDiagnostics(con);
 				compile(con, list, editor);
-				editor.subscribeEvent(
-					ContentChangeEvent.class,
-					new EventReceiver<ContentChangeEvent>() {
-						long lastInvoke = System.currentTimeMillis();
-						public void onReceive(ContentChangeEvent event, Unsubscribe unsubscribe) {
-							
+			}
+			editor.subscribeEvent(
+				ContentChangeEvent.class,
+				new EventReceiver<ContentChangeEvent>() {
+					long lastInvoke = System.currentTimeMillis();
+					public void onReceive(ContentChangeEvent event, Unsubscribe unsubscribe) {
+						if (!getCodeEditor().getTitle().equals(APPUtils.getFileName(getCodeEditor().getCurrentFile()) + "*")) {
+							getCodeEditor().setTitle(APPUtils.getFileName(getCodeEditor().getCurrentFile()) + "*");
+							adapter.notifyDataSetChanged();
+							getCodeEditor().requestFocus();
+						}
+						if (file.endsWith(".java")) {
 							long curInvoke = System.currentTimeMillis();
 							if (curInvoke - lastInvoke > 500) {
 								compile(con, list, editor);
 							}
 							lastInvoke = System.currentTimeMillis();
 						}
-					});
-			}
+					}
+				});
+
 		} catch (IOException e) {
 			TLog.e(e);
 		}
-		
-		adapter.addView(editor);
+		Log.e("添加文件", file);
+	}
+
+	public void onSave() {
+		adapter.notifyDataSetChanged();
+		if (getCodeEditor() != null) {
+			getCodeEditor().requestFocus();
+		}
 	}
 
 	public void compile(DiagnosticsContainer con, List<String> args, IDECodeEditor editor) {
@@ -311,8 +339,12 @@ public class IDEActivityLayout {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
 					if (item.getItemId() == R.id.closeCurrent) {
+						try {
+							getCodeEditor().saveFile();
+						} catch (IOException e) {}
 						removeFileTab(getCodeEditor().getCurrentFile());
 					} else if (item.getItemId() == R.id.closeAll) {
+						saveAllFiles();
 						for (int i = 0; i < openedFiles.size(); i++) {
 							removeFileTab(i);
 							openedFiles.remove(i);
@@ -326,15 +358,17 @@ public class IDEActivityLayout {
 						for (int i = 0; i < openedFiles.size(); i++) {
 							for (int j = 0; j < openedFiles.size(); j++) {
 								if (!openedFiles.get(j).equals(currentFile)) {
+									try {
+										getAllCodeEditorView().get(j).saveFile();
+									} catch (IOException e) {}
 									removeFileTab(j);
 									openedFiles.remove(j);
 									j--; // 调整j的值以反映从列表中删除的元素
 								}
 							}
 						}
+						onSave();
 					}
-
-
 					return true;
 				}
 

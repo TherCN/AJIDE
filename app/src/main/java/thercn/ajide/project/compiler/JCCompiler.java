@@ -17,6 +17,7 @@ import javax.tools.StandardJavaFileManager;
 import java.util.Locale;
 import java.io.FileWriter;
 import java.io.StringWriter;
+import javax.tools.ToolProvider;
 
 
 public class JCCompiler extends Thread {
@@ -61,7 +62,7 @@ public class JCCompiler extends Thread {
 		JavaCompiler.CompilationTask task = compiler.getTask(writer, stdfileManager, diagnostics, args, null, compilationUnits);
         // 编译 Java 源代码
         Boolean success = task.call();
-		Log.e("编译结果" , success.toString());
+		Log.e("编译结果" , success.toString() + writer.toString());
 
         // 获取诊断信息
 		result = diagnostics.getDiagnostics();

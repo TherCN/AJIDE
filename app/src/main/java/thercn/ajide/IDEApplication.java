@@ -11,8 +11,10 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.system.Os;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -38,20 +40,25 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
-import com.google.android.material.color.DynamicColors;
-import thercn.ajide.utils.Permission;
-import android.os.Environment;
+import android.system.ErrnoException;
 
 public class IDEApplication extends Application {
 
     private static Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
 	public static Application context;
 	public final static String APPDIR = Environment.getExternalStorageDirectory().toString() + "/AJIDE";
-
+	public static String JAVA_HOME;
+	
     @Override
     public void onCreate() {
         super.onCreate();
+		JAVA_HOME = getFilesDir().getAbsolutePath() + "/usr/opt/openjdk-17";
 		//DynamicColors.applyToActivitiesIfAvailable(this);
+		try {
+			Os.setenv("JAVA_HOME", JAVA_HOME, true);
+			Os.setenv("PATH",Os.getenv("PATH") + ":" + JAVA_HOME +"/bin",true);
+			Os.setenv("LD_LIBRARY_PATH",JAVA_HOME +"/lib",true);
+		} catch (ErrnoException e) {}
         CrashHandler.getInstance().registerGlobal(this);
         CrashHandler.getInstance().registerPart(this);
 		context = this;

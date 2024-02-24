@@ -3,9 +3,11 @@ package thercn.ajide.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,20 +19,22 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import thercn.ajide.R;
 import thercn.ajide.adapter.ProjectItemViewAdapter;
 import thercn.ajide.adapter.ProjectViewAdapter;
+import thercn.ajide.project.AndroidProject;
 import thercn.ajide.project.Project;
+import thercn.ajide.project.template.AndroidProjectTemplate;
 import thercn.ajide.utils.APPUtils;
+import thercn.ajide.utils.AsyncProcess;
+import thercn.ajide.utils.FileDownloader;
 import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.CreateProjectView;
 import thercn.ajide.views.DisableScrollViewPager;
-import thercn.ajide.project.AndroidProject;
-import thercn.ajide.project.template.AndroidProjectTemplate;
-import javax.security.auth.PrivateCredentialPermission;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -38,15 +42,18 @@ public class ProjectActivity extends AppCompatActivity {
 	public static File appDir = new File(SDCARD + "/AJIDE");
 	RecyclerView projectView;
 	DisableScrollViewPager pager;
+	File jdkHome;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_project);
+
 		Permission.checkPermission(this);
 		if (Permission.isPermissionGranted(this)) {
 			initAppDir();
 			TLog.initLogFile(appDir.getAbsolutePath() + "/AJIDE.log");
 		}
+
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle(R.string.app_name);
@@ -65,9 +72,9 @@ public class ProjectActivity extends AppCompatActivity {
 		adapter.addView(settings);
 		pager.setCurrentItem(0);
 		initBottomView();
+		initUsrPath();
 	}
 
-	
 	private void initAppDir() {
 		final File classPath = new File(SDCARD + "/AJIDE/ClassPath");
 		if (!appDir.exists() || !classPath.exists()) {
@@ -87,18 +94,124 @@ public class ProjectActivity extends AppCompatActivity {
 		}
 	}
 
+	public void initUsrPath() {
+		View v = getLayoutInflater().inflate(R.layout.progress_dialog, null);
+		File usr = new File(getFilesDir(), "/usr/opt");
+		jdkHome = new File(usr, "/openjdk-17");
+		final File jdkArchiveFile = new File(jdkHome, "/OpenJDK17-AJIDE.tar.gz");
+		if (!usr.exists()) {
+			usr.mkdirs();
+		}
+		final ProgressBar pbar = v.findViewById(R.id.progress);
+		final TextView progress = v.findViewById(R.id.progressText);
+		final AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+			.setTitle("正在下载OpenJDK")
+			.setView(v)
+			.setCancelable(false)
+			.create();
+		final String openJDKDownloadUrl = "https://mirror.ghproxy.com/https://github.com/TherCN/openjdk17-build/releases/download/1.0/OpenJDK17-AJIDE.tar.gz";
+		if (jdkArchiveFile.exists()) {
+			if (!APPUtils.checkSha1(jdkArchiveFile.getAbsolutePath(), "f04888cc03d518ec568f761f5a6403629a5380c3")) {
+				try {
+					Runtime.getRuntime().exec(new String[]{"rm","-rf",jdkHome.getAbsolutePath() });
+				} catch (IOException e) {
+					TLog.e(e);
+				}
+
+				initUsrPath();
+			} else {
+				AsyncProcess process = new AsyncProcess("tar", "xvf", jdkArchiveFile.getAbsolutePath(), "-C", jdkHome.getAbsolutePath());
+				process.redirectErrorStream(false);
+				process.setCommandOutputListener(new AsyncProcess.CommandOutputListener() {
+						int count;
+						public void onCommandOutputUpdate(final String output) {
+							runOnUiThread(new Runnable(){
+									@Override
+									public void run() {
+										progress.setText(output);
+										pbar.setProgress(count);
+										count++;
+										if (count == pbar.getMax()) {
+											dialog.dismiss();
+											jdkArchiveFile.delete();
+											Toast.makeText(getApplication(), "解压完成", Toast.LENGTH_SHORT).show();
+										}
+									}
+								});
+						}
+					});
+				pbar.setMax(690);
+				dialog.setTitle("正在解压");
+				dialog.show();
+				process.prepare();
+				process.start();
+			}
+		}
+		if (!jdkHome.exists()) {
+			dialog.show();
+			new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							final FileDownloader downloader = new FileDownloader(new URL(openJDKDownloadUrl), jdkArchiveFile.getAbsolutePath());
+
+							final int length = downloader.getLength();
+							runOnUiThread(new Runnable(){
+
+									@Override
+									public void run() {
+										pbar.setMax(length);
+									}
+								});
+							downloader.setCallbak(new FileDownloader.OnDownloadProgressUpdateCallback() {
+									@Override
+									public void onProgressUpdate(final int currentProgress, final int totalProgress) {
+										// 使用runOnUiThread来更新UI
+										runOnUiThread(new Runnable() {
+												@Override
+												public void run() {
+													progress.setText(currentProgress + "/" + totalProgress);
+													pbar.setProgress(currentProgress);
+												}
+											});
+									}
+								});
+							downloader.download();
+						} catch (Exception e) {
+							TLog.e(e);
+							runOnUiThread(new Runnable(){
+
+									@Override
+									public void run() {
+										Toast.makeText(ProjectActivity.this, "发生错误", Toast.LENGTH_SHORT).show();
+									}
+								});
+						} finally {
+							// 使用runOnUiThread来关闭对话框
+							runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										dialog.dismiss();
+										initUsrPath();
+									}
+								});
+						}
+					}
+				}).start();
+		}
+		
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		refreshProjects();
 	}
-	
-	
 
 	private void refreshProjects() {
 		projectView.setAdapter(new ProjectItemViewAdapter<String>(this, getProjects()));
 	}
-	
+
 	private long firstBackTime;
 	@Override
 	public void onBackPressed() {
@@ -177,13 +290,13 @@ public class ProjectActivity extends AppCompatActivity {
 					}
 					if (createProjectView.getProjectType().equals(createProjectView.PROJECT_TYPE_ANDROID)) {
 						AndroidProject.CreateProject create = new AndroidProject.CreateProject(createProjectView.getProjectName()).
-						setTemplate(createProjectView.isEnabledAndroidX() ? 
-										   AndroidProjectTemplate.StandardAndroidXProject : 
-										   AndroidProjectTemplate.StandardAndroidProject)
-						.setPackageName(createProjectView.getPackageName())
-						.setJavaVersion(createProjectView.getJavaVersion())
-						.setMinSdkVersion(createProjectView.getMinSdkVersion())
-						.setTargetSdkVersion(createProjectView.getTargetSdkVersion());
+							setTemplate(createProjectView.isEnabledAndroidX() ? 
+										AndroidProjectTemplate.StandardAndroidXProject : 
+										AndroidProjectTemplate.StandardAndroidProject)
+							.setPackageName(createProjectView.getPackageName())
+							.setJavaVersion(createProjectView.getJavaVersion())
+							.setMinSdkVersion(createProjectView.getMinSdkVersion())
+							.setTargetSdkVersion(createProjectView.getTargetSdkVersion());
 						try {
 							create.create();
 							refreshProjects();

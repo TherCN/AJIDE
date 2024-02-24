@@ -35,11 +35,14 @@ repositories {
     maven {     
         url "https://jitpack.io"
 	    url "https://maven.google.com"
+		url "https://repo.maven.apache.org/maven2"
         mavenCentral()
     }    
 } 
 dependencies {
 	implementation project(':Library')
+	//implementation 'commons-io:commons-io:2.15.1'
+	//implementation 'org.apache.commons:commons-compress:+'
 	implementation 'com.github.javaparser:javaparser-core:3.25.8'
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

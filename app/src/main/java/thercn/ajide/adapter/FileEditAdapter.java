@@ -71,7 +71,12 @@ public class FileEditAdapter extends PagerAdapter {
 
 	@Override         
 	public CharSequence getPageTitle(int position) {
-		return APPUtils.getFileName(getCurrentEditor(position).getCurrentFile());
+		return getCurrentEditor(position).getTitle();
+	}
+	
+	public void setPageTitle(int position,String title) {
+		getCurrentEditor(position).setTitle(title);
+		notifyDataSetChanged();
 	}
 
 

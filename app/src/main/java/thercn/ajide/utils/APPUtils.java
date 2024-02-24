@@ -1,10 +1,8 @@
 package thercn.ajide.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-import androidx.appcompat.app.AlertDialog;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -17,16 +15,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.lang.reflect.Field;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-import android.content.DialogInterface;
 
 public class APPUtils {
-    
+
     public static File[] getFiles(String path) {
 		File[] files = new File(path).listFiles();
 		if (files == null) {
@@ -50,6 +48,33 @@ public class APPUtils {
 			});
 		return files;
 	}
+	
+	public static boolean checkSha1(String filePath, String sha1Value) {
+        try {
+            // 创建SHA-1摘要实例
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            // 使用文件输入流读取文件
+            try (FileInputStream fis = new FileInputStream(filePath)) {
+                byte[] dataBytes = new byte[1024];
+                int nread = 0;
+                while ((nread = fis.read(dataBytes)) != -1) {
+                    md.update(dataBytes, 0, nread);
+                }
+            }
+            // 计算文件的SHA-1哈希值
+            byte[] digest = md.digest();
+            // 将哈希值转换为十六进制字符串
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b));
+            }
+            // 比较计算出的哈希值与给定的哈希值
+            return sb.toString().equals(sha1Value);
+        } catch (NoSuchAlgorithmException | IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 	public static void exportAssets(Context activity, String fileName,
 									String outPath) {
@@ -80,8 +105,8 @@ public class APPUtils {
 	public static String readFile(String filePath) throws IOException {
 		return readerToString(new FileReader(new File(filePath)));
 	}
-	
-	
+
+
 	public static void unzipFromAssets(Context context, String zipFileName, String outputDir) throws IOException {
 		AssetManager assetManager = context.getAssets();
 		InputStream is = assetManager.open(zipFileName);
@@ -109,8 +134,8 @@ public class APPUtils {
 		zis.closeEntry();
 		zis.close();
 	}
-	
-	
+
+
 	public static String readerToString(Reader reader) {
 
 		BufferedReader br = new BufferedReader(reader);
@@ -169,7 +194,7 @@ public class APPUtils {
             e.printStackTrace();
         }
     }
-	
+
 	public static void writeTextToFile(String filePath, String text) throws IOException {
 		File file = new File(filePath);
 		if (!file.exists()) {
@@ -179,19 +204,70 @@ public class APPUtils {
 		writer.write(text);
 		writer.close();
 	}
-	
+
 	public static String getFileName(String filePath) {
         return new File(filePath).getName();
     }
-    
-	public static void setDialogCanClose(DialogInterface builder,boolean canClose) {
-		try 
-		{
-			Field field = builder.getClass().getSuperclass().getDeclaredField("mShowing");
-			field.setAccessible(true);
-			field.set(builder, canClose);
-		} catch (Exception e) {
-			TLog.e(e);
-		}
-	}
+
+	/*
+
+	 public static void deCompressTarGzip(String targzFilePath, String targetDir) throws IOException {
+	 //解压文件
+	 Path source = Paths.get(targzFilePath);
+	 //解压到哪
+	 Path target = Paths.get(targetDir);
+
+	 if (Files.notExists(source)) {
+	 throw new IOException("您要解压的文件不存在");
+	 }
+
+	 //InputStream输入流，以下四个流将tar.gz读取到内存并操作
+	 //BufferedInputStream缓冲输入流
+	 //GzipCompressorInputStream解压输入流
+	 //TarArchiveInputStream解tar包输入流
+	 try (InputStream fi = Files.newInputStream(source);
+	 BufferedInputStream bi = new BufferedInputStream(fi);
+	 GzipCompressorInputStream gzi = new GzipCompressorInputStream(bi);
+	 TarArchiveInputStream ti = new TarArchiveInputStream(gzi)) {
+	 ArchiveEntry entry;
+	 while ((entry = ti.getNextEntry()) != null) {
+
+	 //获取解压文件目录，并判断文件是否损坏
+	 Path newPath = zipSlipProtect(entry, target);
+
+	 if (entry.isDirectory()) {
+	 //创建解压文件目录
+	 Files.createDirectories(newPath);
+	 } else {
+	 //再次校验解压文件目录是否存在
+	 Path parent = newPath.getParent();
+	 if (parent != null) {
+	 if (Files.notExists(parent)) {
+	 Files.createDirectories(parent);
+	 }
+	 }
+	 // 将解压文件输入到TarArchiveInputStream，输出到磁盘newPath目录
+	 Files.copy(ti, newPath, StandardCopyOption.REPLACE_EXISTING);
+
+	 }
+	 }
+	 }
+
+	 }
+
+	 //判断压缩文件是否被损坏，并返回该文件的解压目录
+	 private static Path zipSlipProtect(ArchiveEntry entry, Path targetDir)
+	 throws IOException {
+
+	 Path targetDirResolved = targetDir.resolve(entry.getName());
+	 Path normalizePath = targetDirResolved.normalize();
+
+	 if (!normalizePath.startsWith(targetDir)) {
+	 throw new IOException("压缩文件已被损坏: " + entry.getName());
+	 }
+
+	 return normalizePath;
+	 }*/
+
+
 }

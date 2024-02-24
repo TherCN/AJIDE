@@ -1,17 +1,19 @@
 package thercn.ajide.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import io.github.rosemoe.sora.text.Cursor;
 import java.io.IOException;
-import java.util.List;
 import thercn.ajide.IDEActivityLayout;
 import thercn.ajide.R;
 import thercn.ajide.utils.TLog;
-import thercn.ajide.views.IDECodeEditor;
 
 public class IDEActivity extends AppCompatActivity {
 
@@ -31,8 +33,24 @@ public class IDEActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
+		if (mainLayout.getDrawerLayout().isOpen()) {
+			mainLayout.getDrawerLayout().close();
+			return;
+		}
 		mainLayout.saveAllFiles();
-		super.onBackPressed();
+		AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+			.setMessage("是否要退出项目？")
+			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dia, int which) {
+					IDEActivity.super.onBackPressed();
+				}
+			})
+			.setNegativeButton(android.R.string.cancel, null)
+			.create();
+		dialog.show();
+
 	}
 
 	@Override
@@ -72,8 +90,6 @@ public class IDEActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
-
 	@Override
 	protected void onPause() {
 		mainLayout.saveAllFiles();
@@ -83,13 +99,6 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		try {
-			if (mainLayout.getCodeEditor() != null) {
-				mainLayout.getCodeEditor().setFile(mainLayout.getCodeEditor().getCurrentFile());
-			}
-		} catch (IOException e) {
-			TLog.e(e);
-		}
 	}
 
 	public IDEActivityLayout getLayout() {

@@ -70,7 +70,9 @@ public class TLog {
 	}
 
 	public static String getExceptionInfo(Throwable exception) {
-		StringBuilder sb = new StringBuilder(exception.getMessage() + "\n");
+		StringBuilder sb = new StringBuilder(exception.toString());
+		sb.append(": ");
+		sb.append(exception.getMessage() + "\n");
 		for (StackTraceElement e : exception.getStackTrace()) {
 			sb.append(e + "\n");
 		}
