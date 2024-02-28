@@ -43,6 +43,7 @@ public class ProjectActivity extends AppCompatActivity {
 	RecyclerView projectView;
 	DisableScrollViewPager pager;
 	File jdkHome;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

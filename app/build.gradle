@@ -41,6 +41,7 @@ repositories {
 } 
 dependencies {
 	implementation project(':Library')
+	implementation 'org.apache.maven.shared:maven-dependency-analyzer:1.13.2'
 	//implementation 'commons-io:commons-io:2.15.1'
 	//implementation 'org.apache.commons:commons-compress:+'
 	implementation 'com.github.javaparser:javaparser-core:3.25.8'
