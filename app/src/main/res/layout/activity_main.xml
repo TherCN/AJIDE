@@ -1,56 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:orientation="vertical">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:orientation="vertical">
 
     <include
-         layout="@layout/actionbar_layout" />
+		layout="@layout/actionbar_layout" />
 
     <com.google.android.material.tabs.TabLayout
-         android:layout_height="wrap_content"
-         android:layout_width="match_parent"
-         android:layout_margin="5dp"
-         android:id="@+id/tabs" />
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:layout_margin="5dp"
+		android:id="@+id/tabs" />
 
     <androidx.drawerlayout.widget.DrawerLayout
-         xmlns:tools="http://schemas.android.com/tools"
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         tools:openDrawer="start"
-         android:id="@+id/drawerlayout">
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		tools:openDrawer="start"
+		android:id="@+id/drawerlayout">
 
         <LinearLayout
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:gravity="center"
-             android:id="@+id/noOpenFile">
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:gravity="center"
+			android:id="@+id/noOpenFile">
 
             <TextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:text="未打开文件" />
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="未打开文件" />
 
         </LinearLayout>
+		
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
-        <androidx.viewpager.widget.ViewPager
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:id="@+id/view_pager" />
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:layout_alignParentStart="true"
+				android:layout_above="@id/main_bottom_bar">
 
+				<androidx.viewpager.widget.ViewPager
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"
+					android:id="@+id/view_pager" />
+				
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentStart="true"
+				android:id="@+id/main_bottom_bar"
+				android:orientation="vertical">
+
+				
+				<HorizontalScrollView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:overScrollMode="never"
+					android:scrollbars="none">
+
+					<io.github.rosemoe.sora.widget.SymbolInputView
+						android:id="@+id/siv"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				</HorizontalScrollView>
+			</LinearLayout>
+		</RelativeLayout>
         <LinearLayout
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:orientation="vertical"
-			 android:background="?attr/drawer_background_color"
-             android:layout_gravity="left">
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:background="?attr/drawer_background_color"
+			android:layout_gravity="left">
 
             <androidx.recyclerview.widget.RecyclerView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:id="@+id/filelist1" />
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:id="@+id/filelist1" />
 
         </LinearLayout>
 

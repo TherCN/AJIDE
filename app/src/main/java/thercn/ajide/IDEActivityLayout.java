@@ -25,6 +25,7 @@ import io.github.rosemoe.sora.lang.diagnostic.DiagnosticDetail;
 import io.github.rosemoe.sora.lang.diagnostic.DiagnosticRegion;
 import io.github.rosemoe.sora.lang.diagnostic.DiagnosticsContainer;
 import io.github.rosemoe.sora.langs.java.JavaLanguage;
+import io.github.rosemoe.sora.widget.schemes.EditorColorScheme;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +35,6 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import thercn.ajide.R;
 import thercn.ajide.activities.IDEActivity;
-import thercn.ajide.activities.ProjectActivity;
 import thercn.ajide.adapter.FileAdapter;
 import thercn.ajide.adapter.FileEditAdapter;
 import thercn.ajide.project.AndroidProject;
@@ -43,6 +43,10 @@ import thercn.ajide.utils.APPUtils;
 import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.IDECodeEditor;
+import android.graphics.Typeface;
+import io.github.rosemoe.sora.widget.SymbolInputView;
+import android.widget.RelativeLayout;
+import android.view.Gravity;
 
 public class IDEActivityLayout {
 
@@ -60,6 +64,7 @@ public class IDEActivityLayout {
 	SharedPreferences sharedPreferences;
 	ActionBar abar;
 	ActionBarDrawerToggle toggle;
+	SymbolInputView siv;
 	boolean isInitDone;
 	boolean fileManagerInited;
 
@@ -69,7 +74,6 @@ public class IDEActivityLayout {
 	}
 
 	private void init() {
-
 		toolbar = activity.findViewById(R.id.toolbar);
 		toolbar.setTitle(R.string.app_name);
 
@@ -78,12 +82,67 @@ public class IDEActivityLayout {
 		viewPager = activity.findViewById(R.id.view_pager);
 
 		fileList = activity.findViewById(R.id.filelist1);
+		
 		drawerLayout = activity.findViewById(R.id.drawerlayout);
         toggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar,
 										   R.string.navigation_drawer_open, 
 										   R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+		
+		siv = activity.findViewById(R.id.siv);
+		String[] charArray = new String[] {
+			"→",
+			"{",
+			"}",
+			"(",
+			")",
+			";",
+			",",
+			".",
+			"=",
+			"\"",
+			"|",
+			"&",
+			"!",
+			"[",
+			"]",
+			"<",
+			">",
+			"+",
+			"-",
+			"/",
+			"*",
+			"?",
+			":",
+			"_"};
+		String[] insertCharArray = new String[] {
+			"\t",
+			"{",
+			"}",
+			"(",
+			")",
+			";",
+			",",
+			".",
+			"=",
+			"\"",
+			"|",
+			"&",
+			"!",
+			"[",
+			"]",
+			"<",
+			">",
+			"+",
+			"-",
+			"/",
+			"*",
+			"?",
+			":",
+			"_"};
+		siv.addSymbols(charArray,insertCharArray);
+		siv.setVisibility(View.GONE);
 
 		fileTabs = activity.findViewById(R.id.tabs);
 		fileTabs.setVisibility(View.GONE);
@@ -99,14 +158,21 @@ public class IDEActivityLayout {
 				addFileTab(files.split(";")[i]);
 				Log.e("添加", files.split(";")[i]);
 			}
-			
-			
 		}
 		isInitDone = true;
+		Log.e("",getAllCodeEditorView().size() + "");
+		if (getAllCodeEditorView().size() == 1) {
+			siv.bindEditor(getAllCodeEditorView().get(0));
+			Log.e("","已将符号输入视图挂载到"+ getCodeEditor());
+		}
 		fileTabs.setupWithViewPager(viewPager);
 		fileTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 				@Override
-				public void onTabSelected(TabLayout.Tab t) {};
+				public void onTabSelected(TabLayout.Tab t) {
+					if (isInitDone && getAllCodeEditorView().size() != 0) {
+						siv.bindEditor(getAllCodeEditorView().get(t.getPosition()));
+					}
+				};
 				@Override
 				public void onTabUnselected(TabLayout.Tab t) {};
 				@Override
@@ -200,15 +266,17 @@ public class IDEActivityLayout {
 		if (fileNotOpened.getVisibility() == View.VISIBLE) {
 			fileNotOpened.setVisibility(View.GONE);
 			fileTabs.setVisibility(View.VISIBLE);
+			siv.setVisibility(View.VISIBLE);
 		}
 
 		fileTabs.addTab(fileTabs.newTab());
 		openedFiles.add(file);
 		final IDECodeEditor editor = new IDECodeEditor(activity);
 		editor.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
 		try {
 			editor.setFile(file);
+			editor.setTypefaceText(Typeface.SANS_SERIF);
+			editor.setBlockLineEnabled(true);
 			adapter.addView(editor);
 			drawerLayout.close();
 			final DiagnosticsContainer con = new DiagnosticsContainer();
@@ -225,6 +293,8 @@ public class IDEActivityLayout {
 				editor.setDiagnostics(con);
 				compile(con, list, editor);
 			}
+			EditorColorScheme cheme = new EditorColorScheme();
+			//editor.setColorScheme(
 			editor.subscribeEvent(
 				ContentChangeEvent.class,
 				new EventReceiver<ContentChangeEvent>() {
@@ -248,7 +318,6 @@ public class IDEActivityLayout {
 		} catch (IOException e) {
 			TLog.e(e);
 		}
-		Log.e("添加文件", file);
 	}
 
 	public void onSave() {
@@ -326,6 +395,7 @@ public class IDEActivityLayout {
 		if (fileTabs.getTabCount() == 0) {
 			fileTabs.setVisibility(View.GONE);
 			fileNotOpened.setVisibility(View.VISIBLE);
+			siv.setVisibility(View.GONE);
 		}
 	}
 

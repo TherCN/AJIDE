@@ -1,57 +1,73 @@
 <?xml version='1.0' encoding='utf-8'?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-	android:sharedUserId="ther.wmw"
+    android:sharedUserId="ther.wmw"
     package="thercn.ajide">
-	<!--读取/写入/删除您的SD卡中的内容-->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- 修改或删除 SD 卡中的内容 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!-- 读取存储卡中的内容 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:theme="@style/IDEMainTheme"
-		android:name=".IDEApplication"
+        android:name=".IDEApplication"
         android:resizeableActivity="true">
+
         <activity
             android:name="thercn.ajide.activities.ProjectActivity"
-			android:exported="true"
+            android:exported="true"
             android:label="@string/app_name">
+
             <intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
+
+                <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+
             </intent-filter>
+
         </activity>
 
-		<meta-data
-			android:name="android.max_aspect"
-			android:value="4.0"/>
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="4.0"/>
 
-		<activity
-			android:name="thercn.ajide.activities.IDEActivity"
-			android:label="@string/app_name"/>
-		
-		<activity
-			android:name="IDEApplication$CrashActivity"/>
+        <activity
+            android:name="thercn.ajide.activities.IDEActivity"
+            android:label="@string/app_name"/>
+
+        <activity android:name="IDEApplication$CrashActivity"/>
+
         <activity
             android:name="bin.mt.file.content.MTDataFilesWakeUpActivity"
             android:exported="true"
             android:taskAffinity="thercn.ajide.MTDataFilesWakeUp"
             android:excludeFromRecents="true"
-            android:noHistory="true" />
+            android:noHistory="true"/>
+
         <provider
             android:name="bin.mt.file.content.MTDataFilesProvider"
             android:permission="android.permission.MANAGE_DOCUMENTS"
             android:exported="true"
             android:authorities="thercn.ajide.MTDataFilesProvider"
             android:grantUriPermissions="true">
+
             <intent-filter>
-                <action
-                    android:name="android.content.action.DOCUMENTS_PROVIDER" />
+
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER"/>
+
             </intent-filter>
+
         </provider>
+
+        <service android:name="thercn.ajide.services.JavaCodeAnalysisService"/>
+
     </application>
 
 </manifest>

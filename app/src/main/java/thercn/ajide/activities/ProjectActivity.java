@@ -74,7 +74,7 @@ public class ProjectActivity extends AppCompatActivity {
 		pager.setCurrentItem(0);
 		initBottomView();
 		initUsrPath();
-	}
+		}
 
 	private void initAppDir() {
 		final File classPath = new File(SDCARD + "/AJIDE/ClassPath");

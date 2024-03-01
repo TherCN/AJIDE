@@ -3,6 +3,7 @@ package thercn.ajide.utils;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,6 +23,7 @@ import java.util.Comparator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+import thercn.ajide.IDEApplication;
 
 public class APPUtils {
 
@@ -205,6 +207,10 @@ public class APPUtils {
 		writer.close();
 	}
 
+	public static void print(Object text) {
+		Toast.makeText(IDEApplication.context, text.toString(), Toast.LENGTH_SHORT).show();
+	}
+	
 	public static String getFileName(String filePath) {
         return new File(filePath).getName();
     }

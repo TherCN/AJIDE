@@ -1,19 +1,18 @@
 package thercn.ajide.activities;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import io.github.rosemoe.sora.text.Cursor;
-import java.io.IOException;
 import thercn.ajide.IDEActivityLayout;
 import thercn.ajide.R;
-import thercn.ajide.utils.TLog;
 
 public class IDEActivity extends AppCompatActivity {
 
@@ -24,9 +23,8 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_main);
-
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		mainLayout = new IDEActivityLayout(this);
 		mainLayout.inflateFileList(getIntent().getStringExtra("path"));
 	}
