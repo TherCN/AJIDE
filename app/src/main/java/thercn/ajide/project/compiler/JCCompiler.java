@@ -3,6 +3,7 @@ import android.util.Log;
 import com.sun.tools.javac.api.JavacTool;
 import com.sun.tools.javac.util.Context;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +15,7 @@ import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 import javax.tools.StandardJavaFileManager;
-import java.util.Locale;
-import java.io.FileWriter;
-import java.io.StringWriter;
-import javax.tools.ToolProvider;
+import thercn.ajide.utils.APPUtils;
 
 
 public class JCCompiler extends Thread {
@@ -40,6 +38,22 @@ public class JCCompiler extends Thread {
 		return this;
 	}
 
+	public JCCompiler addSourceFromFile(String path) throws IOException {
+		sourceList.put(APPUtils.getFileName(path).replace(".java", ""), APPUtils.readFile(path));
+		return this;
+	}
+
+	public JCCompiler addSourceFromFiles(List<String> paths) throws IOException {
+		for (String path : paths) {
+			sourceList.put(APPUtils.getFileName(path).replace(".java", ""), APPUtils.readFile(path));
+		}
+		return this;
+	}
+
+	public boolean hasFile(String filePath) {
+		return sourceList.get(filePath.replace(".java","")) != null;
+	}
+	
 	public JCCompiler setJavaVersion(int version) {
 		args.add("-source");
 		args.add(String.valueOf(version));

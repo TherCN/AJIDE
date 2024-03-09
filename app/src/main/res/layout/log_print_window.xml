@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="600dp"
+	android:background="#C5A4A4A4"
+	android:id="@+id/window_root_layout">
+
+	<Button
+		android:layout_width="50dp"
+		android:layout_height="50dp"
+		android:id="@+id/window_button"
+		android:text="开"/>
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/window_sub_layout">
+
+		<com.google.android.material.tabs.TabLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/log_window_tabs"/>
+
+		<androidx.viewpager.widget.ViewPager
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/log_window_vp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

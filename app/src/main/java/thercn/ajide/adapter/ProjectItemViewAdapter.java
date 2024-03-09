@@ -3,16 +3,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import java.io.File;
 import java.util.List;
 import thercn.ajide.R;
 import thercn.ajide.activities.IDEActivity;
 import thercn.ajide.activities.ProjectActivity;
-import androidx.cardview.widget.CardView;
 
 public class ProjectItemViewAdapter<T> extends RecyclerView.Adapter<ProjectItemViewAdapter.ViewHolder> {
 
@@ -34,7 +33,7 @@ public class ProjectItemViewAdapter<T> extends RecyclerView.Adapter<ProjectItemV
 				}
 			});
 		vH.projectIcon.setImageResource(R.drawable.ic_java);
-		vH.projectName.setText("测试");
+		vH.projectName.setText(new File(allProjectPaths.get(p)).getName());
 		vH.projectPath.setText(allProjectPaths.get(p));
 	}
 

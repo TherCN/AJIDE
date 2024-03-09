@@ -41,13 +41,16 @@ public class AsyncProcess {
 	}
 
 	public void start() {
+		prepare();
 		Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					try {
 						commandProcess = processBuilder.start();
-					} catch (IOException e) {}
-					readOutput();
+						readOutput();
+					} catch (Exception e) {
+						Log.wtf("",e);
+					}
 				}
 			});
 		thread.start();

@@ -4,6 +4,7 @@ import io.github.rosemoe.sora.widget.CodeEditor;
 import java.io.IOException;
 import thercn.ajide.activities.IDEActivity;
 import thercn.ajide.utils.APPUtils;
+import android.os.Bundle;
 
 public class IDECodeEditor extends CodeEditor {
 	
@@ -19,6 +20,11 @@ public class IDECodeEditor extends CodeEditor {
 		setText(APPUtils.readFile(filePath));
 		setTitle(APPUtils.getFileName(filePath));
 		currentFile = filePath;
+	}
+
+	@Override
+	public void setText(CharSequence text) {
+		super.setText(text);
 	}
 	
 	public interface OnSetTextListener {

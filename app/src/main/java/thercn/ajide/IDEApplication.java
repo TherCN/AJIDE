@@ -41,6 +41,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import android.system.ErrnoException;
+import thercn.ajide.utils.LogPrintStream;
 
 public class IDEApplication extends Application {
 
@@ -48,6 +49,7 @@ public class IDEApplication extends Application {
 	public static Application context;
 	public final static String APPDIR = Environment.getExternalStorageDirectory().toString() + "/AJIDE";
 	public static String JAVA_HOME;
+	public static LogPrintStream printStream = new LogPrintStream();
 	
     @Override
     public void onCreate() {
@@ -59,6 +61,8 @@ public class IDEApplication extends Application {
 			Os.setenv("PATH",Os.getenv("PATH") + ":" + JAVA_HOME +"/bin",true);
 			Os.setenv("LD_LIBRARY_PATH",JAVA_HOME +"/lib",true);
 		} catch (ErrnoException e) {}
+		System.setOut(printStream);
+		System.setErr(printStream);
         CrashHandler.getInstance().registerGlobal(this);
         CrashHandler.getInstance().registerPart(this);
 		context = this;

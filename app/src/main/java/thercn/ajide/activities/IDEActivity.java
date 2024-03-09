@@ -1,6 +1,7 @@
 package thercn.ajide.activities;
 
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import androidx.core.view.MenuItemCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import thercn.ajide.IDEActivityLayout;
 import thercn.ajide.R;
+import thercn.ajide.project.ProjectUtils;
 
 public class IDEActivity extends AppCompatActivity {
 
@@ -25,10 +27,16 @@ public class IDEActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		ProjectUtils.setProjectPath(getIntent().getStringExtra("path"));
 		mainLayout = new IDEActivityLayout(this);
-		mainLayout.inflateFileList(getIntent().getStringExtra("path"));
+		mainLayout.init();
 	}
 
+	public boolean isDarkMode() {
+		int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+		 return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+	}
+	
 	@Override
 	public void onBackPressed() {
 		if (mainLayout.getDrawerLayout().isOpen()) {
@@ -48,7 +56,6 @@ public class IDEActivity extends AppCompatActivity {
 			.setNegativeButton(android.R.string.cancel, null)
 			.create();
 		dialog.show();
-
 	}
 
 	@Override
@@ -61,7 +68,6 @@ public class IDEActivity extends AppCompatActivity {
 		actionBarMenu = menu;
 		return super.onCreateOptionsMenu(menu);
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -81,7 +87,6 @@ public class IDEActivity extends AppCompatActivity {
 				mainLayout.saveAllFiles();
 				Toast.makeText(getApplication(), "已保存所有文件", Toast.LENGTH_SHORT).show();
 			}
-
 		} else {
 			Toast.makeText(getApplication(), "请打开一个文件！", Toast.LENGTH_SHORT).show();
 		}
@@ -97,13 +102,16 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (mainLayout.getCodeEditor() != null) {
+			if (isDarkMode()) {
+				mainLayout.getCodeEditor().setBackgroundColor(Color.BLACK);
+			}
+		}
 	}
 
 	public IDEActivityLayout getLayout() {
 		return mainLayout;
 	}
-
-
 
 
 }

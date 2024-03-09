@@ -2,6 +2,7 @@ package thercn.ajide;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,32 +26,34 @@ import io.github.rosemoe.sora.lang.diagnostic.DiagnosticDetail;
 import io.github.rosemoe.sora.lang.diagnostic.DiagnosticRegion;
 import io.github.rosemoe.sora.lang.diagnostic.DiagnosticsContainer;
 import io.github.rosemoe.sora.langs.java.JavaLanguage;
+import io.github.rosemoe.sora.widget.SymbolInputView;
 import io.github.rosemoe.sora.widget.schemes.EditorColorScheme;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import thercn.ajide.R;
 import thercn.ajide.activities.IDEActivity;
 import thercn.ajide.adapter.FileAdapter;
 import thercn.ajide.adapter.FileEditAdapter;
-import thercn.ajide.project.AndroidProject;
+import thercn.ajide.project.ProjectUtils;
 import thercn.ajide.project.compiler.JCCompiler;
 import thercn.ajide.utils.APPUtils;
 import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.IDECodeEditor;
-import android.graphics.Typeface;
-import io.github.rosemoe.sora.widget.SymbolInputView;
-import android.widget.RelativeLayout;
-import android.view.Gravity;
 
 public class IDEActivityLayout {
 
 	static IDEActivity activity;
+	String projectPath;
 	Toolbar toolbar;
 	IDECodeEditor textEditor;
 	DrawerLayout drawerLayout;
@@ -73,7 +76,10 @@ public class IDEActivityLayout {
 		init();
 	}
 
-	private void init() {
+	public void init() {
+		if (isInitDone) {
+			return;
+		}
 		toolbar = activity.findViewById(R.id.toolbar);
 		toolbar.setTitle(R.string.app_name);
 
@@ -82,14 +88,14 @@ public class IDEActivityLayout {
 		viewPager = activity.findViewById(R.id.view_pager);
 
 		fileList = activity.findViewById(R.id.filelist1);
-		
+
 		drawerLayout = activity.findViewById(R.id.drawerlayout);
         toggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar,
 										   R.string.navigation_drawer_open, 
 										   R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-		
+
 		siv = activity.findViewById(R.id.siv);
 		String[] charArray = new String[] {
 			"→",
@@ -108,6 +114,7 @@ public class IDEActivityLayout {
 			"[",
 			"]",
 			"<",
+			"%",
 			">",
 			"+",
 			"-",
@@ -133,6 +140,7 @@ public class IDEActivityLayout {
 			"[",
 			"]",
 			"<",
+			"%",
 			">",
 			"+",
 			"-",
@@ -141,7 +149,7 @@ public class IDEActivityLayout {
 			"?",
 			":",
 			"_"};
-		siv.addSymbols(charArray,insertCharArray);
+		siv.addSymbols(charArray, insertCharArray);
 		siv.setVisibility(View.GONE);
 
 		fileTabs = activity.findViewById(R.id.tabs);
@@ -160,10 +168,10 @@ public class IDEActivityLayout {
 			}
 		}
 		isInitDone = true;
-		Log.e("",getAllCodeEditorView().size() + "");
-		if (getAllCodeEditorView().size() == 1) {
+		Log.e("", getAllCodeEditorView().size() + "");
+		if (getAllCodeEditorView().size() >= 1) {
 			siv.bindEditor(getAllCodeEditorView().get(0));
-			Log.e("","已将符号输入视图挂载到"+ getCodeEditor());
+			Log.e("", "已将符号输入视图挂载到" + getCodeEditor());
 		}
 		fileTabs.setupWithViewPager(viewPager);
 		fileTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -180,7 +188,7 @@ public class IDEActivityLayout {
 					selectTab(t);
 				}
 			});
-
+		inflateFileList(ProjectUtils.getProjectPath());
 	}
 
 	public DrawerLayout getDrawerLayout() {
@@ -202,6 +210,7 @@ public class IDEActivityLayout {
 			onSave();
 		}
 	}
+
 	public void inflateFileList(String path) {
 		List<File> newFiles = new ArrayList<File>();
 		if (Permission.isPermissionGranted(activity)) {
@@ -216,9 +225,6 @@ public class IDEActivityLayout {
 		FileAdapter<File> adapter = new FileAdapter<File>(activity, newFiles, fileList);
 		fileList.setAdapter(adapter);
 		fileList.setLayoutManager(new LinearLayoutManager(activity));
-		if (adapter.getCurrentDir().isDirectory()) {
-			new AndroidProject(adapter.getCurrentDir().getAbsolutePath()).setupGradle(null);
-		}
 	}
 
 	public IDECodeEditor getCodeEditor() {
@@ -236,6 +242,9 @@ public class IDEActivityLayout {
 		return openedFiles;
 	}
 
+	public String getCurrentFile() {
+		return openedFiles.get(viewPager.getCurrentItem());
+	}
 	public static IDEActivity getMainActivity() {
 		return activity;
 	}
@@ -262,7 +271,7 @@ public class IDEActivityLayout {
 				return;
 			}
 		}
-		
+
 		if (fileNotOpened.getVisibility() == View.VISIBLE) {
 			fileNotOpened.setVisibility(View.GONE);
 			fileTabs.setVisibility(View.VISIBLE);
@@ -290,8 +299,10 @@ public class IDEActivityLayout {
 			list.add("/sdcard/AJIDE");
 			if (file.endsWith(".java")) {
 				editor.setEditorLanguage(new JavaLanguage());
-				editor.setDiagnostics(con);
-				compile(con, list, editor);
+				if (editor.getCurrentFile().contains(ProjectUtils.getProjectPath())) {
+					editor.setDiagnostics(con);
+					compile(con, list);
+				}
 			}
 			EditorColorScheme cheme = new EditorColorScheme();
 			//editor.setColorScheme(
@@ -305,10 +316,10 @@ public class IDEActivityLayout {
 							adapter.notifyDataSetChanged();
 							getCodeEditor().requestFocus();
 						}
-						if (file.endsWith(".java")) {
+						if (file.endsWith(".java") && editor.getCurrentFile().contains(ProjectUtils.getProjectPath())) {
 							long curInvoke = System.currentTimeMillis();
 							if (curInvoke - lastInvoke > 500) {
-								compile(con, list, editor);
+								compile(con, list);
 							}
 							lastInvoke = System.currentTimeMillis();
 						}
@@ -327,35 +338,90 @@ public class IDEActivityLayout {
 		}
 	}
 
-	public void compile(DiagnosticsContainer con, List<String> args, IDECodeEditor editor) {
+	public void compile(final DiagnosticsContainer con, List<String> args) {
 		con.reset();
-		JCCompiler th = new JCCompiler(args)
-			.addSource(APPUtils.getFileName(editor
-											.getCurrentFile())
-					   .replace(".java", ""), editor
-					   .getText()
-					   .toString());
-		th.setJavaVersion(8);
-		th.start();
-		for (Diagnostic<? extends JavaFileObject> i : th.getOutput()) {
-			short informationType = 0;
-			Diagnostic.Kind kind = i.getKind();
-			if (kind == Diagnostic.Kind.WARNING) {
-				informationType = DiagnosticRegion.SEVERITY_WARNING;
-			} else if (kind == Diagnostic.Kind.ERROR) {
-				informationType = DiagnosticRegion.SEVERITY_ERROR;
-			} else {
-				informationType = DiagnosticRegion.SEVERITY_TYPO;
-			}
+		try {
+			final JCCompiler th = new JCCompiler(args)
+				.addSourceFromFiles(APPUtils.getAllFile(ProjectUtils.getProjectPath(), ".java"));
+			th.setJavaVersion(8);
+			Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						for (Diagnostic<? extends JavaFileObject> i : th.compile()) {
+							if (i.getSource() != null) {
+								if (!i.getSource().getName().equals("/" + APPUtils.getFileName(getCurrentFile()))) {
+									continue;
+								}
+							}
+							short informationType = 0;
+							Diagnostic.Kind kind = i.getKind();
+							if (kind == Diagnostic.Kind.WARNING) {
+								informationType = DiagnosticRegion.SEVERITY_WARNING;
+							} else if (kind == Diagnostic.Kind.ERROR) {
+								informationType = DiagnosticRegion.SEVERITY_ERROR;
+							} else {
+								informationType = DiagnosticRegion.SEVERITY_TYPO;
+							}
 
-			DiagnosticRegion diag = new DiagnosticRegion((int)i.getStartPosition(), (int)i.getEndPosition(),
-														 informationType,
-														 0,
-														 new DiagnosticDetail("语法错误", i.getMessage(Locale.getDefault()), null, null));
-			con.addDiagnostic(diag);											 
-		}
+							final DiagnosticRegion diag = new DiagnosticRegion((int)i.getStartPosition(), (int)i.getEndPosition(),
+																			   informationType,
+																			   0,
+																			   new DiagnosticDetail("", i.getMessage(Locale.getDefault()), null, null));
+							con.addDiagnostic(diag);
+						}
+						if (th.getOutput().isEmpty()) con.reset();
+					}
+				});
+			thread.start();
+
+		} catch (IOException e) {}
 	}
 
+	public class CompilationCallable implements Callable<Boolean> {
+
+		// 假设 th 和 con 是通过构造函数传递的或者已经设置为类字段
+		private final JCCompiler th;
+		private final DiagnosticsContainer con;
+
+		public CompilationCallable(JCCompiler th, DiagnosticsContainer con) {
+			this.th = th;
+			this.con = con;
+		}
+
+		@Override
+		public Boolean call() {
+			boolean compilationSuccess = true;
+			for (Diagnostic<? extends JavaFileObject> diagnostic : th.compile()) {
+				if (diagnostic.getSource() != null) {
+					if (!diagnostic.getSource().getName().equals("/" + APPUtils.getFileName(getCurrentFile()))) {
+						continue;
+					}
+				}
+				short informationType = 0;
+				Diagnostic.Kind kind = diagnostic.getKind();
+				if (kind == Diagnostic.Kind.WARNING) {
+					informationType = DiagnosticRegion.SEVERITY_WARNING;
+				} else if (kind == Diagnostic.Kind.ERROR) {
+					informationType = DiagnosticRegion.SEVERITY_ERROR;
+					compilationSuccess = false;
+				} else {
+					informationType = DiagnosticRegion.SEVERITY_TYPO;
+				}
+
+				DiagnosticRegion diag = new DiagnosticRegion((int) diagnostic.getStartPosition(), (int) diagnostic.getEndPosition(),
+															 informationType, 0,
+															 new DiagnosticDetail("", diagnostic.getMessage(Locale.getDefault()), null, null));
+				con.addDiagnostic(diag);
+			}
+			if (th.getOutput().isEmpty()) {
+				con.reset();
+			}
+			return compilationSuccess;
+		}
+
+		// 假设 getCurrentFile() 是一个类方法，返回当前文件的对象
+		
+	}
 	public void removeFileTab(String file) {
 
 		SharedPreferences.Editor speditor = sharedPreferences.edit();
@@ -375,7 +441,6 @@ public class IDEActivityLayout {
 	}
 
 	public void removeFileTab(int index) {
-
 		SharedPreferences.Editor speditor = sharedPreferences.edit();
 		String file = openedFiles.get(index);
 		if (adapter.getCurrentEditor(index).getCurrentFile().equals(file)) {
@@ -404,7 +469,6 @@ public class IDEActivityLayout {
 		Log.e("当前文件", getCodeEditor().getCurrentFile());
 		PopupMenu popupMenu = new PopupMenu(activity, t.view);
 		popupMenu.inflate(R.menu.file_menu);
-
 		popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 				@Override
 				public boolean onMenuItemClick(MenuItem item) {
@@ -441,7 +505,6 @@ public class IDEActivityLayout {
 					}
 					return true;
 				}
-
 			});
 		popupMenu.show();
 	}

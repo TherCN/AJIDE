@@ -10,6 +10,9 @@
     <!-- 读取存储卡中的内容 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <!-- 在其他应用之上显示内容 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -65,6 +68,9 @@
             </intent-filter>
 
         </provider>
+
+        <service
+            android:name="thercn.ajide.services.LogPrintService"/>
 
         <service android:name="thercn.ajide.services.JavaCodeAnalysisService"/>
 

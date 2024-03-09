@@ -16,17 +16,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import thercn.ajide.IDEApplication;
+import thercn.ajide.activities.ProjectActivity;
 
 public class APPUtils {
 
+	private static ProjectActivity mact;
     public static File[] getFiles(String path) {
 		File[] files = new File(path).listFiles();
 		if (files == null) {
@@ -50,7 +60,21 @@ public class APPUtils {
 			});
 		return files;
 	}
+	/**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 	
+	public static void setMainActivity(ProjectActivity act) {
+		mact = act;
+	}
+	
+	public static ProjectActivity getMainActivity() {
+		return mact;
+	}
 	public static boolean checkSha1(String filePath, String sha1Value) {
         try {
             // 创建SHA-1摘要实例
@@ -215,65 +239,39 @@ public class APPUtils {
         return new File(filePath).getName();
     }
 
-	/*
+	public static List<String> getAllFile(final String directory,final String suffix) throws IOException {
 
-	 public static void deCompressTarGzip(String targzFilePath, String targetDir) throws IOException {
-	 //解压文件
-	 Path source = Paths.get(targzFilePath);
-	 //解压到哪
-	 Path target = Paths.get(targetDir);
+		final List<String> files = new ArrayList<>();
+		Files.walkFileTree(Paths.get(directory), new FileVisitor<Path>() {
+                @Override
+                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
 
-	 if (Files.notExists(source)) {
-	 throw new IOException("您要解压的文件不存在");
-	 }
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (suffix != null) {
+						if (file.toString().endsWith(suffix)) {
+							files.add(file.toString());
+						}
+					} else {
+						files.add(file.toString());
+					}
+                    return FileVisitResult.CONTINUE;
+                }
 
-	 //InputStream输入流，以下四个流将tar.gz读取到内存并操作
-	 //BufferedInputStream缓冲输入流
-	 //GzipCompressorInputStream解压输入流
-	 //TarArchiveInputStream解tar包输入流
-	 try (InputStream fi = Files.newInputStream(source);
-	 BufferedInputStream bi = new BufferedInputStream(fi);
-	 GzipCompressorInputStream gzi = new GzipCompressorInputStream(bi);
-	 TarArchiveInputStream ti = new TarArchiveInputStream(gzi)) {
-	 ArchiveEntry entry;
-	 while ((entry = ti.getNextEntry()) != null) {
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
 
-	 //获取解压文件目录，并判断文件是否损坏
-	 Path newPath = zipSlipProtect(entry, target);
-
-	 if (entry.isDirectory()) {
-	 //创建解压文件目录
-	 Files.createDirectories(newPath);
-	 } else {
-	 //再次校验解压文件目录是否存在
-	 Path parent = newPath.getParent();
-	 if (parent != null) {
-	 if (Files.notExists(parent)) {
-	 Files.createDirectories(parent);
-	 }
-	 }
-	 // 将解压文件输入到TarArchiveInputStream，输出到磁盘newPath目录
-	 Files.copy(ti, newPath, StandardCopyOption.REPLACE_EXISTING);
-
-	 }
-	 }
-	 }
-
-	 }
-
-	 //判断压缩文件是否被损坏，并返回该文件的解压目录
-	 private static Path zipSlipProtect(ArchiveEntry entry, Path targetDir)
-	 throws IOException {
-
-	 Path targetDirResolved = targetDir.resolve(entry.getName());
-	 Path normalizePath = targetDirResolved.normalize();
-
-	 if (!normalizePath.startsWith(targetDir)) {
-	 throw new IOException("压缩文件已被损坏: " + entry.getName());
-	 }
-
-	 return normalizePath;
-	 }*/
-
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+		return files;
+	}
+	
 
 }

@@ -35,6 +35,9 @@ import thercn.ajide.utils.Permission;
 import thercn.ajide.utils.TLog;
 import thercn.ajide.views.CreateProjectView;
 import thercn.ajide.views.DisableScrollViewPager;
+import com.google.android.material.tabs.TabLayout;
+import android.content.Intent;
+import thercn.ajide.services.LogPrintService;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -43,27 +46,26 @@ public class ProjectActivity extends AppCompatActivity {
 	RecyclerView projectView;
 	DisableScrollViewPager pager;
 	File jdkHome;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_project);
-
-		Permission.checkPermission(this);
-		if (Permission.isPermissionGranted(this)) {
-			initAppDir();
-			TLog.initLogFile(appDir.getAbsolutePath() + "/AJIDE.log");
-		}
-
+		APPUtils.setMainActivity(this);
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle(R.string.app_name);
 
 		View main = getLayoutInflater().inflate(R.layout.project_items, null);
 		projectView = main.findViewById(R.id.projectList);
-		projectView.setAdapter(new ProjectItemViewAdapter<String>(this, getProjects()));
-		projectView.setLayoutManager(new GridLayoutManager(this, 2));
-
+		Permission.checkPermission(this);
+		if (Permission.isPermissionGranted(this)) {
+			initAppDir();
+			TLog.initLogFile(appDir.getAbsolutePath() + "/AJIDE.log");
+			projectView.setAdapter(new ProjectItemViewAdapter<String>(this, getProjects()));
+			projectView.setLayoutManager(new GridLayoutManager(this, 2));
+			initUsrPath();
+		}
 		View settings = getLayoutInflater().inflate(R.layout.project_setting, null);
 		pager = findViewById(R.id.project_viewpager);
 
@@ -71,10 +73,12 @@ public class ProjectActivity extends AppCompatActivity {
 		pager.setAdapter(adapter);
 		adapter.addView(main);
 		adapter.addView(settings);
+		
 		pager.setCurrentItem(0);
 		initBottomView();
-		initUsrPath();
-		}
+	
+		startService(new Intent(this,LogPrintService.class));
+	}
 
 	private void initAppDir() {
 		final File classPath = new File(SDCARD + "/AJIDE/ClassPath");
@@ -88,6 +92,7 @@ public class ProjectActivity extends AppCompatActivity {
 				APPUtils.exportAssets(this, i, classPath.getAbsolutePath());
 			}
 		}
+		projectView.requestFocus();
 		try {
 			Runtime.getRuntime().exec("logcat >" + SDCARD + "/AJIDE/IDE.log");
 		} catch (IOException e) {
@@ -200,13 +205,15 @@ public class ProjectActivity extends AppCompatActivity {
 					}
 				}).start();
 		}
-		
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		refreshProjects();
+		if (Permission.isPermissionGranted(this)) {
+			refreshProjects();
+		}
 	}
 
 	private void refreshProjects() {
