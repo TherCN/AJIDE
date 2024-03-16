@@ -61,7 +61,6 @@
 				android:id="@+id/main_bottom_bar"
 				android:orientation="vertical">
 
-				
 				<HorizontalScrollView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -80,12 +79,12 @@
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"
 			android:orientation="vertical"
-			android:background="?attr/drawer_background_color"
+			android:background="?android:colorBackground"
 			android:layout_gravity="left">
 
             <androidx.recyclerview.widget.RecyclerView
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:id="@+id/filelist1" />
 
         </LinearLayout>

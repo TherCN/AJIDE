@@ -24,7 +24,7 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 	IDEActivity context;
 	RecyclerView view;
 	File currnetDir;
-	
+
 	public FileAdapter(IDEActivity context, List<File> files, RecyclerView view) {
 		this.context = context;
 		this.files = files;
@@ -47,21 +47,21 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
     public void onBindViewHolder(FileAdapter.ViewHolder holder, int position) {
 
         final File selectedFile = files.get(position);
-		
+
 		if (position == 0) {
 			holder.fileName.setText("..");
 		} else {
 			holder.fileName.setText(selectedFile.getName());
 		}
 
-		
+
         if (selectedFile.isDirectory()) {
 			holder.fileIcon.setImageResource(R.drawable.folder);
 		} else if (selectedFile.getName().endsWith(".java")) {
 			holder.fileIcon.setImageResource(R.drawable.file_type_java);
 		} else {
 			holder.fileIcon.setImageResource(R.drawable.file_type_unknown);
-			
+
 		}
 
 		long lastModifiedTime = selectedFile.lastModified();
@@ -87,7 +87,7 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 		}
 		holder.fileTime.setText(formattedDate + " " + permission);
 		holder.itemView.setOnClickListener(new View.OnClickListener() {
-		
+
 				@Override
 				public void onClick(View v) {
 					if (selectedFile.getParentFile() == null) {
@@ -129,12 +129,12 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 			});
 
     }
-	
+
 	@Override
     public int getItemCount() {
         return files.size();
     }
-	
+
 	public void addEditFile(File file) {
 		context.getLayout().addFileTab(file.getAbsolutePath());
 	}
@@ -142,7 +142,18 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 	public File getCurrentDir() {
 		return currnetDir;
 	}
-	
+
+	public void setCurrentDir(String path) {
+		List<File> newFiles = new ArrayList<File>();
+		newFiles.add(new File(path).getParentFile());
+		File[] files = APPUtils.getFiles(path);
+		for (int i = 0; i < files.length; i++) {
+			newFiles.add(files[i]);
+		}
+		this.files = newFiles;
+		notifyDataSetChanged();
+	}
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView fileName;
@@ -156,5 +167,5 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 			fileTime = itemView.findViewById(R.id.file_list_time);
         }
     }
-	
+
 }

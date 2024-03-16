@@ -31,12 +31,10 @@ import io.github.rosemoe.sora.widget.schemes.EditorColorScheme;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import thercn.ajide.R;
@@ -227,6 +225,11 @@ public class IDEActivityLayout {
 		fileList.setLayoutManager(new LinearLayoutManager(activity));
 	}
 
+	public void refershFileList() {
+		FileAdapter<File> fileAdapter = ((FileAdapter<File>)fileList.getAdapter());
+		fileAdapter.setCurrentDir(fileAdapter.getCurrentDir().getAbsolutePath());
+		}
+	
 	public IDECodeEditor getCodeEditor() {
 		if (viewPager.getChildCount() > 0) {
 			return adapter.getCurrentEditor(viewPager.getCurrentItem());

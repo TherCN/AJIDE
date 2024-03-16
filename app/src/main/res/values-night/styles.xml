@@ -1,6 +1,8 @@
 
 <resources>
     <style name="IDEMainTheme" parent="Theme.Material3.Dark.NoActionBar">
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:windowLightStatusBar">false</item>
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
@@ -31,6 +33,5 @@
 		<item name="ic_redo">@drawable/ic_redo-night</item>
 		<item name="ic_run">@drawable/ic_run-night</item>
 		<item name="ic_save">@drawable/ic_save-night</item>
-		<item name="drawer_background_color">@color/drawer_dark_background</item>
     </style>
 </resources>

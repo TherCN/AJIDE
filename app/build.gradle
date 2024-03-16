@@ -37,6 +37,7 @@ repositories {
 	    url "https://maven.google.com"
 		url "https://repo.maven.apache.org/maven2"
         mavenCentral()
+		mavenLocal()
     }    
 } 
 dependencies {

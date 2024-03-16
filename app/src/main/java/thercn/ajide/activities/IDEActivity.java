@@ -26,6 +26,10 @@ public class IDEActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		initIDEUI();
+	}
+
+	private void initIDEUI() {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		ProjectUtils.setProjectPath(getIntent().getStringExtra("path"));
 		mainLayout = new IDEActivityLayout(this);
@@ -34,9 +38,9 @@ public class IDEActivity extends AppCompatActivity {
 
 	public boolean isDarkMode() {
 		int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-		 return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+		return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		if (mainLayout.getDrawerLayout().isOpen()) {
@@ -102,13 +106,10 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (mainLayout.getCodeEditor() != null) {
-			if (isDarkMode()) {
-				mainLayout.getCodeEditor().setBackgroundColor(Color.BLACK);
-			}
+		if (mainLayout != null) {
+			mainLayout.refershFileList();
 		}
 	}
-
 	public IDEActivityLayout getLayout() {
 		return mainLayout;
 	}
