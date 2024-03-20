@@ -38,6 +38,10 @@ import thercn.ajide.views.DisableScrollViewPager;
 import com.google.android.material.tabs.TabLayout;
 import android.content.Intent;
 import thercn.ajide.services.LogPrintService;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import android.app.ActivityManager;
+import android.content.Context;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -51,7 +55,7 @@ public class ProjectActivity extends AppCompatActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_project);
-		APPUtils.setMainActivity(this);
+
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle(R.string.app_name);
@@ -59,13 +63,15 @@ public class ProjectActivity extends AppCompatActivity {
 		View main = getLayoutInflater().inflate(R.layout.project_items, null);
 		projectView = main.findViewById(R.id.projectList);
 		Permission.checkPermission(this);
+
 		if (Permission.isPermissionGranted(this)) {
 			initAppDir();
 			TLog.initLogFile(appDir.getAbsolutePath() + "/AJIDE.log");
 			projectView.setAdapter(new ProjectItemViewAdapter<String>(this, getProjects()));
-			projectView.setLayoutManager(new GridLayoutManager(this, 2));
+			projectView.setLayoutManager(new LinearLayoutManager(this));
 			initUsrPath();
 		}
+
 		View settings = getLayoutInflater().inflate(R.layout.project_setting, null);
 		pager = findViewById(R.id.project_viewpager);
 
@@ -73,18 +79,33 @@ public class ProjectActivity extends AppCompatActivity {
 		pager.setAdapter(adapter);
 		adapter.addView(main);
 		adapter.addView(settings);
-		
+
 		pager.setCurrentItem(0);
 		initBottomView();
+
+		if (APPUtils.getMainActivity() == null) {
+			APPUtils.setMainActivity(this);
+			startService(new Intent(this, LogPrintService.class));
+		}
+	}
 	
-		startService(new Intent(this,LogPrintService.class));
+	<T> T 方法名(T arg) { 
+		return arg;
 	}
 
 	private void initAppDir() {
 		final File classPath = new File(SDCARD + "/AJIDE/ClassPath");
-		if (!appDir.exists() || !classPath.exists()) {
+
+		final File projectsPath = new File(appDir, "Projects");
+		final File mavenPath = new File(appDir, "Maven");
+		if (!appDir.exists() ||
+			!classPath.exists() ||
+			!projectsPath.exists() ||
+			!mavenPath.exists()) {
 			appDir.mkdir();
 			classPath.mkdirs();
+			projectsPath.mkdirs();
+			mavenPath.mkdirs();
 		}
 		String[] exportFiles = new String[]{"android.jar","core-lambda-stubs.jar"};
 		for (String i : exportFiles) {
@@ -123,7 +144,6 @@ public class ProjectActivity extends AppCompatActivity {
 				} catch (IOException e) {
 					TLog.e(e);
 				}
-
 				initUsrPath();
 			} else {
 				AsyncProcess process = new AsyncProcess("tar", "xvf", jdkArchiveFile.getAbsolutePath(), "-C", jdkHome.getAbsolutePath());
@@ -163,7 +183,6 @@ public class ProjectActivity extends AppCompatActivity {
 
 							final int length = downloader.getLength();
 							runOnUiThread(new Runnable(){
-
 									@Override
 									public void run() {
 										pbar.setMax(length);
@@ -205,7 +224,6 @@ public class ProjectActivity extends AppCompatActivity {
 					}
 				}).start();
 		}
-
 	}
 
 	@Override
@@ -233,7 +251,7 @@ public class ProjectActivity extends AppCompatActivity {
 	}
 
 	private List<String> getProjects() {
-		File[] files = APPUtils.getFiles(appDir.getAbsolutePath());
+		File[] files = APPUtils.getFiles(appDir + "/Projects");
 		List<String> projects = new ArrayList<>();
 		for (int i = 0; i < files.length; i++) {
 			if (files[i].isDirectory() && Project.isGradleProject(files[i])) {
@@ -314,11 +332,6 @@ public class ProjectActivity extends AppCompatActivity {
 						}
 
 					}
-
-
-
-
-
 					dialog.dismiss();
 				}  
 			});

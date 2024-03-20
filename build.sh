@@ -1,5 +1,3 @@
-#rm -rf build
-sudo apt install wget p7zip unzip -y
 wget http://dl.google.com/android/repository/build-tools_r34-linux.zip
 wget https://github.com/distriqt/android-manifest-merger/releases/download/v30.0.1/manifest-merger-30.0.1.jar
 unzip build-tools_r34-linux.zip
@@ -27,8 +25,7 @@ DeleteEmpty() {
 	do
         if [[ -z "$(find "$dir" -mindepth 1 -type f)" ]] >/dev/null
 	then
-            echo "$dir"
-            rm -rf ${dir} 2>&- && echo "Empty, Deleted!" || echo "Delete error"
+            rm -rf ${dir} 2>&-
         fi
         if [ -d ${dir} ]
         then

@@ -37,6 +37,7 @@ import thercn.ajide.activities.ProjectActivity;
 public class APPUtils {
 
 	private static ProjectActivity mact;
+	private static boolean isInitDone;
     public static File[] getFiles(String path) {
 		File[] files = new File(path).listFiles();
 		if (files == null) {
@@ -132,7 +133,13 @@ public class APPUtils {
 		return readerToString(new FileReader(new File(filePath)));
 	}
 
-
+	public static boolean isInitDone() {
+		return isInitDone;
+	}
+	
+	public static void setIniIsDone(boolean z) {
+		isInitDone = z;
+	}
 	public static void unzipFromAssets(Context context, String zipFileName, String outputDir) throws IOException {
 		AssetManager assetManager = context.getAssets();
 		InputStream is = assetManager.open(zipFileName);
