@@ -2,7 +2,6 @@ package thercn.ajide.activities;
 
 import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,9 +11,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import java.util.List;
 import thercn.ajide.IDEActivityLayout;
 import thercn.ajide.R;
 import thercn.ajide.project.ProjectUtils;
+import thercn.ajide.views.IDECodeEditor;
+import io.github.rosemoe.sora.widget.schemes.EditorColorScheme;
+import io.github.rosemoe.sora.widget.schemes.SchemeVS2019;
 
 public class IDEActivity extends AppCompatActivity {
 
@@ -38,7 +41,7 @@ public class IDEActivity extends AppCompatActivity {
 
 	public boolean isDarkMode() {
 		int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-		return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+		return nightModeFlags != Configuration.UI_MODE_NIGHT_YES;
 	}
 
 	@Override
@@ -76,7 +79,7 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mainLayout.getCodeEditor() != null) {
-			//因为Java语法被逼无奈使用if else
+			//因为gradle的javac报错逼无奈使用if else
 			if (item.getItemId() == R.id.redo) {
 				if (mainLayout.getCodeEditor().canRedo()) {
 					mainLayout.getCodeEditor().redo();
@@ -106,6 +109,10 @@ public class IDEActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+        List<IDECodeEditor> editors = mainLayout.getAllCodeEditorView();
+        for (IDECodeEditor editor : editors) {
+            editor.setColorScheme(isDarkMode() ? new EditorColorScheme() : new SchemeVS2019());
+        }
 		if (mainLayout != null) {
 			mainLayout.refershFileList();
 		}

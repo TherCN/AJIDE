@@ -28,10 +28,10 @@ import io.github.rosemoe.sora.lang.diagnostic.DiagnosticsContainer;
 import io.github.rosemoe.sora.langs.java.JavaLanguage;
 import io.github.rosemoe.sora.widget.SymbolInputView;
 import io.github.rosemoe.sora.widget.schemes.EditorColorScheme;
+import io.github.rosemoe.sora.widget.schemes.SchemeVS2019;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -169,7 +169,7 @@ public class IDEActivityLayout {
 		Log.e("", getAllCodeEditorView().size() + "");
 		if (getAllCodeEditorView().size() >= 1) {
 			siv.bindEditor(getAllCodeEditorView().get(0));
-			Log.e("", "已将符号输入视图挂载到" + getCodeEditor());
+			Log.e("", "已将符号输入视图挂载到" + getAllCodeEditorView().get(0));
 		}
 		fileTabs.setupWithViewPager(viewPager);
 		fileTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -286,9 +286,9 @@ public class IDEActivityLayout {
 		final IDECodeEditor editor = new IDECodeEditor(activity);
 		editor.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		try {
+            editor.setColorScheme(activity.isDarkMode() ? new EditorColorScheme() : new SchemeVS2019());
 			editor.setFile(file);
-			editor.setTypefaceText(Typeface.SANS_SERIF);
-			editor.setBlockLineEnabled(true);
+			editor.setTypefaceText(Typeface.createFromFile("/system/fonts/DroidSansMono.ttf"));
 			adapter.addView(editor);
 			drawerLayout.close();
 			final DiagnosticsContainer con = new DiagnosticsContainer();
@@ -307,8 +307,6 @@ public class IDEActivityLayout {
 					compile(con, list);
 				}
 			}
-			EditorColorScheme cheme = new EditorColorScheme();
-			//editor.setColorScheme(
 			editor.subscribeEvent(
 				ContentChangeEvent.class,
 				new EventReceiver<ContentChangeEvent>() {

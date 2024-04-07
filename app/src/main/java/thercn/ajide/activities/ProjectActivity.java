@@ -42,6 +42,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.app.ActivityManager;
 import android.content.Context;
+import androidx.viewpager.widget.ViewPager;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -79,7 +80,7 @@ public class ProjectActivity extends AppCompatActivity {
 		pager.setAdapter(adapter);
 		adapter.addView(main);
 		adapter.addView(settings);
-
+		
 		pager.setCurrentItem(0);
 		initBottomView();
 

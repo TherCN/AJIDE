@@ -27,8 +27,8 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 
 	public FileAdapter(IDEActivity context, List<File> files, RecyclerView view) {
 		this.context = context;
+        currnetDir = files.get(0);
 		this.files = files;
-		this.currnetDir = files.get(0);
 		this.view = view;
 	}
 
@@ -94,14 +94,15 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 						return;
 					}
 					if (selectedFile.isDirectory()) {
+                        currnetDir = selectedFile;
 						List<File> newFiles = new ArrayList<File>();
 						newFiles.add(selectedFile.getParentFile());
 						File[] newDir = APPUtils.getFiles(selectedFile.getAbsolutePath());
 						for (int i = 0; i < newDir.length; i++) {
 							newFiles.add(newDir[i]);
 						}
-						view.setAdapter(new FileAdapter<File>(context, newFiles, view));
-					} else {
+						setCurrentDir(currnetDir.getAbsolutePath());
+                        } else {
 						addEditFile(selectedFile);
 					}
 				}
@@ -111,17 +112,19 @@ public class FileAdapter<T> extends RecyclerView.Adapter<FileAdapter.ViewHolder>
 				@Override
 				public boolean onLongClick(View v) {
 					View menu = context.getLayoutInflater().inflate(R.layout.file_menu, null);
-					AlertDialog dialog = new AlertDialog.Builder(context)
+					final AlertDialog dialog = new AlertDialog.Builder(context)
 						.setView(menu)
 						.create();
                     dialog.show();
+                    
 					Button delete = menu.findViewById(R.id.delete);
 					delete.setOnClickListener(new View.OnClickListener() {
 
 							@Override
 							public void onClick(View view) {
 								FileOperation.delete(selectedFile);
-								return;
+                                context.getLayout().refershFileList();
+                                dialog.dismiss();
 							}
                         });
 					return true;
